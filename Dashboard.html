@@ -22,171 +22,119 @@
     </button>
 </header>
 
-<div id="mobileMenu" class="fixed inset-0 z-[100] hidden">
-    <div id="overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-    <aside class="mobile-sidebar">
-        <div class="flex items-center gap-3 mb-10">
-            <div class="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center font-bold italic text-white text-xl">M</div>
-            <h2 class="text-xl font-black tracking-tighter">MIKOKO</h2>
-        </div>
-        <nav class="sidebar-nav text-sm" id="mobileNav">
-            <div class="space-y-1">
-                <a class="sidebar-item active" onclick="updateView('Overview')">
-                    <i class="fas fa-columns w-5"></i> <span>Overview</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('Standings')">
-                    <i class="fa-solid fa-trophy w-5"></i> <span>Standings</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('Live')">
-                    <i class="fas fa-satellite-dish w-5 text-red-500"></i> <span>Live</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('Upcoming')">
-                    <i class="fas fa-calendar-check w-5"></i> <span>Upcoming</span>
-                </a>
-            </div>
-            <div class="h-[1px] w-full bg-white/5 my-4"></div>
-            <div class="space-y-1">
-                <a class="sidebar-item" onclick="updateView('Stats')">
-                    <i class="fas fa-chart-line w-5"></i> <span>Stats</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('Highlights')">
-                    <i class="fas fa-circle-play w-5"></i> <span>Highlights</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('News')">
-                    <i class="fas fa-bullhorn w-5"></i> <span>News</span>
-                </a>
-                <div class="h-[1px] w-1/2 bg-white/5 my-2"></div>
-                <a class="sidebar-item" onclick="updateView('Goals Leaderboard')">
-                    <i class="fas fa-fire w-5 text-orange-500"></i> <span>Goals Leaderboard</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('Assists Leaderboard')">
-                    <i class="fas fa-magic-wand-sparkles w-5 text-blue-400"></i> <span>Assists Leaderboard</span>
-                </a>
-            </div>
-            <div class="h-[1px] w-full bg-white/5 my-4"></div>
-            <div class="space-y-1">
-                <a class="sidebar-item" onclick="updateView('Transfer Market')">
-                    <i class="fas fa-cart-shopping w-5"></i> <span>Transfer Market</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('Mikoko Payment')">
-                    <i class="fas fa-wallet w-5"></i> <span>Mikoko Payment</span>
-                </a>
-            </div>
-        </nav>
-    </aside>
-</div>
+<!-- Unified Sidebar -->
+<aside id="sidebar" class="fixed inset-y-0 left-0 z-[100] w-72 bg-[#070707] border-r border-white/10 p-7 flex flex-col transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+    <div class="flex items-center gap-3 mb-12">
+        <div class="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center font-bold italic text-white text-xl">M</div>
+        <h2 class="text-2xl font-black tracking-tighter text-white uppercase">MIKOKO</h2>
+    </div>
 
-<div class="hidden md:flex min-h-screen">
-    <aside class="w-72 bg-[#070707] border-r border-white/10 p-7 flex flex-col fixed h-screen">
-        <div class="flex items-center gap-3 mb-12">
-            <div class="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center font-bold italic text-white text-xl">M</div>
-            <h2 class="text-2xl font-black tracking-tighter text-white uppercase">MIKOKO</h2>
+    <nav class="sidebar-nav flex-1 flex flex-col h-full overflow-y-auto pr-2">
+        <div class="space-y-1">
+            <a class="sidebar-item active" onclick="updateView('Overview')">
+                <i class="fas fa-columns w-6"></i> <span>Overview</span>
+            </a>
+            <a class="sidebar-item" onclick="updateView('Standings')">
+                <i class="fa-solid fa-trophy w-6"></i> <span>Standings</span>
+            </a>
+            <a class="sidebar-item" onclick="updateView('Live')">
+                <i class="fas fa-satellite-dish w-6 text-red-500"></i> <span>Live</span>
+            </a>
+            <a class="sidebar-item" onclick="updateView('Upcoming')">
+                <i class="fas fa-calendar-check w-6"></i> <span>Upcoming</span>
+            </a>
         </div>
 
-        <nav class="sidebar-nav flex-1 flex flex-col h-full overflow-y-auto pr-2">
-            <div class="space-y-1">
-                <a class="sidebar-item active" onclick="updateView('Overview')">
-                    <i class="fas fa-columns w-6"></i> <span>Overview</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('Standings')">
-                    <i class="fa-solid fa-trophy w-6"></i> <span>Standings</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('Live')">
-                    <i class="fas fa-satellite-dish w-6 text-red-500"></i> <span>Live</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('Upcoming')">
-                    <i class="fas fa-calendar-check w-6"></i> <span>Upcoming</span>
-                </a>
-            </div>
+        <div class="h-[1px] w-full bg-white/5 my-4"></div>
 
-            <div class="h-[1px] w-full bg-white/5 my-4"></div>
-            
-            <div class="space-y-1">
-                <a class="sidebar-item" onclick="updateView('Stats')">
-                    <i class="fas fa-chart-line w-6"></i> <span>Stats</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('Highlights')">
-                    <i class="fas fa-circle-play w-6"></i> <span>Highlights</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('News')">
-                    <i class="fas fa-bullhorn w-6"></i> <span>News</span>
-                </a>
-                <div class="h-[1px] w-2/3 bg-white/5 my-2 mx-auto"></div>
-                <a class="sidebar-item" onclick="updateView('Goals Leaderboard')">
-                    <i class="fas fa-fire w-6 text-orange-500"></i> <span>Goalss Leaderboard</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('Assists Leaderboard')">
-                    <i class="fas fa-magic-wand-sparkles w-6 text-blue-400"></i> <span>Assists Leaderboard</span>
-                </a>
-            </div>
+        <div class="space-y-1">
+            <a class="sidebar-item" onclick="updateView('Stats')">
+                <i class="fas fa-chart-line w-6"></i> <span>Stats</span>
+            </a>
+            <a class="sidebar-item" onclick="updateView('Highlights')">
+                <i class="fas fa-circle-play w-6"></i> <span>Highlights</span>
+            </a>
+            <a class="sidebar-item" onclick="updateView('News')">
+                <i class="fas fa-bullhorn w-6"></i> <span>News</span>
+            </a>
+            <div class="h-[1px] w-2/3 bg-white/5 my-2 mx-auto"></div>
+            <a class="sidebar-item" onclick="updateView('Goals Leaderboard')">
+                <i class="fas fa-fire w-6 text-orange-500"></i> <span>Goalss Leaderboard</span>
+            </a>
+            <a class="sidebar-item" onclick="updateView('Assists Leaderboard')">
+                <i class="fas fa-magic-wand-sparkles w-6 text-blue-400"></i> <span>Assists Leaderboard</span>
+            </a>
+        </div>
 
-            <div class="h-[1px] w-full bg-white/5 my-4"></div>
-            
-            <div class="space-y-1">
-                <a class="sidebar-item" onclick="updateView('Transfer Market')">
-                    <i class="fas fa-cart-shopping w-6"></i> <span>Transfer Market</span>
-                </a>
-                <a class="sidebar-item" onclick="updateView('Mikoko Payment')">
-                    <i class="fas fa-wallet w-6"></i> <span>Mikoko Payment</span>
-                </a>
-            </div>
+        <div class="h-[1px] w-full bg-white/5 my-4"></div>
 
-            <div class="mt-auto pt-6 pb-4">
-                <div class="h-[1px] w-full bg-white/5 mb-4"></div>
-                <a class="sidebar-item opacity-30 cursor-not-allowed">
-                    <i class="fas fa-users w-6"></i> <span>Team Lab</span>
-                </a>
-                <a class="sidebar-item opacity-30 cursor-not-allowed">
-                    <i class="fas fa-stream w-6"></i> <span>Pure Stream</span>
-                </a>
-            </div>
-        </nav>
-    </aside>
+        <div class="space-y-1">
+            <a class="sidebar-item" onclick="updateView('Transfer Market')">
+                <i class="fas fa-cart-shopping w-6"></i> <span>Transfer Market</span>
+            </a>
+            <a class="sidebar-item" onclick="updateView('Mikoko Payment')">
+                <i class="fas fa-wallet w-6"></i> <span>Mikoko Payment</span>
+            </a>
+        </div>
 
-    <main class="flex-1 ml-72 p-10 overflow-y-auto bg-[#050505]">
-        <header class="mb-10">
-            <h1 id="greeting" class="text-4xl font-black tracking-tight text-white uppercase italic">
-                </h1>
-            <p id="viewTitle" class="text-gray-500 mt-2 font-medium tracking-wide">
-                Showing your current dashboard overview
-            </p>
-        </header>
+        <div class="mt-auto pt-6 pb-4">
+            <div class="h-[1px] w-full bg-white/5 mb-4"></div>
+            <a class="sidebar-item opacity-30 cursor-not-allowed">
+                <i class="fas fa-users w-6"></i> <span>Team Lab</span>
+            </a>
+            <a class="sidebar-item opacity-30 cursor-not-allowed">
+                <i class="fas fa-stream w-6"></i> <span>Pure Stream</span>
+            </a>
+        </div>
+    </nav>
+</aside>
 
-        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="stat-card">
-                <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500">Teams</p>
-                <p class="stat-value">12</p>
-                <div class="mt-4 w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                    <div class="bg-red-600 h-full w-2/3"></div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500">Matches Played</p>
-                <p class="stat-value">24</p>
-                <div class="mt-4 w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                    <div class="bg-red-600 h-full w-1/2"></div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500">Goals Scored</p>
-                <p class="stat-value">67</p>
-                <div class="mt-4 w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                    <div class="bg-red-600 h-full w-3/4"></div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500">Matchday</p>
-                <p class="stat-value uppercase italic">Wk 5</p>
-                <div class="mt-4 w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                    <div class="bg-red-600 h-full w-full"></div>
-                </div>
-            </div>
-        </section>
+<!-- Overlay for Mobile -->
+<div id="overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[90] hidden md:hidden"></div>
 
-        <div id="mainDisplay" class="mt-10 bg-[#070707] border border-white/5 rounded-[2.5rem] p-10 min-h-[500px] transition-all duration-500">
+<main class="flex-1 md:ml-72 p-10 overflow-y-auto bg-[#050505] min-h-screen">
+    <header class="mb-10">
+        <h1 id="greeting" class="text-4xl font-black tracking-tight text-white uppercase italic"></h1>
+        <p id="viewTitle" class="text-gray-500 mt-2 font-medium tracking-wide">
+            Showing your current dashboard overview
+        </p>
+    </header>
+
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="stat-card">
+            <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500">Teams</p>
+            <p class="stat-value">12</p>
+            <div class="mt-4 w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                <div class="bg-red-600 h-full w-2/3"></div>
             </div>
-    </main>
-</div>
+        </div>
+        <div class="stat-card">
+            <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500">Matches Played</p>
+            <p class="stat-value">24</p>
+            <div class="mt-4 w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                <div class="bg-red-600 h-full w-1/2"></div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500">Goals Scored</p>
+            <p class="stat-value">67</p>
+            <div class="mt-4 w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                <div class="bg-red-600 h-full w-3/4"></div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500">Matchday</p>
+            <p class="stat-value uppercase italic">Wk 5</p>
+            <div class="mt-4 w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                <div class="bg-red-600 h-full w-full"></div>
+            </div>
+        </div>
+    </section>
+
+    <div id="mainDisplay" class="mt-10 bg-[#070707] border border-white/5 rounded-[2.5rem] p-10 min-h-[500px] transition-all duration-500">
+    </div>
+</main>
+
 
 <script src="dashboard script.js"></script>
 </body>

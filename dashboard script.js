@@ -5,7 +5,7 @@
 
 // 1. SELECTORS
 const menuBtn = document.getElementById('menuBtn');
-const mobileMenu = document.getElementById('mobileMenu');
+const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
 const mainDisplay = document.getElementById('mainDisplay'); 
 const greetingElement = document.getElementById('greeting');
@@ -26,16 +26,21 @@ function setGreeting() {
     }
 }
 
-// 3. MOBILE MENU TOGGLES
+// 3. MOBILE MENU TOGGLES (single sidebar)
 if (menuBtn) {
-    menuBtn.onclick = () => {
-        mobileMenu.classList.remove('hidden');
-    };
+    menuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full'); // Slide in/out
+        overlay.classList.toggle('hidden');           // Show/hide overlay
+    });
 }
 
 if (overlay) {
-    overlay.onclick = () => mobileMenu.classList.add('hidden');
+    overlay.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+    });
 }
+
 
 // 4. CONTENT REPOSITORY
 const contentData = {
@@ -165,9 +170,8 @@ const contentData = {
         </div>`
 };
 
-// 5. THE CORE ENGINE
 function updateView(title) {
-    // A. Update Visual Labels
+    // A. Update visual labels
     if (viewTitle) viewTitle.innerText = `Showing ${title} Information`;
 
     // B. Handle Nav Active States
@@ -180,24 +184,23 @@ function updateView(title) {
         }
     });
 
-    // C. Content Injection with Smooth Transition
+    // C. Inject content smoothly
     if (mainDisplay) {
         mainDisplay.style.opacity = '0';
         mainDisplay.style.transform = 'translateY(10px)';
 
         setTimeout(() => {
-            mainDisplay.innerHTML = contentData[title] || `
-                <h3 class="text-xl font-bold italic uppercase text-red-600">${title}</h3>
+            mainDisplay.innerHTML = contentData[title] || `<h3 class="text-xl font-bold italic uppercase text-red-600">${title}</h3>
                 <p class="text-gray-500 mt-4 text-sm">Streaming data from MIKOKO node...</p>`;
-            
             mainDisplay.style.opacity = '1';
             mainDisplay.style.transform = 'translateY(0)';
         }, 250);
     }
 
     // D. Auto-close mobile menu on selection
-    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.add('hidden');
+    if (window.innerWidth < 768 && sidebar && !sidebar.classList.contains('-translate-x-full')) {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
     }
 }
 
