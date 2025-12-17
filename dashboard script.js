@@ -22,7 +22,7 @@ function setGreeting() {
     else welcome = "Good night";
 
     if (greetingElement) {
-        greetingElement.innerText = `${welcome}, Emmanuel`;
+        greetingElement.innerText = `${welcome}, User`;
     }
 }
 
