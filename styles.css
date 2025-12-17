@@ -1,0 +1,189 @@
+/* Variables for easy branding updates */
+:root {
+  --primary-red: #dc2626;
+  --primary-red-glow: rgba(220, 38, 38, 0.4);
+  --bg-dark: #050505;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+}
+
+/* Global Dark Background */
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+  min-height: 100vh;
+  /* Hide system cursor because we are using the custom one */
+  cursor: none; 
+}
+
+/* Header Container */
+.mikoko-header {
+  width: 90%;
+  max-width: 1000px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(220, 38, 38, 0.5);
+  border-radius: 24px;
+  padding: 16px 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--primary-red-glow);
+  
+  /* Flexbox for Logo (Left) and Text (Right) */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mikoko-header:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 30px var(--primary-red-glow);
+}
+
+/* Logo Styling */
+.logo-box {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.league-logo {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%; /* Makes it circular */
+  border: 2px solid var(--primary-red);
+  padding: 3px; /* Gap between image and red border */
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 10px var(--primary-red-glow);
+}
+
+/* Text Branding (Right Side) */
+.header-brand {
+  text-align: right; /* Aligns text to the right */
+}
+
+.title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  background: linear-gradient(to right, #fff, #9ca3af);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+.subtitle {
+  margin-top: 2px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* --- CUSTOM CURSOR (Fixed for visibility) --- */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none; /* Crucial: clicks go through to buttons */
+  z-index: 9999;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+}
+
+.cursor-ring {
+  width: 35px;
+  height: 35px;
+  border: 2px solid var(--primary-red);
+  background: transparent;
+  transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+}
+
+/* Cursor Hover State */
+.cursor-ring--active {
+  width: 55px;
+  height: 55px;
+  background: rgba(220, 38, 38, 0.15);
+  border: 1px solid var(--primary-red);
+}
+
+/* Desktop Adjustments */
+@media (min-width: 768px) {
+  .mikoko-header {
+    padding: 20px 40px;
+  }
+  .league-logo {
+    width: 70px;
+    height: 70px;
+  }
+  .title {
+    font-size: 1.8rem;
+  }
+  .subtitle {
+    font-size: 0.8rem;
+  }
+}
+
+footer span.text-white {
+  letter-spacing: -0.02em;
+  font-family: 'Inter', sans-serif;
+}
+
+#aiModal {
+  transition: opacity 0.3s ease;
+}
+
+#aiModal.hidden {
+  display: none;
+  opacity: 0;
+}
+
+#aiModal:not(.hidden) {
+  display: flex;
+  opacity: 1;
+}
+
+/* Ensure modal stays above custom cursor if needed */
+#aiModal {
+  z-index: 10000;
+}
+#chatWindow {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Custom Scrollbar for Chat */
+#chatWindow::-webkit-scrollbar {
+    width: 4px;
+}
+#chatWindow::-webkit-scrollbar-track {
+    background: transparent;
+}
+#chatWindow::-webkit-scrollbar-thumb {
+    background: rgba(220, 38, 38, 0.2);
+    border-radius: 10px;
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
