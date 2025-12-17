@@ -100,38 +100,40 @@
             Showing your current dashboard overview
         </p>
     </header>
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="stat-card flex items-center justify-between p-6">
+        <div>
+            <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500 mb-1">Teams</p>
+            <p class="stat-value text-2xl font-black italic">12</p>
+        </div>
+        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
+            <i class="fas fa-shield-halved text-red-600 text-xl"></i>
+        </div>
+    </div>
 
-    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="stat-card">
-            <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500">Teams</p>
-            <p class="stat-value">12</p>
-            <div class="mt-4 w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                <div class="bg-red-600 h-full w-2/3"></div>
-            </div>
+    <div class="stat-card flex items-center justify-between p-6">
+        <div>
+            <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500 mb-1">Matches Played</p>
+            <p class="stat-value text-2xl font-black italic">0</p>
         </div>
-        <div class="stat-card">
-            <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500">Matches Played</p>
-            <p class="stat-value">24</p>
-            <div class="mt-4 w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                <div class="bg-red-600 h-full w-1/2"></div>
-            </div>
+        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
+            <i class="fas fa-stopwatch text-red-600 text-xl"></i>
         </div>
-        <div class="stat-card">
-            <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500">Goals Scored</p>
-            <p class="stat-value">67</p>
-            <div class="mt-4 w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                <div class="bg-red-600 h-full w-3/4"></div>
-            </div>
-        </div>
-        <div class="stat-card">
-            <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500">Matchday</p>
-            <p class="stat-value uppercase italic">Wk 5</p>
-            <div class="mt-4 w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                <div class="bg-red-600 h-full w-full"></div>
-            </div>
-        </div>
-    </section>
+    </div>
 
+    <div class="stat-card flex items-center justify-between p-6">
+        <div>
+            <p class="stat-title uppercase tracking-widest font-bold text-[10px] text-gray-500 mb-1">Goals Scored</p>
+            <p class="stat-value text-2xl font-black italic">0</p>
+        </div>
+        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
+            <i class="fas fa-soccer-ball text-red-600 text-xl"></i>
+        </div>
+    </div>
+
+   
+   
+  </section>
     <div id="mainDisplay" class="mt-10 bg-[#070707] border border-white/5 rounded-[2.5rem] p-10 min-h-[500px] transition-all duration-500">
     </div>
 </main>
