@@ -1,6 +1,6 @@
 /**
  * MIKOKO LEAGUE - Command Center Core Script
- * Fully Functional Integrated Version
+ * Single-Engine Mobile & Desktop Integration
  */
 
 // 1. SELECTORS
@@ -22,36 +22,39 @@ function setGreeting() {
     else welcome = "Good night";
 
     if (greetingElement) {
-        greetingElement.innerText = `${welcome}, User`;
+        greetingElement.innerText = `${welcome}, Emmanuel`;
     }
 }
 
-// 3. MOBILE MENU TOGGLE
+// 3. MOBILE MENU TOGGLES
 if (menuBtn) {
-    menuBtn.onclick = () => mobileMenu.classList.remove('hidden');
+    menuBtn.onclick = () => {
+        mobileMenu.classList.remove('hidden');
+    };
 }
+
 if (overlay) {
     overlay.onclick = () => mobileMenu.classList.add('hidden');
 }
 
-// 4. CONTENT REPOSITORY (Updated for all new buttons)
+// 4. CONTENT REPOSITORY
 const contentData = {
     'Overview': `
         <div class="space-y-6 animate-in">
             <h3 class="text-xl font-bold italic uppercase tracking-tighter text-red-600">Command Center</h3>
-            <p class="text-gray-400">System v1.0.4 is active. Monitoring 12 team nodes across the league network.</p>
+            <p class="text-gray-400 text-sm md:text-base">System v1.0.4 is active. Monitoring 12 team nodes across the league network.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="p-6 bg-white/5 border border-white/5 rounded-2xl">
+                <div class="p-6 bg-white/5 border border-white/5 rounded-2xl hover:border-red-600/20 transition-all">
                     <h4 class="text-white font-bold mb-2"><i class="fas fa-microchip mr-2 text-red-600"></i> AI Processing</h4>
-                    <p class="text-xs text-gray-500 italic">"Predictive algorithms suggest a 12% increase in league-wide scoring for the upcoming matchday."</p>
+                    <p class="text-xs text-gray-500 italic">"Predictive algorithms suggest a 12% increase in league-wide scoring."</p>
                 </div>
             </div>
         </div>`,
     
     'Standings': `
         <h3 class="text-xl font-bold italic uppercase tracking-tighter text-red-600 mb-6">League Table</h3>
-        <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm">
+        <div class="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+            <table class="w-full text-left text-sm min-w-[400px]">
                 <thead>
                     <tr class="text-gray-500 border-b border-white/5 uppercase text-[10px] tracking-widest">
                         <th class="pb-4">Pos</th>
@@ -74,18 +77,18 @@ const contentData = {
                 <div class="w-4 h-4 bg-red-600 rounded-full animate-ping"></div>
             </div>
             <h3 class="text-xl font-bold italic uppercase text-white">Live Monitor</h3>
-            <p class="text-gray-500 mt-2 max-w-xs">Scanning MIKOKO frequencies... No active match broadcasts detected at this time.</p>
+            <p class="text-gray-500 mt-2 max-w-xs text-sm">Scanning MIKOKO frequencies... No active match broadcasts detected.</p>
         </div>`,
 
     'Upcoming': `
         <h3 class="text-xl font-bold italic uppercase tracking-tighter text-red-600 mb-6">Match Schedule</h3>
         <div class="grid gap-4">
-            <div class="p-5 bg-white/5 border border-white/5 rounded-2xl flex justify-between items-center group hover:border-red-600/30 transition-all">
+            <div class="p-5 bg-white/5 border border-white/5 rounded-2xl flex justify-between items-center group">
                 <div>
-                    <span class="block text-xs text-gray-500 uppercase font-bold tracking-widest mb-1">Saturday, 18:00</span>
-                    <span class="text-white font-bold">Mamba FC <span class="text-red-600 mx-2">vs</span> Viper Squad</span>
+                    <span class="block text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-1">Saturday, 18:00</span>
+                    <span class="text-white font-bold text-sm md:text-base">Mamba FC <span class="text-red-600 mx-2">vs</span> Viper Squad</span>
                 </div>
-                <i class="fas fa-ticket text-gray-700 group-hover:text-red-600"></i>
+                <i class="fas fa-ticket text-gray-700 group-hover:text-red-600 transition-colors"></i>
             </div>
         </div>`,
 
@@ -94,37 +97,32 @@ const contentData = {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="p-6 bg-white/5 border border-white/5 rounded-2xl">
                 <p class="text-[10px] text-gray-500 uppercase font-bold tracking-[0.2em] mb-2">Top Scorer</p>
-                <p class="text-white font-black italic text-lg">PENDING_START</p>
-            </div>
-            <div class="p-6 bg-white/5 border border-white/5 rounded-2xl">
-                <p class="text-[10px] text-gray-500 uppercase font-bold tracking-[0.2em] mb-2">Clean Sheets</p>
-                <p class="text-white font-black italic text-lg">NULL_DATA</p>
+                <p class="text-white font-black italic text-lg uppercase">Pending_Start</p>
             </div>
         </div>`,
 
     'Highlights': `
         <h3 class="text-xl font-bold italic uppercase tracking-tighter text-red-600 mb-6">VOD Library</h3>
         <div class="aspect-video bg-white/5 rounded-[2rem] border border-white/5 flex flex-col items-center justify-center group cursor-pointer hover:bg-white/10 transition-all">
-            <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg shadow-red-600/40 mb-4 group-hover:scale-110 transition-transform">
+            <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg shadow-red-600/40 mb-4 group-hover:scale-105 transition-transform">
                 <i class="fas fa-play text-white ml-1"></i>
             </div>
-            <p class="text-gray-500 text-xs font-bold uppercase tracking-widest">Season 01 Vault Empty</p>
+            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">Season 01 Vault Empty</p>
         </div>`,
         
-        'Goals Leaderboard': `
+    'Goals Leaderboard': `
         <h3 class="text-xl font-bold italic uppercase tracking-tighter text-red-600 mb-6">Golden Boot Race</h3>
         <div class="space-y-3">
             <div class="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-2xl">
                 <div class="flex items-center gap-4">
                     <span class="font-black italic text-red-600">01</span>
-                    <span class="font-bold">Pending Player</span>
+                    <span class="font-bold text-sm">Pending Player</span>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-xl font-black">0</span>
-                    <span class="text-[10px] text-gray-500 uppercase font-bold">Goals</span>
+                <div class="text-right">
+                    <span class="text-xl font-black block">0</span>
+                    <span class="text-[9px] text-gray-500 uppercase font-bold">Goals</span>
                 </div>
             </div>
-            <p class="text-center text-gray-600 text-xs italic mt-4">Data updates automatically after every match whistle.</p>
         </div>`,
 
     'Assists Leaderboard': `
@@ -133,22 +131,21 @@ const contentData = {
             <div class="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-2xl">
                 <div class="flex items-center gap-4">
                     <span class="font-black italic text-red-600">01</span>
-                    <span class="font-bold">Pending Player</span>
+                    <span class="font-bold text-sm">Pending Player</span>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-xl font-black">0</span>
-                    <span class="text-[10px] text-gray-500 uppercase font-bold">Assists</span>
+                <div class="text-right">
+                    <span class="text-xl font-black block">0</span>
+                    <span class="text-[9px] text-gray-500 uppercase font-bold">Assists</span>
                 </div>
             </div>
-            <p class="text-center text-gray-600 text-xs italic mt-4">Tracking the creative engine of MIKOKO League.</p>
         </div>`,
 
     'News': `
         <h3 class="text-xl font-bold italic uppercase tracking-tighter text-red-600 mb-6">Latest Updates</h3>
         <div class="space-y-4">
             <div class="p-6 border-l-4 border-red-600 bg-white/5 rounded-r-2xl">
-                <h4 class="text-white font-bold">Registration Portal Open</h4>
-                <p class="text-gray-500 text-sm mt-1">Managers can now register their rosters for the upcoming December sequence.</p>
+                <h4 class="text-white font-bold text-sm md:text-base">Registration Portal Open</h4>
+                <p class="text-gray-500 text-xs mt-1">Managers can now register their rosters for December.</p>
             </div>
         </div>`,
 
@@ -156,15 +153,15 @@ const contentData = {
         <h3 class="text-xl font-bold italic uppercase tracking-tighter text-red-600 mb-6">Market Terminal</h3>
         <div class="p-10 text-center border border-dashed border-white/10 rounded-3xl">
             <i class="fas fa-handshake-slash text-3xl text-gray-700 mb-4"></i>
-            <p class="text-gray-500 italic">Transfer window is currently <span class="text-red-600">Locked</span>.</p>
+            <p class="text-gray-500 italic text-sm">Transfer window is currently <span class="text-red-600">Locked</span>.</p>
         </div>`,
 
     'Mikoko Payment': `
         <h3 class="text-xl font-bold italic uppercase tracking-tighter text-red-600 mb-6">Financial Node</h3>
         <div class="p-8 bg-gradient-to-br from-red-600/20 to-transparent border border-white/5 rounded-3xl">
-            <p class="text-xs text-gray-500 uppercase font-bold tracking-widest mb-1">M-AI Balance</p>
-            <h4 class="text-3xl font-black text-white italic">0.00 <span class="text-sm text-red-600 not-italic">CREDITS</span></h4>
-            <button class="mt-6 px-6 py-3 bg-red-600 text-white font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-red-700 transition-colors">Deposit Funds</button>
+            <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-1">M-AI Balance</p>
+            <h4 class="text-3xl font-black text-white italic">0.00 <span class="text-xs text-red-600 not-italic uppercase">Credits</span></h4>
+            <button class="mt-6 w-full md:w-auto px-6 py-3 bg-red-600 text-white font-bold text-[10px] uppercase tracking-widest rounded-xl hover:bg-red-700 transition-colors">Deposit Funds</button>
         </div>`
 };
 
@@ -173,43 +170,39 @@ function updateView(title) {
     // A. Update Visual Labels
     if (viewTitle) viewTitle.innerText = `Showing ${title} Information`;
 
-    // B. Handle Nav Active States (Desktop & Mobile)
+    // B. Handle Nav Active States
     const allLinks = document.querySelectorAll('.sidebar-item');
     allLinks.forEach(link => {
         link.classList.remove('active');
-        // Match the text in the span exactly
-        const spanText = link.querySelector('span')?.innerText;
-        if (spanText === title) {
+        const span = link.querySelector('span');
+        if (span && span.innerText.trim() === title) {
             link.classList.add('active');
         }
     });
 
-    // C. Content Injection with Animation
+    // C. Content Injection with Smooth Transition
     if (mainDisplay) {
         mainDisplay.style.opacity = '0';
         mainDisplay.style.transform = 'translateY(10px)';
 
         setTimeout(() => {
-            // Find key in contentData, fallback to generic if not found
             mainDisplay.innerHTML = contentData[title] || `
                 <h3 class="text-xl font-bold italic uppercase text-red-600">${title}</h3>
-                <p class="text-gray-500 mt-4">Node connecting... data stream pending for this section.</p>`;
+                <p class="text-gray-500 mt-4 text-sm">Streaming data from MIKOKO node...</p>`;
             
             mainDisplay.style.opacity = '1';
             mainDisplay.style.transform = 'translateY(0)';
-        }, 200);
+        }, 250);
     }
 
-    // D. Auto-close mobile menu
-    if (!mobileMenu.classList.contains('hidden')) {
+    // D. Auto-close mobile menu on selection
+    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
         mobileMenu.classList.add('hidden');
     }
 }
 
-// 6. INITIALIZATION ON LOAD
+// 6. INITIALIZATION
 window.onload = () => {
     setGreeting();
-    
-    // Set initial view
-    updateView('Overview');
+    updateView('Overview'); // Default view
 };
