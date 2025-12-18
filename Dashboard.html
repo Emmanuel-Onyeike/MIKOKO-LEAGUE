@@ -122,7 +122,67 @@
         </p>
     </header>
 
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    
+    <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
+        <div>
+            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Tactical Units</p>
+            <p class="stat-value text-2xl font-black italic text-white uppercase tracking-tighter">12 Teams</p>
+        </div>
+        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
+            <i class="fas fa-shield-halved text-red-600 text-xl"></i>
+        </div>
+    </div>
 
+    <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
+        <div>
+            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Combat History</p>
+            <p class="stat-value text-2xl font-black italic text-white">0 <span class="text-[10px] text-gray-600 not-italic ml-1">MATCHES</span></p>
+        </div>
+        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
+            <i class="fas fa-stopwatch text-red-600 text-xl"></i>
+        </div>
+    </div>
+
+    <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
+        <div>
+            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Total Payload</p>
+            <p class="stat-value text-2xl font-black italic text-white">0 <span class="text-[10px] text-gray-600 not-italic ml-1">GOALS</span></p>
+        </div>
+        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
+            <i class="fas fa-soccer-ball text-red-600 text-xl"></i>
+        </div>
+    </div>
+
+    <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
+        <div>
+            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Total Registry</p>
+            <p id="stat-total-players" class="stat-value text-2xl font-black italic text-white uppercase tracking-tighter">0</p>
+        </div>
+        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
+            <i class="fas fa-users text-red-600 text-xl"></i>
+        </div>
+    </div>
+
+    <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
+        <div>
+            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Deployed Agents</p>
+            <p id="stat-confirmed-players" class="stat-value text-2xl font-black italic text-white uppercase tracking-tighter">0</p>
+        </div>
+        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
+            <i class="fas fa-check-double text-red-600 text-xl"></i>
+        </div>
+    </div>
+
+    <div class="stat-card flex items-center justify-between p-6 border border-red-600/20 bg-red-600/[0.02] rounded-[2rem]">
+        <div>
+            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Awaiting Orders</p>
+            <p id="stat-pending-players" class="stat-value text-2xl font-black italic text-red-600 uppercase tracking-tighter">0</p>
+        </div>
+        <div class="w-12 h-12 bg-red-600/10 rounded-2xl flex items-center justify-center border border-red-600/20">
+            <i class="fas fa-bolt text-red-600 text-xl animate-pulse"></i>
+        </div>
+    </div>
 </section>
 <div id="fixtureModal" class="fixed inset-0 z-[10000] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
     <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closeFixtureModal()"></div>
@@ -182,54 +242,7 @@
         </div>
     </div>
 </div>
-    <div id="welcomeModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md transition-opacity duration-500">
-    <div class="relative max-w-lg w-full bg-[#0a0a0a] border border-white/10 rounded-[3rem] p-8 md:p-12 overflow-hidden shadow-[0_0_100px_rgba(220,38,38,0.2)] animate-in fade-in zoom-in duration-500">
-        
-        <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-600/10 rounded-full blur-3xl"></div>
-        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
-
-        <div class="relative z-10 text-center">
-            <div class="w-20 h-20 bg-red-600 rounded-2xl flex items-center justify-center mx-auto mb-8 rotate-12 shadow-lg shadow-red-600/20 border-4 border-black">
-                <i class="fas fa-trophy text-white text-3xl -rotate-12"></i>
-            </div>
-
-            <h2 class="text-4xl font-black italic uppercase tracking-tighter text-white mb-4">
-                Welcome to <span class="text-red-600">Season 04</span>
-            </h2>
-
-            <p class="text-gray-400 font-bold uppercase text-[10px] tracking-[0.3em] mb-8 leading-relaxed">
-                The most elite football management simulation in the region.
-            </p>
-
-            <div class="space-y-4 mb-10">
-                <div class="flex items-center gap-4 p-4 bg-white/5 border border-white/5 rounded-2xl text-left">
-                    <div class="w-8 h-8 rounded-lg bg-red-600/20 flex items-center justify-center text-red-600">
-                        <i class="fas fa-bell text-xs"></i>
-                    </div>
-                    <p class="text-[10px] text-white font-black uppercase">Follow the <span class="text-red-600">News Terminal</span> for match schedules.</p>
-                </div>
-
-                <div class="flex items-center gap-4 p-4 bg-white/5 border border-white/5 rounded-2xl text-left">
-                    <div class="w-8 h-8 rounded-lg bg-red-600/20 flex items-center justify-center text-red-600">
-                        <i class="fas fa-wallet text-xs"></i>
-                    </div>
-                    <p class="text-[10px] text-white font-black uppercase">Verify your status via the <span class="text-red-600">Financial Node</span>.</p>
-                </div>
-            </div>
-
-            <div class="mb-10">
-                <p class="text-sm text-gray-300 italic font-bold">
-                    "May your tactics be sharp and your victories be legendary."
-                </p>
-                <p class="text-[9px] text-gray-600 font-black uppercase tracking-widest mt-2">— The Committee</p>
-            </div>
-
-            <button onclick="closeModal()" class="w-full py-5 bg-red-600 hover:bg-red-700 text-white font-black uppercase italic tracking-widest rounded-2xl transition-all shadow-lg shadow-red-600/20">
-                Initialize Terminal
-            </button>
-        </div>
-    </div>
-</div>
+   
  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     
     <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
