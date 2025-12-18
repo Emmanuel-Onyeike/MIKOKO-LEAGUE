@@ -860,6 +860,10 @@ const contentData = {
                         <p class="text-[9px] text-gray-500 uppercase font-bold">Bank Name</p>
                         <p class="text-lg text-white font-black italic uppercase">OPAY</p>
                     </div>
+                     <div class="p-4 bg-white/5 rounded-2xl border border-white/5">
+                        <p class="text-[9px] text-gray-500 uppercase font-bold">Account Name</p>
+                        <p class="text-lg text-white font-black italic uppercase">IBEKU TOCHUKWU</p>
+                    </div>
                     <div class="p-4 bg-white/5 rounded-2xl border border-white/5">
                         <p class="text-[9px] text-gray-500 uppercase font-bold">Account Number</p>
                         <p class="text-2xl text-red-600 font-mono font-black tracking-tighter">7062959301</p>
