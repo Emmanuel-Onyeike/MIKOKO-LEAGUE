@@ -1578,3 +1578,23 @@ function generateTacticalLink() {
     navigator.clipboard.writeText(shareUrl);
     showGlobalAlert("fas fa-link", "Link Generated", "Share this link with your squad group.");
 }
+
+
+////// for the welcome modal // --- Modal Engine ---
+
+function closeModal() {
+    const modal = document.getElementById('welcomeModal');
+    modal.classList.add('opacity-0');
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 500);
+}
+
+// Check if user has already seen the welcome message this session
+window.onload = function() {
+    if (sessionStorage.getItem('mikoko_welcomed')) {
+        document.getElementById('welcomeModal').style.display = 'none';
+    } else {
+        sessionStorage.setItem('mikoko_welcomed', 'true');
+    }
+}
