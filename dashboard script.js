@@ -803,13 +803,13 @@ const contentData = {
     <div class="flex justify-between items-end">
         <div>
             <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Financial Node</h3>
-            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-green-500">Secure Uplink Active</span></p>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-yellow-500">System Restricted</span></p>
         </div>
-        <i class="fas fa-shield-check text-green-500 opacity-20 text-3xl"></i>
+        <i class="fas fa-lock text-yellow-500 opacity-20 text-3xl"></i>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div class="p-8 bg-gradient-to-br from-zinc-900 to-black border border-white/10 rounded-[2.5rem] relative overflow-hidden">
+        <div class="p-8 bg-zinc-900/50 border border-white/10 rounded-[2.5rem] relative overflow-hidden opacity-60">
             <div class="relative z-10">
                 <span class="text-[9px] text-red-600 font-black uppercase tracking-[0.2em]">Official Payment Node</span>
                 <h4 class="text-2xl font-black text-white italic mt-2 mb-6 uppercase tracking-tighter">Required Fee: ₦2,000</h4>
@@ -823,39 +823,31 @@ const contentData = {
                         <p class="text-[9px] text-gray-500 uppercase font-bold">Account Number</p>
                         <p class="text-2xl text-red-600 font-mono font-black tracking-tighter">7062959301</p>
                     </div>
-                    <div class="p-4 bg-white/5 rounded-2xl border border-white/5">
-                        <p class="text-[9px] text-gray-500 uppercase font-bold">Account Name</p>
-                        <p class="text-lg text-white font-black italic uppercase tracking-tight">Ibeku Tochukwu</p>
-                    </div>
                 </div>
-                
-                <p class="mt-6 text-[10px] text-gray-500 italic font-bold leading-relaxed uppercase">
-                    <i class="fas fa-triangle-exclamation text-yellow-500 mr-2"></i> Only pay into the account displayed above. Payments to any other node will not be synchronized.
-                </p>
             </div>
         </div>
 
-        <div class="p-8 bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] flex flex-col items-center justify-center text-center">
-            <div id="uploadZone" class="w-full h-full flex flex-col items-center justify-center border-2 border-dashed border-white/10 rounded-[2rem] p-10 group hover:border-red-600/30 transition-all cursor-pointer relative overflow-hidden">
-                <input type="file" id="receiptUpload" class="absolute inset-0 opacity-0 cursor-pointer" onchange="verifyPaymentReceipt(event)">
-                
-                <div id="initialUploadState">
-                    <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-cloud-arrow-up text-gray-600 group-hover:text-red-600 text-2xl"></i>
-                    </div>
-                    <h5 class="text-white font-black uppercase italic tracking-widest text-sm">Upload Receipt</h5>
-                    <p class="text-gray-500 text-[9px] font-bold uppercase mt-2 tracking-widest">Drop Screenshot or Click to Browse</p>
+        <div class="relative p-8 bg-[#0a0a0a] border border-red-600/20 rounded-[2.5rem] flex flex-col items-center justify-center text-center overflow-hidden">
+            
+            <div class="absolute inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center p-8">
+                <div class="w-16 h-16 bg-red-600/10 border border-red-600/50 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-shield-slash text-red-600 text-2xl animate-pulse"></i>
                 </div>
+                <h5 class="text-white font-black uppercase italic tracking-widest text-sm">Upload Restricted</h5>
+                <p class="text-gray-500 text-[9px] font-bold uppercase mt-3 leading-relaxed tracking-widest">
+                    Manual verification is offline.<br>
+                    Next Update: <span class="text-red-600">UNLEASH V2.0</span>
+                </p>
+                <div class="mt-6 px-4 py-1 border border-white/10 rounded-full">
+                    <span class="text-[8px] text-gray-500 font-black uppercase">Protocol: Locked</span>
+                </div>
+            </div>
 
-                <div id="scanningState" class="hidden">
-                    <div class="relative w-24 h-24 mb-6">
-                        <div class="absolute inset-0 border-4 border-red-600/20 rounded-full"></div>
-                        <div class="absolute inset-0 border-t-4 border-red-600 rounded-full animate-spin"></div>
-                        <i class="fas fa-magnifying-glass text-red-600 text-2xl absolute inset-0 flex items-center justify-center animate-pulse"></i>
-                    </div>
-                    <h5 class="text-white font-black uppercase italic tracking-widest text-sm">Analyzing Metadata</h5>
-                    <p id="scanProgress" class="text-gray-500 text-[9px] font-bold uppercase mt-2 tracking-widest">Identifying: Ibeku Tochukwu...</p>
-                </div>
+            <input type="file" disabled class="hidden">
+            
+            <div class="opacity-10">
+                <i class="fas fa-cloud-arrow-up text-4xl mb-4"></i>
+                <p class="text-[10px] uppercase font-bold tracking-widest text-white">Tap to Upload</p>
             </div>
         </div>
     </div>
@@ -1095,114 +1087,3 @@ function startTransferCountdown() {
 
 // Call the function
 startTransferCountdown();
-
-async function verifyPaymentReceipt(event) {
-    const file = event.target.files[0];
-    
-    // 1. Initial Safety Check: Only images allowed
-    if (!file || !file.type.startsWith('image/')) {
-        alert("Please upload a valid image screenshot (JPG/PNG).");
-        return;
-    }
-
-    const uploadZone = document.getElementById('initialUploadState');
-    const scanningState = document.getElementById('scanningState');
-    const progressText = document.getElementById('scanProgress');
-
-    // 2. UI TRANSITION: Enter Scanning Mode
-    if (uploadZone && scanningState) {
-        uploadZone.classList.add('hidden');
-        scanningState.classList.remove('hidden');
-    }
-
-    progressText.innerText = "LINKING SECURE NODE...";
-
-    try {
-        // STAGE 1: Initialize OCR Engine (Tesseract)
-        const worker = await Tesseract.createWorker('eng');
-        
-        // STAGE 2: Extraction
-        progressText.innerText = "SCANNING TRANSACTION DATA...";
-        const { data: { text } } = await worker.recognize(file);
-        
-        // STAGE 3: Final Validation Logic
-        progressText.innerText = "VERIFYING ACCOUNT & AMOUNT...";
-        
-        if (navigator.vibrate) navigator.vibrate(50);
-
-        // CLEAN DATA FOR COMPARISON
-        const receiptContent = text.toLowerCase();
-        
-        // CRITERIA 1: Name Check
-        const hasName = receiptContent.includes('ibeku') || receiptContent.includes('tochukwu');
-        
-        // CRITERIA 2: Amount Check (Looks for 2000 or 2,000)
-        const hasAmount = receiptContent.includes('2000') || receiptContent.includes('2,000');
-
-        // Artificial delay for UX "Processing" feel
-        setTimeout(async () => {
-            await worker.terminate();
-
-            // SUCCESS ONLY IF BOTH NAME AND AMOUNT ARE DETECTED
-            if (hasName && hasAmount) {
-                showPaymentSuccess();
-            } else {
-                showPaymentFailure();
-            }
-            
-            // RESET UI: Return to original state for next attempt
-            if (uploadZone && scanningState) {
-                uploadZone.classList.remove('hidden');
-                scanningState.classList.add('hidden');
-                progressText.innerText = "INITIALIZING SECURE SCAN...";
-                event.target.value = ''; // Clear input
-            }
-        }, 2000);
-
-    } catch (error) {
-        console.error("OCR Error:", error);
-        showPaymentFailure();
-        if (uploadZone && scanningState) {
-            uploadZone.classList.remove('hidden');
-            scanningState.classList.add('hidden');
-        }
-    }
-}
-
-function showPaymentSuccess() {
-    const overlay = document.getElementById('globalAlert');
-    const icon = document.getElementById('alertIcon');
-    const title = document.getElementById('alertTitle');
-    const msg = document.getElementById('alertMessage');
-
-    if (!overlay) return;
-
-    if (navigator.vibrate) navigator.vibrate([100, 30, 100]);
-
-    icon.innerHTML = '<i class="fas fa-circle-check text-green-500 text-6xl animate-bounce"></i>';
-    title.innerText = "VERIFICATION SUCCESS";
-    title.style.color = "#22c55e";
-    title.className = "text-2xl font-black uppercase italic tracking-tighter";
-    msg.innerText = "Transaction found for IBEKU TOCHUKWU. ₦2,000 has been credited to your manager node.";
-    
-    overlay.classList.remove('opacity-0', 'pointer-events-none');
-    setTimeout(() => { overlay.classList.add('opacity-0', 'pointer-events-none'); }, 5000);
-}
-
-function showPaymentFailure() {
-    const overlay = document.getElementById('globalAlert');
-    const icon = document.getElementById('alertIcon');
-    const title = document.getElementById('alertTitle');
-    const msg = document.getElementById('alertMessage');
-
-    if (!overlay) return;
-
-    icon.innerHTML = '<i class="fas fa-triangle-exclamation text-red-600 text-6xl animate-pulse"></i>';
-    title.innerText = "VALIDATION FAILED";
-    title.style.color = "#dc2626";
-    title.className = "text-2xl font-black uppercase italic tracking-tighter";
-    msg.innerText = "Required data not found. Ensure the receipt clearly shows 'Ibeku Tochukwu' and the '₦2,000' amount.";
-    
-    overlay.classList.remove('opacity-0', 'pointer-events-none');
-    setTimeout(() => { overlay.classList.add('opacity-0', 'pointer-events-none'); }, 6000);
-}
