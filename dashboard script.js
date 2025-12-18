@@ -1316,7 +1316,7 @@ function executeAdminRender() {
     const mainDisplay = document.getElementById('mainDisplay');
     const firstPending = players.find(p => p.status === 'Pending');
 
-    mainDisplay.innerHTML = `
+   mainDisplay.innerHTML = `
     <div class="space-y-6 animate-in pb-10 flex flex-col h-full max-h-[calc(100vh-200px)]">
         
         <div class="bg-red-600/10 border border-red-600/20 p-4 md:p-6 rounded-[2rem] flex flex-col md:flex-row justify-between items-center gap-4 backdrop-blur-md flex-shrink-0">
@@ -1370,7 +1370,6 @@ function executeAdminRender() {
                         </div>
                     </div>`).join('')}
             </div>
-        </div>
         </div>`;
 }
 
