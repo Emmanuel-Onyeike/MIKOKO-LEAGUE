@@ -1157,3 +1157,63 @@ window.onload = () => {
     startSystemSync();
     updateView('Overview');
 };
+
+/**
+ * MIKOKO LEAGUE - DEDICATED LEADERBOARD ENGINE
+ * Handles Expansion and Display for Goals & Assists
+ */
+
+// --- 1. GOALS LEADERBOARD FUNCTIONS ---
+function toggleFullLeaderboard() {
+    const extraRows = document.querySelectorAll('.extra-players');
+    const btn = document.getElementById('toggleGoalsBtn');
+    
+    // Check if currently hidden
+    const isHidden = extraRows[0].classList.contains('hidden');
+    
+    if (isHidden) {
+        extraRows.forEach(row => {
+            row.classList.remove('hidden');
+            row.classList.add('flex'); // Ensure flex layout remains
+        });
+        btn.innerText = "Collapse Rankings";
+    } else {
+        extraRows.forEach(row => {
+            row.classList.add('hidden');
+            row.classList.remove('flex');
+        });
+        btn.innerText = "View Full Player Stats (Top 10)";
+    }
+}
+
+// --- 2. ASSISTS LEADERBOARD FUNCTIONS ---
+function toggleAssistsLeaderboard() {
+    const extraRows = document.querySelectorAll('.extra-assists');
+    const btn = document.getElementById('toggleAssistsBtn');
+    
+    // Check if currently hidden
+    const isHidden = extraRows[0].classList.contains('hidden');
+    
+    if (isHidden) {
+        extraRows.forEach(row => {
+            row.classList.remove('hidden');
+            row.classList.add('flex');
+        });
+        btn.innerText = "Collapse Rankings";
+    } else {
+        extraRows.forEach(row => {
+            row.classList.add('hidden');
+            row.classList.remove('flex');
+        });
+        btn.innerText = "View Full Playmaker Stats (Top 10)";
+    }
+}
+
+// --- 3. DATA SYNC (Optional: Syncs names if data exists) ---
+function syncLeaderboardData() {
+    // If you want these to pull from your player database automatically
+    if (typeof players !== 'undefined' && players.length > 0) {
+        // This is where you would map your players into the HTML rows
+        // If you prefer to keep them static for now, this can stay empty
+    }
+}
