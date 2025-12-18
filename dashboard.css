@@ -2,7 +2,6 @@
 
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  -webkit-tap-highlight-color: transparent; /* Clean touch feedback */
 }
 
 /* Sidebar navigation */
@@ -12,13 +11,12 @@ body {
   gap: 8px;
 }
 
-/* Sidebar item - Optimized for touch */
+/* Sidebar item */
 .sidebar-item {
   display: flex;
   align-items: center;
   width: 100%;
   padding: 14px 18px;
-  min-height: 48px; /* Standard mobile touch target */
   border-radius: 14px;
   font-size: 0.95rem;
   color: #71717a;
@@ -31,6 +29,7 @@ body {
 .sidebar-item:hover:not(.active) {
   background: rgba(255, 255, 255, 0.04);
   color: #ffffff;
+  transform: translateX(4px);
 }
 
 /* Red Active State */
@@ -40,29 +39,17 @@ body {
   box-shadow: 0 10px 20px -5px rgba(220, 38, 38, 0.4);
 }
 
-/* Responsive Main Adjustments */
-@media (max-width: 768px) {
-  main {
-    padding: 1.5rem !important; /* Prevents overflow and saves screen space */
-  }
-
-  .stat-card {
-    padding: 20px !important;
-  }
-
-  .stat-value {
-    font-size: 1.75rem !important; /* Scale down text for small screens */
-  }
-
-  #mainDisplay {
-    padding: 1.25rem !important;
-    border-radius: 1.5rem !important;
-  }
-
-  /* Force grid to stack correctly on small phones */
-  .grid {
-    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
-  }
+/* Mobile sidebar */
+.mobile-sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 300px;
+  background: #070707;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  padding: 30px;
+  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Cards */
@@ -72,7 +59,6 @@ body {
   border-radius: 24px;
   padding: 24px;
   transition: all 0.3s ease;
-  height: 100%;
 }
 
 .stat-card:hover {
@@ -81,14 +67,74 @@ body {
     transform: translateY(-5px);
 }
 
-/* Modal and Alert Fixes */
-#modalContent, #alertBox {
-  width: 90% !important;
-  max-width: 380px;
-  margin: auto;
+.stat-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: white;
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(220, 38, 38, 0.2); border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: #1a1a1f; border-radius: 10px; }
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+
+/* Cyber Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #ef4444;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+/* Subtle Glow for Containers */
+.registry-container {
+    background: linear-gradient(180deg, rgba(7, 7, 7, 1) 0%, rgba(15, 15, 15, 0.8) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.registry-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.2), transparent);
+    animation: scan-line 3s linear infinite;
+}
+
+@keyframes scan-line {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(400px); }
+}
+
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #ef4444; }
+
+.registry-container { position: relative; overflow: hidden; }
+.registry-container::before {
+    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.2), transparent);
+    animation: scan-line 3s linear infinite;
+}
+@keyframes scan-line { 0% { transform: translateY(0); } 100% { transform: translateY(450px); } }
