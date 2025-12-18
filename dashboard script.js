@@ -275,70 +275,58 @@ const contentData = {
         </div>
     </div>`,
 
-  'Upcoming': `
-    <div class="space-y-8 animate-in pb-10">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-            <div>
-                <h3 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-red-600">Match Schedule</h3>
-                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: Season 03 Protocol // Franchise Initialization</p>
-            </div>
-            <div class="px-4 py-2 bg-white/5 border border-white/10 rounded-full">
-                <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest italic">Awaiting Team Assignment</span>
-            </div>
-        </div>
+   'Upcoming': `
+    <div class="space-y-8 animate-in pb-10">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+            <div>
+                <h3 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-red-600">Match Schedule</h3>
+                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: Season 03 Protocol // 04 Fixtures Active</p>
+            </div>
+            <div class="px-4 py-2 bg-white/5 border border-white/10 rounded-full">
+                <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Matchday 01</span>
+            </div>
+        </div>
 
-        <div class="grid gap-4">
-            ${[
-                { hId: '01A', aId: '02B', id: 1 },
-                { hId: '03C', aId: '04D', id: 2 },
-                { hId: '05E', aId: '06I', id: 3 },
-                { hId: '07M', aId: '08R', id: 4 }
-            ].map((match) => {
-                // Look up the current names from the teams array
-                const homeTeam = teams.find(t => t.id === match.hId)?.name || "NIL";
-                const awayTeam = teams.find(t => t.id === match.aId)?.name || "NIL";
-                
-                return `
-                <div class="p-5 md:p-6 bg-[#0a0a0a] border border-white/5 rounded-[1.5rem] md:rounded-[2rem] flex flex-col md:flex-row justify-between items-center group transition-all hover:border-red-600/20">
-                    <div class="flex items-center gap-4 md:gap-6 w-full md:w-auto">
-                        <div class="hidden md:flex w-12 h-12 bg-white/5 rounded-2xl border border-white/5 items-center justify-center text-[10px] font-black text-gray-600 group-hover:text-red-600 transition-colors">0${match.id}</div>
-                        
-                        <div class="flex items-center justify-between md:justify-start gap-3 md:gap-6 w-full md:w-auto">
-                            <span class="font-black text-sm md:text-lg uppercase italic tracking-tighter w-24 md:w-auto text-left ${homeTeam === 'NIL' ? 'text-zinc-800' : 'text-white'}">
-                                ${homeTeam}
-                            </span>
-                            
-                            <span class="text-red-600 font-black italic text-xs md:text-sm">VS</span>
-                            
-                            <span class="font-black text-sm md:text-lg uppercase italic tracking-tighter w-24 md:w-auto text-right md:text-left ${awayTeam === 'NIL' ? 'text-zinc-800' : 'text-white'}">
-                                ${awayTeam}
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div class="flex flex-row md:items-center gap-3 mt-6 md:mt-0 w-full md:w-auto border-t border-white/5 md:border-none pt-4 md:pt-0">
-                        <div class="hidden lg:block text-right mr-4">
-                            <span class="block text-[10px] text-red-600 font-black uppercase tracking-widest">AWAITING FRANCHISE</span>
-                            <span class="block text-[8px] text-gray-600 font-mono mt-0.5 uppercase">Arena: Main Core</span>
-                        </div>
-                        
-                        <button onclick="showGlobalAlert('fas fa-lock', 'Slot Empty', 'This team franchise has not been purchased yet.')" class="flex-1 md:flex-none px-4 py-3 bg-white/5 hover:bg-white/10 text-gray-500 border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all">
-                            Details
-                        </button>
-                        
-                        <button onclick="updateView('News')" class="flex-1 md:flex-none px-4 py-3 bg-red-600/10 hover:bg-red-600 text-red-600 hover:text-white border border-red-600/20 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2">
-                            <i class="fas fa-shopping-cart"></i> <span>Buy Slot</span>
-                        </button>
-                    </div>
-                </div>
-                `;
-            }).join('')}
-        </div>
+        <div class="grid gap-4">
+            ${[
+                { home: "Apex Predators", away: "Rangers FC", id: 1 },
+                { home: "Blaze FC", away: "Mamba FC", id: 2 },
+                { home: "Citadel United", away: "Viper Squad", id: 3 },
+                { home: "Dynamos SC", away: "Ironbound FC", id: 4 }
+            ].map((match) => `
+                <div class="p-5 md:p-6 bg-[#0a0a0a] border border-white/5 rounded-[1.5rem] md:rounded-[2rem] flex flex-col md:flex-row justify-between items-center group transition-all hover:border-red-600/20">
+                    <div class="flex items-center gap-4 md:gap-6 w-full md:w-auto">
+                        <div class="hidden md:flex w-12 h-12 bg-white/5 rounded-2xl border border-white/5 items-center justify-center text-[10px] font-black text-gray-600 group-hover:text-red-600 transition-colors">0${match.id}</div>
+                        
+                        <div class="flex items-center justify-between md:justify-start gap-3 md:gap-6 w-full md:w-auto">
+                            <span class="text-white font-black text-sm md:text-lg uppercase italic tracking-tighter w-24 md:w-auto text-left">${match.home}</span>
+                            <span class="text-red-600 font-black italic text-xs md:text-sm">VS</span>
+                            <span class="text-white font-black text-sm md:text-lg uppercase italic tracking-tighter w-24 md:w-auto text-right md:text-left">${match.away}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-row md:items-center gap-3 mt-6 md:mt-0 w-full md:w-auto border-t border-white/5 md:border-none pt-4 md:pt-0">
+                        <div class="hidden lg:block text-right mr-4">
+                            <span class="block text-[10px] text-red-600 font-black uppercase tracking-widest">TBD</span>
+                            <span class="block text-[8px] text-gray-600 font-mono mt-0.5 uppercase">Arena: Main Core</span>
+                        </div>
+                        
+                        <button onclick="openFixtureDetails('${match.home} vs ${match.away}')" class="flex-1 md:flex-none px-4 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all">
+                            Details
+                        </button>
+                        
+                        <button onclick="broadcastUpdate('${match.home} vs ${match.away}')" class="flex-1 md:flex-none px-4 py-3 bg-red-600/10 hover:bg-red-600 text-red-600 hover:text-white border border-red-600/20 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-satellite-dish"></i> <span>Push</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
 
-        <div class="p-4 bg-white/[0.02] border border-dashed border-white/10 rounded-2xl text-center">
-            <p class="text-[9px] text-gray-600 uppercase font-bold tracking-[0.3em]">Season 03 Launch: January 2026 // Secure your team to populate fixtures</p>
-        </div>
-    </div>`,
+        <div class="p-4 bg-white/[0.02] border border-dashed border-white/10 rounded-2xl text-center">
+            <p class="text-[9px] text-gray-600 uppercase font-bold tracking-[0.3em]">All Kick-off times are subject to MIKOKO Main Node synchronization</p>
+        </div>
+    </div>`, 
 
     
   'Stats': `
