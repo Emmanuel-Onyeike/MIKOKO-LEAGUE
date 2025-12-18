@@ -274,13 +274,13 @@ const contentData = {
             </div>
         </div>
     </div>`,
-
- 'Upcoming': `
+    
+'Upcoming': `
     <div class="space-y-8 animate-in pb-10">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 px-2">
             <div>
                 <h3 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-red-600">Match Schedule</h3>
-                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: Season 03 Protocol // 04 Fixtures Active</p>
+                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: Season 03 Protocol // 05 Fixtures Active</p>
             </div>
             <div class="px-4 py-2 bg-white/5 border border-white/10 rounded-full">
                 <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Matchday 01</span>
@@ -289,48 +289,36 @@ const contentData = {
 
         <div class="grid gap-4">
             ${[
-                { home: "NIL", away: "NIL", id: 1 },
-                { home: "NIL", away: "NIL", id: 2 },
-                { home: "NIL", away: "NIL", id: 3 },
-                { home: "NIL", away: "NIL", id: 4 }
+                { id: 1, home: "NIL", away: "NIL", time: "-", venue: "NIL" },
+                { id: 2, home: "NIL", away: "NIL", time: "-", venue: "NIL" },
+                { id: 3, home: "NIL", away: "NIL", time: "-", venue: "NIL" },
+                { id: 4, home: "NIL", away: "NIL", time: "-", venue: "NIL" },
+                { id: 5, home: "NIL", away: "NIL", time: "-", venue: "NIL" }
             ].map((match) => `
                 <div class="p-4 md:p-6 bg-[#0a0a0a] border border-white/5 rounded-[2rem] transition-all hover:border-red-600/20 group">
                     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-                        
                         <div class="flex items-center flex-1">
-                            <div class="hidden md:flex w-10 h-10 bg-white/5 rounded-xl border border-white/5 items-center justify-center text-[10px] font-black text-gray-600 mr-6">
-                                0${match.id}
-                            </div>
-                            
+                            <div class="hidden md:flex w-10 h-10 bg-white/5 rounded-xl border border-white/5 items-center justify-center text-[10px] font-black text-gray-600 mr-6">0${match.id}</div>
                             <div class="flex items-center justify-between flex-1 md:justify-start md:gap-8">
-                                <div class="w-1/3 md:w-auto text-left">
-                                    <span class="text-white font-black text-sm md:text-base lg:text-lg uppercase italic tracking-tighter block leading-tight">${match.home}</span>
-                                </div>
-                                
-                                <div class="px-3">
-                                    <span class="text-red-600 font-black italic text-xs md:text-sm">VS</span>
-                                </div>
-                                
-                                <div class="w-1/3 md:w-auto text-right md:text-left">
-                                    <span class="text-white font-black text-sm md:text-base lg:text-lg uppercase italic tracking-tighter block leading-tight">${match.away}</span>
-                                </div>
+                                <span class="text-white font-black text-sm md:text-base lg:text-lg uppercase italic tracking-tighter">${match.home}</span>
+                                <span class="text-red-600 font-black italic text-xs md:text-sm px-4">VS</span>
+                                <span class="text-white font-black text-sm md:text-base lg:text-lg uppercase italic tracking-tighter">${match.away}</span>
                             </div>
                         </div>
 
                         <div class="flex flex-row items-center justify-between lg:justify-end gap-3 pt-4 lg:pt-0 border-t border-white/5 lg:border-none">
                             <div class="text-left lg:text-right lg:mr-4">
-                                <span class="block text-[10px] text-red-600 font-black uppercase tracking-widest">TBD</span>
-                                <span class="block text-[8px] text-gray-600 font-mono uppercase">Arena: Main Core</span>
+                                <span class="block text-[10px] text-red-600 font-black uppercase tracking-widest">${match.time}</span>
+                                <span class="block text-[8px] text-gray-600 font-mono uppercase">Arena: ${match.venue}</span>
                             </div>
-                            
                             <div class="flex gap-2">
-                                <button onclick="openFixtureDetails('${match.home} vs ${match.away}')" class="px-4 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all">
+                                <button onclick="openFixtureDetails(${match.id}, '${match.home}', '${match.away}', '${match.time}', '${match.venue}')" 
+                                    class="px-4 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all">
                                     Details
                                 </button>
-                                
-                                <button onclick="broadcastUpdate('${match.home} vs ${match.away}')" class="w-11 h-11 lg:w-auto lg:px-4 bg-red-600/10 hover:bg-red-600 text-red-600 hover:text-white border border-red-600/20 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2">
-                                    <i class="fas fa-satellite-dish"></i>
-                                    <span class="hidden lg:inline">Push</span>
+                                <button onclick="broadcastPush('${match.home}', '${match.away}')" 
+                                    class="w-11 h-11 lg:w-auto lg:px-4 bg-red-600/10 hover:bg-red-600 text-red-600 hover:text-white border border-red-600/20 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2">
+                                    <i class="fas fa-satellite-dish"></i> <span class="hidden lg:inline">Push</span>
                                 </button>
                             </div>
                         </div>
@@ -338,12 +326,7 @@ const contentData = {
                 </div>
             `).join('')}
         </div>
-
-        <div class="p-4 bg-white/[0.02] border border-dashed border-white/10 rounded-2xl text-center mx-2">
-            <p class="text-[9px] text-gray-600 uppercase font-bold tracking-[0.3em]">All Kick-off times are subject to MIKOKO Main Node synchronization</p>
-        </div>
     </div>`,
-
     
   'Stats': `
     <div class="space-y-8 animate-in">
@@ -1595,4 +1578,73 @@ function generateTacticalLink() {
     showGlobalAlert("fas fa-link", "Link Generated", "Share this link with your squad group.");
 }
 
+///// for the upcoming
+// --- FIXTURE MODAL ENGINE ---
+function openFixtureDetails(id, home, away, time, venue) {
+    const modal = document.getElementById('fixtureModal');
+    const content = document.getElementById('modalContent');
+    
+    // Set Modal Data
+    document.getElementById('modalTeamName').innerHTML = `${home} <span class="text-red-600">vs</span> ${away}`;
+    
+    // You can customize this info per ID if you want specific referees/weather
+    const detailsHTML = `
+        <div class="space-y-4 text-left mt-6">
+            <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                <p class="text-[8px] text-red-600 uppercase font-black mb-1 tracking-widest">Protocol ID</p>
+                <p class="text-xs text-white font-bold uppercase">MKK-S03-0${id}</p>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                    <p class="text-[8px] text-gray-500 uppercase font-black mb-1 tracking-widest">Venue</p>
+                    <p class="text-[10px] text-white font-bold uppercase">${venue}</p>
+                </div>
+                <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                    <p class="text-[8px] text-gray-500 uppercase font-black mb-1 tracking-widest">Kick-off</p>
+                    <p class="text-[10px] text-white font-bold uppercase">${time} WAT</p>
+                </div>
+            </div>
+            <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                <p class="text-[8px] text-gray-500 uppercase font-black mb-1 tracking-widest">Match Officials</p>
+                <p class="text-[10px] text-gray-400 font-bold uppercase">Automated AI System // Ref: ALPHA-0${id}</p>
+            </div>
+        </div>
+    `;
 
+    // Inject and Show
+    const detailContainer = document.querySelector('#fixtureModal .space-y-4');
+    if(detailContainer) detailContainer.outerHTML = detailsHTML;
+    
+    modal.classList.remove('pointer-events-none', 'opacity-0');
+    content.classList.remove('scale-95');
+}
+
+function closeFixtureModal() {
+    const modal = document.getElementById('fixtureModal');
+    const content = document.getElementById('modalContent');
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    content.classList.add('scale-95');
+}
+
+// --- PUSH NOTIFICATION ENGINE ---
+function broadcastPush(home, away) {
+    // Show a global alert (You can use your globalAlert ID if it exists)
+    const alertBox = document.getElementById('globalAlert');
+    const alertTitle = document.getElementById('alertTitle');
+    const alertMsg = document.getElementById('alertMessage');
+
+    alertTitle.innerText = "SATELLITE UPLINK ACTIVE";
+    alertMsg.innerText = `Push Notification Sent: ${home} vs ${away} is now confirmed for Matchday 01.`;
+    
+    // Add visual feedback to button
+    event.currentTarget.innerHTML = '<i class="fas fa-check"></i> <span>Sent</span>';
+    event.currentTarget.classList.add('bg-green-600', 'text-white');
+
+    // Show Alert
+    alertBox.classList.remove('opacity-0', 'pointer-events-none');
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+        alertBox.classList.add('opacity-0', 'pointer-events-none');
+    }, 3000);
+}
