@@ -800,81 +800,76 @@ const contentData = {
 </div>`,
    
 'Transfer Market': `
-<div class="space-y-8 animate-in">
+<div class="space-y-8 animate-in pb-12">
     <div class="flex justify-between items-end">
         <div>
             <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Market Terminal</h3>
-            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-red-600">System Locked</span></p>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-yellow-500 italic">Standby Mode</span></p>
         </div>
-        <div class="hidden md:block">
-            <span class="px-4 py-1.5 bg-red-600/10 border border-red-600/20 rounded-full text-[10px] text-red-600 font-black uppercase tracking-widest">
-                Access Level: Restricted
-            </span>
+        <div class="hidden md:flex items-center gap-3">
+            <span class="text-[9px] text-gray-600 font-mono uppercase">Node: MKK-TRNSFR-03</span>
+            <div class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></div>
         </div>
     </div>
 
     <div class="relative p-10 md:p-20 bg-[#0a0a0a] border border-white/5 rounded-[3rem] overflow-hidden flex flex-col items-center justify-center text-center">
-        <div class="absolute inset-0 opacity-10 pointer-events-none">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.15)_0%,transparent_70%)]"></div>
-            <i class="fas fa-handshake absolute -right-10 -bottom-10 text-[20rem] text-white/5 -rotate-12"></i>
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.2)_0%,transparent_70%)]"></div>
+            <i class="fas fa-chart-line absolute -left-10 -bottom-10 text-[25rem] text-white/5 -rotate-12"></i>
         </div>
 
-        <div class="relative z-10">
-            <div class="w-20 h-20 bg-red-600/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-red-600/20 shadow-[0_0_30px_rgba(220,38,38,0.1)]">
-                <i class="fas fa-lock text-red-600 text-3xl"></i>
+        <div class="relative z-10 max-w-2xl">
+            <div class="w-24 h-24 bg-red-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-10 rotate-12 shadow-[0_0_50px_rgba(220,38,38,0.3)] border-4 border-black">
+                <i class="fas fa-hand-holding-usd text-4xl -rotate-12"></i>
             </div>
             
-            <h4 class="text-white font-black uppercase tracking-[0.3em] text-xs mb-10">Market Protocol Opening In:</h4>
+            <h4 class="text-4xl md:text-6xl font-black text-white italic tracking-tighter uppercase leading-none mb-6">
+                Market Opening <br>
+                <span class="text-red-600">Jan 18, 2026</span>
+            </h4>
 
-            <div class="flex gap-4 md:gap-8 justify-center items-center">
-                <div class="flex flex-col">
-                    <span id="days" class="text-4xl md:text-6xl font-black text-white italic tracking-tighter">00</span>
-                    <span class="text-[9px] text-gray-600 font-bold uppercase mt-2 tracking-widest">Days</span>
-                </div>
-                <span class="text-2xl font-black text-red-600 mb-6">:</span>
-                <div class="flex flex-col">
-                    <span id="hours" class="text-4xl md:text-6xl font-black text-white italic tracking-tighter">00</span>
-                    <span class="text-[9px] text-gray-600 font-bold uppercase mt-2 tracking-widest">Hrs</span>
-                </div>
-                <span class="text-2xl font-black text-red-600 mb-6">:</span>
-                <div class="flex flex-col">
-                    <span id="minutes" class="text-4xl md:text-6xl font-black text-white italic tracking-tighter">00</span>
-                    <span class="text-[9px] text-gray-600 font-bold uppercase mt-2 tracking-widest">Min</span>
-                </div>
-                <span class="text-2xl font-black text-red-600 mb-6">:</span>
-                <div class="flex flex-col">
-                    <span id="seconds" class="text-4xl md:text-6xl font-black text-white italic tracking-tighter text-red-600">00</span>
-                    <span class="text-[9px] text-gray-600 font-bold uppercase mt-2 tracking-widest">Sec</span>
-                </div>
+            <div class="inline-block px-6 py-2 bg-white/5 border border-white/10 rounded-full mb-8">
+                <span class="text-[10px] text-gray-400 font-black uppercase tracking-[0.4em]">Stay Tuned Managers</span>
             </div>
 
-            <p class="mt-12 text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em] max-w-sm mx-auto leading-relaxed">
-                The Mikoko Transfer Window will officially unlock on <span class="text-white">January 18th, 2026</span>. Roster modifications are strictly prohibited until the countdown hits zero.
+            <p class="text-sm md:text-lg text-gray-400 font-bold uppercase leading-relaxed tracking-wide mb-10">
+                "Make your <span class="text-white">money worth the buy</span> and your <span class="text-red-600">pocket worth the sale</span>. Build a dynasty or cash out—the choice is yours."
             </p>
+
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="px-5 py-3 bg-red-600/10 border border-red-600/30 rounded-2xl">
+                    <span class="block text-[8px] text-red-500 font-black uppercase mb-1">Buy Logic</span>
+                    <span class="text-xs text-white font-black uppercase italic">Value Driven</span>
+                </div>
+                <div class="px-5 py-3 bg-white/5 border border-white/10 rounded-2xl">
+                    <span class="block text-[8px] text-gray-500 font-black uppercase mb-1">Sell Logic</span>
+                    <span class="text-xs text-white font-black uppercase italic">Profit Focus</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center gap-6">
-            <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center">
-                <i class="fas fa-info text-gray-600"></i>
-            </div>
-            <div>
-                <p class="text-[9px] text-red-600 font-black uppercase tracking-widest">Market Rule</p>
-                <p class="text-xs text-white font-bold uppercase">Manual Negotiations Only</p>
-            </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-8 bg-zinc-900/50 border border-white/5 rounded-[2rem] group hover:border-red-600/30 transition-all">
+            <i class="fas fa-user-check text-red-600 mb-4"></i>
+            <h5 class="text-white font-black uppercase italic text-sm mb-2">Verified Units</h5>
+            <p class="text-[10px] text-gray-500 font-bold uppercase leading-relaxed">Only managers who have secured their franchise slots (₦4,000) can participate in the open market.</p>
         </div>
-        <div class="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center gap-6">
-            <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center">
-                <i class="fas fa-microchip text-gray-600"></i>
-            </div>
-            <div>
-                <p class="text-[9px] text-red-600 font-black uppercase tracking-widest">System Check</p>
-                <p class="text-xs text-white font-bold uppercase">Node Integrity Verified</p>
-            </div>
+
+        <div class="p-8 bg-zinc-900/50 border border-white/5 rounded-[2rem] group hover:border-red-600/30 transition-all">
+            <i class="fas fa-coins text-red-600 mb-4"></i>
+            <h5 class="text-white font-black uppercase italic text-sm mb-2">Trade Protocol</h5>
+            <p class="text-[10px] text-gray-500 font-bold uppercase leading-relaxed">Direct player-to-player swaps and cash-plus-player deals will be facilitated by the Committee.</p>
+        </div>
+
+        <div class="p-8 bg-zinc-900/50 border border-white/5 rounded-[2rem] group hover:border-red-600/30 transition-all">
+            <i class="fas fa-file-contract text-red-600 mb-4"></i>
+            <h5 class="text-white font-black uppercase italic text-sm mb-2">Finalization</h5>
+            <p class="text-[10px] text-gray-400 font-bold uppercase leading-relaxed italic">"Everything regarding the league collectively comes from the Committee."</p>
         </div>
     </div>
 </div>`,
+    
    'Mikoko Payment': `
 <div class="space-y-8 animate-in pb-12">
     <div class="flex justify-between items-end">
