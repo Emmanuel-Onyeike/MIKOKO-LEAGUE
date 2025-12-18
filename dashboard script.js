@@ -293,7 +293,7 @@ const contentData = {
                 { id: 2, home: "NIL", away: "NIL", time: "-", venue: "NIL" },
                 { id: 3, home: "NIL", away: "NIL", time: "-", venue: "NIL" },
                 { id: 4, home: "NIL", away: "NIL", time: "-", venue: "NIL" },
-                { id: 5, home: "NIL", away: "NIL", time: "-", venue: "NIL" }
+          
             ].map((match) => `
                 <div class="p-4 md:p-6 bg-[#0a0a0a] border border-white/5 rounded-[2rem] transition-all hover:border-red-600/20 group">
                     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
