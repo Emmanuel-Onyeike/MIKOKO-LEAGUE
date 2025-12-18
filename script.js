@@ -216,21 +216,25 @@ const getAiResponse = (input) => {
     /* ---------------------------------
        0. INTENT DETECTION
     ----------------------------------*/
-    const isExplain = /what is|what does|explain|meaning of|define|how does|how do|is this/.test(msg);
+    const isExplain = /what is|what does|explain|meaning of|define|how does|how do|is this|tell me about/.test(msg);
 
     /* ---------------------------------
-       1. IDENTITY & GREETINGS
+       1. IDENTITY & GENERAL TALK
     ----------------------------------*/
-    if (/(creator|built you|made you|engineered you|tech nxxt)/.test(msg)) {
-        return "I was engineered by Tech Nxxt Company as the intelligence layer for the MIKOKO League ecosystem.";
+    if (/who are you|your name|what is your name/.test(msg)) {
+        return "I am the MIKOKO AI Assistant — a digital assistant designed to explain league rules, structure, fixtures, and standings.";
+    }
+
+    if (/creator|built you|made you|engineered you|who created you|tech nxxt/.test(msg)) {
+        return "I was engineered by Tech Nxxt Company to serve as the intelligence layer for the MIKOKO League ecosystem.";
     }
 
     if (/^(hi|hello|hey|yo|sup)/.test(msg)) {
-        return "Hello 👋 I’m the MIKOKO AI Assistant. I manage league rules, structure, fixtures, and insights. How can I help?";
+        return "Hello 👋 I’m the MIKOKO AI Assistant. Ask me anything about the league — rules, format, standings, or fixtures.";
     }
 
     if (/how are you|how are you doing|how far now|how's it going/.test(msg)) {
-        return "I’m running smoothly ⚡ All league systems are stable. How can I assist you today?";
+        return "I’m operating smoothly ⚡ League systems are stable. How can I help you today?";
     }
 
     /* ---------------------------------
@@ -240,7 +244,7 @@ const getAiResponse = (input) => {
     if (badWords.some(word => msg.includes(word))) {
         const banExpiry = Date.now() + 5 * 60 * 60 * 1000;
         localStorage.setItem("mikoko_ban_until", banExpiry);
-        return "⚠️ Protocol Violation detected. Abusive language is not permitted. Access suspended for 5 hours.";
+        return "⚠️ Protocol Violation detected. Abusive language is not allowed. Access suspended for 5 hours.";
     }
 
     /* ---------------------------------
@@ -249,135 +253,114 @@ const getAiResponse = (input) => {
     const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
     /* ---------------------------------
-       4. CORE KNOWLEDGE
+       4. LEAGUE RULES & STRUCTURE (CORE)
     ----------------------------------*/
 
-    // Founder
-    if (/founder|who is mikoko/.test(msg)) {
-        return isExplain
-            ? "MIKOKO League was founded by MIKOKO, a graduate student who created the league to bring structure, discipline, and professionalism to grassroots football using technology."
-            : "MIKOKO League was founded by MIKOKO.";
-    }
-
-    // Casual / Pidgin
-    if (/how far|how body|you dey|wetin dey/.test(msg)) {
-        return pick([
-            "I dey kampe 💪 Everything dey align.",
-            "All systems dey run sharp ⚡"
-        ]);
-    }
-
-    // Emotional Support
-    if (/sad|tired|stress|hard time|going through/.test(msg)) {
-        return pick([
-            "Hard moments pass. Stay focused — you’re stronger than you think.",
-            "Even the best teams regroup. Take a breath and continue."
-        ]);
-    }
-
-    // League Format (IMPORTANT)
-    if (/league format|format|how the league works/.test(msg)) {
-        return
-            "MIKOKO League format explained clearly:\n" +
-            "• Only **8 clubs** compete in the league.\n" +
+    // League Rules
+    if (/rules|tell me the rules|what are the rules/.test(msg)) {
+        return (
+            "MIKOKO League Rules explained clearly:\n" +
+            "• The league consists of **8 clubs only**.\n" +
             "• Each team plays **5 matches**.\n" +
-            "• Teams are ranked based on points.\n" +
-            "• The **Top 4 teams automatically qualify** for the Glory Champions Cup.\n" +
-            "• The Top 4 advance directly to the **Semi-Finals**, then the **Final** to determine the champion.";
+            "• Teams earn points based on match results.\n" +
+            "• Rankings are determined by points and goal difference.\n" +
+            "• The **Top 4 teams qualify automatically** for the Glory Champions Cup.\n" +
+            "• The Top 4 advance to the **Semi-Finals**, then the **Final** to decide the champion.\n" +
+            "• Discipline rules apply (yellow & red cards)."
+        );
+    }
+
+    // League Format
+    if (/league format|format|how the league works/.test(msg)) {
+        return (
+            "MIKOKO League format:\n" +
+            "• 8 teams compete in the league.\n" +
+            "• Each team plays 5 matches.\n" +
+            "• The Top 4 teams qualify for the Glory Champions Cup.\n" +
+            "• Semi-Finals → Final → Champion."
+        );
     }
 
     // Teams
     if (/how many team|total teams/.test(msg)) {
-        return isExplain
-            ? "The league features **8 clubs only**, ensuring strong competition and balanced fixtures."
-            : "There are 8 teams in the MIKOKO League.";
+        return "The MIKOKO League features **8 competitive teams**.";
     }
 
     // Matches
     if (/how many games|matches each/.test(msg)) {
-        return isExplain
-            ? "Each team plays **5 matches**, which determines their ranking and qualification."
-            : "Each team plays 5 matches.";
+        return "Each team plays **5 matches** during the league phase.";
+    }
+
+    // Standings
+    if (/standings|table|league table|positions/.test(msg)) {
+        return (
+            "The standings show team rankings based on:\n" +
+            "• Points earned\n" +
+            "• Goal difference\n" +
+            "• Match results\n" +
+            "The Top 4 teams in the standings qualify for the Glory Champions Cup."
+        );
     }
 
     // Champions Cup
     if (/champions cup|glory/.test(msg)) {
-        return isExplain
-            ? "The Glory Champions Cup is the final stage of the league. The **Top 4 teams qualify automatically** and compete in Semi-Finals and a Final."
-            : "The Glory Champions Cup is the league’s final competition.";
-    }
-
-    // Predictions
-    if (/predict|winner|who will win/.test(msg)) {
-        return pick([
-            "Form matters, but football always delivers surprises.",
-            "The pitch decides everything — no guarantees."
-        ]);
-    }
-
-    // Discipline
-    if (/red card|sent off/.test(msg)) {
-        return isExplain
-            ? "A red card is issued for serious fouls or misconduct. The player is sent off and suspended for the next match."
-            : "A red card leads to an automatic suspension.";
-    }
-
-    if (/yellow card|booking/.test(msg)) {
-        return isExplain
-            ? "A yellow card is a caution. Accumulating multiple yellow cards can result in suspension."
-            : "Too many yellow cards lead to suspension.";
-    }
-
-    // Transfers
-    if (/transfer|buy player|sell player/.test(msg)) {
-        return isExplain
-            ? "Transfers involve officially moving a player between teams. All transfers must be approved by league management."
-            : "All transfers must be approved.";
-    }
-
-    // Training
-    if (/improve|better|skill|train/.test(msg)) {
-        return pick([
-            "Consistency builds champions.",
-            "Train smart, recover properly, repeat."
-        ]);
-    }
-
-    // Life Advice
-    if (/life|advice/.test(msg)) {
-        return "Life is a long match — stay disciplined, patient, and focused.";
-    }
-
-    // Stats
-    if (/stats|data/.test(msg)) {
-        return "All goals, cards, and match performances are recorded and tracked.";
-    }
-
-    // Tech Nxxt
-    if (/tech nxxt/.test(msg)) {
-        return isExplain
-            ? "Tech Nxxt is the technology company responsible for MIKOKO’s AI, analytics, and digital infrastructure."
-            : "Tech Nxxt powers MIKOKO’s technology.";
-    }
-
-    // Version
-    if (/version|update/.test(msg)) {
-        return "MIKOKO-AI v1.0.3 (Stable). More intelligence upgrades are planned.";
+        return (
+            "The Glory Champions Cup is the final competition.\n" +
+            "Only the **Top 4 teams** qualify.\n" +
+            "They compete in Semi-Finals and then the Final to crown the champion."
+        );
     }
 
     /* ---------------------------------
-       5. SMART FALLBACK
+       5. DISCIPLINE & MATCH RULES
+    ----------------------------------*/
+    if (/red card|sent off/.test(msg)) {
+        return "A red card means a player is sent off and suspended for the next match.";
+    }
+
+    if (/yellow card|booking/.test(msg)) {
+        return "Yellow cards are cautions. Accumulating too many can lead to suspension.";
+    }
+
+    /* ---------------------------------
+       6. GENERAL FOOTBALL & LIFE TALK
+    ----------------------------------*/
+    if (/predict|winner|who will win/.test(msg)) {
+        return pick([
+            "Football is unpredictable — the pitch always decides.",
+            "Form matters, but surprises are part of the game."
+        ]);
+    }
+
+    if (/life|advice/.test(msg)) {
+        return "Life is like football — stay disciplined, stay patient, and never give up early.";
+    }
+
+    /* ---------------------------------
+       7. TECH & SYSTEM
+    ----------------------------------*/
+    if (/tech nxxt/.test(msg)) {
+        return "Tech Nxxt powers MIKOKO’s AI, analytics, and digital infrastructure.";
+    }
+
+    if (/version|update/.test(msg)) {
+        return "MIKOKO-AI v1.0.3 (Stable). More upgrades are planned.";
+    }
+
+    /* ---------------------------------
+       8. SMART FALLBACK
     ----------------------------------*/
     if (isExplain) {
-        return "That topic exists in the league, but detailed information is not available in this version yet.";
+        return "That information exists, but full details are available on the website.";
     }
 
     return pick([
-        "You can ask me about league format, teams, matches, or the Champions Cup.",
-        "Try questions about rules, standings, or fixtures.",
-        "I specialize in MIKOKO League information."
+        "You can ask about league rules, format, standings, or fixtures.",
+        "All league information is available on the website.",
+        "I’m here to help with anything related to the MIKOKO League."
     ]);
 };
+
 
 // 4. MESSAGE HANDLING
 aiForm.addEventListener('submit', (e) => {
