@@ -63,66 +63,107 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
 
 /* --- 5. THE "EXCEPTIONAL" MOBILE ENGINE --- */
+/* --- 5. REFINED MOBILE EXPERIENCE (CLEAN & UNCLUTTERED) --- */
 @media (max-width: 768px) {
-    /* Tighten the main container for mobile focus */
+
+    /* MAIN CONTENT AREA */
     #mainDisplay {
-        padding: 1rem !important;
+        padding: 1.25rem !important;
         width: 100% !important;
+        border-radius: 1.75rem;
     }
 
-    /* Elegant Stat Cards */
+    /* STAT CARDS – LESS HEAVY, MORE AIR */
     .stat-card {
-        padding: 20px !important;
-        background: linear-gradient(145deg, #0d0d0d, #050505) !important;
-        border: 1px solid rgba(255,255,255,0.08) !important;
+        padding: 18px !important;
+        background: linear-gradient(160deg, #0c0c0c, #060606) !important;
+        border: 1px solid rgba(255,255,255,0.06) !important;
+        border-radius: 20px;
+        box-shadow: none;
+    }
+
+    .stat-title {
+        font-size: 9px;
+        letter-spacing: 0.25em;
+        opacity: 0.75;
     }
 
     .stat-value {
-        font-size: 1.85rem;
-        text-shadow: 0 0 15px rgba(220, 38, 38, 0.2);
+        font-size: 1.75rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        text-shadow: none;
     }
 
-    /* Pro Mobile Sidebar */
+    /* MOBILE SIDEBAR – THINNER & CALMER */
     .mobile-sidebar {
-        width: 85% !important;
-        background: #070707 !important;
-        box-shadow: 15px 0 30px rgba(0,0,0,0.5);
+        width: 82% !important;
+        background: linear-gradient(180deg, #070707, #050505) !important;
+        padding: 1.5rem !important;
+        box-shadow: 20px 0 40px rgba(0,0,0,0.6);
     }
 
-    /* Larger touch targets for menus */
+    /* SIDEBAR ITEMS – BREATHING SPACE */
     .sidebar-item {
-        padding: 18px !important;
-        margin-bottom: 4px;
-        font-size: 1rem;
+        padding: 16px !important;
+        border-radius: 14px;
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+        gap: 14px;
     }
 
-    /* Registry Height Adjustment */
+    .sidebar-item i {
+        font-size: 0.9rem;
+        opacity: 0.85;
+    }
+
+    /* ACTIVE ITEM – SOFTER, NOT AGGRESSIVE */
+    .sidebar-item.active {
+        background: linear-gradient(135deg, rgba(220,38,38,0.9), rgba(153,27,27,0.9));
+        box-shadow: 0 8px 18px rgba(220,38,38,0.35);
+    }
+
+    /* OVERVIEW GRID – STACK WITH AIR */
+    .grid {
+        gap: 1rem !important;
+    }
+
+    /* TEXT SCALE – REDUCE VISUAL NOISE */
+    h3, h4 {
+        letter-spacing: -0.02em;
+    }
+
+    p {
+        line-height: 1.6;
+    }
+
+    /* REMOVE HARSH FIXED HEIGHTS */
     .h-\[450px\], .h-\[400px\] {
-        height: 60vh !important; /* Uses viewport height instead of fixed px */
-        min-height: 400px;
+        height: auto !important;
+        min-height: unset;
     }
 
-    /* Form Native Styling */
-    input[type="text"], input[type="password"], select {
-        font-size: 16px !important; /* Stops auto-zoom */
-        padding: 14px !important;
-        background: #111 !important;
-        border-radius: 12px !important;
-        border: 1px solid rgba(255,255,255,0.1) !important;
-        appearance: none; /* Cleaner look on iOS */
+    /* INPUTS – LIGHTER & MODERN */
+    input[type="text"],
+    input[type="password"],
+    select {
+        font-size: 16px !important;
+        padding: 13px !important;
+        background: #0f0f0f !important;
+        border-radius: 14px !important;
+        border: 1px solid rgba(255,255,255,0.08) !important;
     }
 
-    /* Haptic Feedback Emulation */
-    button:active, .sidebar-item:active {
-        transform: scale(0.97);
-        opacity: 0.8;
+    /* BUTTON & TAP FEEDBACK – SUBTLE */
+    button:active,
+    .sidebar-item:active {
+        transform: scale(0.98);
+        opacity: 0.9;
     }
 
-    /* Layout stacking */
-    .grid-cols-1.lg\:grid-cols-2 {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+    /* REMOVE CLUTTERED SHADOWS */
+    * {
+        box-shadow: none !important;
     }
 }
 
