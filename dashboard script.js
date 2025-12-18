@@ -721,6 +721,47 @@ const contentData = {
 
     </div>
 </div>`,
+
+'Player Selection': `
+<div class="space-y-8 animate-in fade-in duration-500">
+    <div class="bg-zinc-900/80 p-8 rounded-[2.5rem] border border-white/5 shadow-2xl">
+        <h3 class="text-2xl font-black text-white uppercase italic tracking-tighter mb-6">Player Registration</h3>
+        <div class="flex flex-col md:flex-row gap-4">
+            <input type="text" id="playerNameInput" placeholder="ENTER FULL LEGAL NAME..." 
+                class="flex-1 bg-black/40 border border-white/10 rounded-2xl px-6 py-4 text-sm font-bold text-red-600 focus:outline-none focus:border-red-600 transition-all">
+            <button onclick="registerPlayer()" 
+                class="px-10 py-4 bg-red-600 hover:bg-red-700 text-white font-black uppercase italic rounded-2xl transition-all shadow-lg shadow-red-600/20">
+                Register Entry
+            </button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 bg-[#070707] border border-white/5 rounded-[2.5rem] p-6">
+            <h4 class="text-[10px] uppercase font-black text-gray-500 tracking-widest mb-6">Live Registry Status</h4>
+            <div id="playerListContainer" class="space-y-3">
+                <p class="text-gray-600 text-xs italic">Waiting for new registrations...</p>
+            </div>
+        </div>
+        
+        <div class="bg-zinc-900/30 border border-white/5 rounded-[2.5rem] p-6">
+            <h4 class="text-[10px] uppercase font-black text-gray-500 tracking-widest mb-4">League Capacity</h4>
+            <div class="space-y-4" id="teamCapacityList">
+                </div>
+        </div>
+    </div>
+</div>`,
+
+'Team Selection': `
+<div class="space-y-8 animate-in fade-in duration-500">
+    <div class="bg-red-600/10 border border-red-600/20 p-6 rounded-[2rem]">
+        <h3 class="text-white font-black uppercase italic">Admin Assignment Terminal</h3>
+        <p class="text-gray-500 text-[10px] font-bold uppercase mt-1">Select a pending player to assign to a tactical unit.</p>
+    </div>
+
+    <div id="adminAssignmentGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
+</div>`,
    
 'Transfer Market': `
 <div class="space-y-8 animate-in">
@@ -854,236 +895,309 @@ const contentData = {
 </div>`,
 };
 
-function updateView(title) {
-    // A. Update visual labels
-    if (viewTitle) viewTitle.innerText = `Showing ${title} Information`;
+/**
+ * MIKOKO LEAGUE FULL SYSTEM SCRIPT
+ * Version: 5.0 (Hashed Auth & Dual-Column Registry)
+ */
 
-    // B. Handle Nav Active States
+// --- 1. GLOBAL DATABASE STATE ---
+let players = JSON.parse(localStorage.getItem('mikoko_players')) || [];
+let teams = JSON.parse(localStorage.getItem('mikoko_teams')) || [
+    { id: '01A', name: "Apex Predators", members: [] },
+    { id: '02B', name: "Blaze FC", members: [] },
+    { id: '03C', name: "Citadel United", members: [] },
+    { id: '04D', name: "Dynamos SC", members: [] },
+    { id: '05E', name: "Elite Vanguard", members: [] },
+    { id: '06I', name: "Ironbound FC", members: [] },
+    { id: '07M', name: "Mamba FC", members: [] },
+    { id: '08R', name: "Rangers FC", members: [] },
+    { id: '09S', name: "Shadow Strikers", members: [] },
+    { id: '10S', name: "Spartan Ath", members: [] },
+    { id: '11T', name: "Titan Warriors", members: [] },
+    { id: '12V', name: "Viper Squad", members: [] }
+];
+
+const MAX_SQUAD_SIZE = 10;
+const ADMIN_PASSCODE = "123789";
+
+// --- 2. MASTER UI CONTROLLER ---
+function updateView(title) {
+    const viewTitle = document.getElementById('viewTitle');
+    if (viewTitle) viewTitle.innerText = (title === 'Player Selection' || title === 'Team Selection') 
+        ? `Command Center / ${title}` 
+        : `Showing ${title} Information`;
+
     const allLinks = document.querySelectorAll('.sidebar-item');
     allLinks.forEach(link => {
         link.classList.remove('active');
         const span = link.querySelector('span');
-        if (span && span.innerText.trim() === title) {
-            link.classList.add('active');
-        }
+        if (span && span.innerText.trim() === title) link.classList.add('active');
     });
 
-    // C. Inject content smoothly
+    const mainDisplay = document.getElementById('mainDisplay');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
     if (mainDisplay) {
         mainDisplay.style.opacity = '0';
         mainDisplay.style.transform = 'translateY(10px)';
 
         setTimeout(() => {
-            mainDisplay.innerHTML = contentData[title] || `<h3 class="text-xl font-bold italic uppercase text-red-600">${title}</h3>
-                <p class="text-gray-500 mt-4 text-sm">Streaming data from MIKOKO node...</p>`;
+            renderLeagueSystem(title);
             mainDisplay.style.opacity = '1';
             mainDisplay.style.transform = 'translateY(0)';
+            startSystemSync();
         }, 250);
     }
 
-    // D. Auto-close mobile menu on selection
     if (window.innerWidth < 768 && sidebar && !sidebar.classList.contains('-translate-x-full')) {
         sidebar.classList.add('-translate-x-full');
-        overlay.classList.add('hidden');
+        if (overlay) overlay.classList.add('hidden');
     }
 }
 
-// 6. INITIALIZATION
-window.onload = () => {
-    setGreeting();
-    updateView('Overview'); // Default view
-};
-
-
-/**
- * MIKOKO System Sync - Countdown to Jan 1st
- */
+// --- 3. DATA & SYSTEM SYNC ---
 function startSystemSync() {
+    const totalEl = document.getElementById('stat-total-players');
+    const confirmedEl = document.getElementById('stat-confirmed-players');
+    const pendingEl = document.getElementById('stat-pending-players');
+
+    if (totalEl) totalEl.innerText = players.length;
+    if (confirmedEl) confirmedEl.innerText = players.filter(p => p.status === 'Confirmed').length;
+    if (pendingEl) pendingEl.innerText = players.filter(p => p.status === 'Pending').length;
+
     const timerElement = document.getElementById('countdownTimer');
-    const syncStatus = document.getElementById('syncStatus');
-    
-    // Set the target date: January 1st, 2026
     const targetDate = new Date("Jan 1, 2026 00:00:00").getTime();
 
     const updateTimer = setInterval(() => {
         const now = new Date().getTime();
         const distance = targetDate - now;
-
-        // Time calculations
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        if (timerElement) {
-            timerElement.innerText = `SYNCING: ${days}D ${hours}H ${minutes}M ${seconds}S`;
-        }
-
-        // Once the date is reached
-        if (distance < 0) {
-            clearInterval(updateTimer);
-            syncStatus.innerHTML = `<span class="text-green-500">SYNC: 100% // JANUARY 1ST</span>`;
-            syncStatus.classList.remove('text-red-600');
-        }
-    }, 1000);
-}
-
-// Ensure it triggers when Overview is loaded
-const originalUpdateView = updateView;
-updateView = function(title) {
-    originalUpdateView(title);
-    if (title === 'Overview') {
-        // Short delay to ensure the DOM elements are injected
-        setTimeout(startSystemSync, 100);
-    }
-};
-
-/**
- * FIXTURE MODAL LOGIC
- * Opens the central container for specific match details
- */
-function openFixtureDetails(teamName) {
-    const modal = document.getElementById('fixtureModal');
-    const content = document.getElementById('modalContent');
-    const title = document.getElementById('modalTeamName');
-    
-    if (!modal) {
-        console.error("CRITICAL: fixtureModal element missing from HTML. Ensure <div id='fixtureModal'> exists.");
-        return;
-    }
-
-    title.innerText = teamName;
-    
-    // Smooth transition
-    modal.classList.remove('opacity-0', 'pointer-events-none');
-    content.classList.remove('scale-95', 'translate-y-4');
-    content.classList.add('scale-100', 'translate-y-0');
-}
-
-function closeFixtureModal() {
-    const modal = document.getElementById('fixtureModal');
-    const content = document.getElementById('modalContent');
-    
-    if (modal) {
-        modal.classList.add('opacity-0', 'pointer-events-none');
-        content.classList.remove('scale-100', 'translate-y-0');
-        content.classList.add('scale-95', 'translate-y-4');
-    }
-}
-
-/**
- * BROADCAST & SAVE LOGIC
- * Simulates pushing updates to all league managers
- */
-function broadcastUpdate(matchName) {
-    const overlay = document.getElementById('globalAlert');
-    const box = document.getElementById('alertBox'); // The inner container of globalAlert
-    const title = document.getElementById('alertTitle');
-    const msg = document.getElementById('alertMessage');
-    const icon = document.getElementById('alertIcon');
-
-    if (!overlay) {
-        alert(`BROADCAST ERROR: System Alert Node Not Found.\nUpdating: ${matchName}`);
-        return;
-    }
-
-    // Step 1: Open Overlay & Set Loading State
-    overlay.classList.remove('opacity-0', 'pointer-events-none');
-    if(box) box.classList.add('scale-100');
-    
-    icon.innerHTML = '<i class="fas fa-satellite animate-pulse text-red-600 text-5xl"></i>';
-    title.innerText = "Uplink Established";
-    msg.innerText = `Syncing protocol for ${matchName}. Broadcasting to MIKOKO nodes...`;
-
-    // Step 2: Simulate Network Push
-    setTimeout(() => {
-        icon.innerHTML = '<i class="fas fa-check-double text-green-500 text-5xl animate-bounce"></i>';
-        title.innerText = "Broadcast Success";
-        msg.innerText = "Venue and Time parameters pushed to all connected devices.";
-
-        // Step 3: Auto-Hide
-        setTimeout(() => {
-            overlay.classList.add('opacity-0', 'pointer-events-none');
-            if(box) box.classList.remove('scale-100');
-            
-            // Optional: Alert native browser notification for admin confirmation
-            console.log(`%c [SYSTEM]: Broadcast Sent for ${matchName}`, 'color: #00ff00; font-weight: bold;');
-        }, 2500);
-    }, 2000);
-}
-
-
-/// goals leader board
-function toggleFullLeaderboard() {
-    const extraPlayers = document.querySelectorAll('.extra-players');
-    const btn = document.getElementById('toggleGoalsBtn');
-    
-    extraPlayers.forEach(player => {
-        player.classList.toggle('hidden');
-    });
-
-    if (btn.innerText.includes('View Full')) {
-        btn.innerHTML = 'Show Less <i class="fas fa-chevron-up ml-2"></i>';
-    } else {
-        btn.innerHTML = 'View Full Player Stats (Top 10) <i class="fas fa-chevron-down ml-2"></i>';
-    }
-}
-
-
-/// for assist leader board
-function toggleAssistsLeaderboard() {
-    const extraAssists = document.querySelectorAll('.extra-assists');
-    const btn = document.getElementById('toggleAssistsBtn');
-    
-    extraAssists.forEach(player => {
-        player.classList.toggle('hidden');
-    });
-
-    if (btn.innerText.includes('View Full')) {
-        btn.innerHTML = 'Show Less <i class="fas fa-chevron-up ml-2"></i>';
-    } else {
-        btn.innerHTML = 'View Full Playmaker Stats (Top 10) <i class="fas fa-chevron-down ml-2"></i>';
-    }
-}
-
-
-/// countdown timer
-
-function startTransferCountdown() {
-    const targetDate = new Date("January 18, 2026 00:00:00").getTime();
-
-    const interval = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-
-        // Time calculations
         const d = Math.floor(distance / (1000 * 60 * 60 * 24));
         const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const s = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Update HTML elements (if they exist in the current view)
-        const dEl = document.getElementById("days");
-        const hEl = document.getElementById("hours");
-        const mEl = document.getElementById("minutes");
-        const sEl = document.getElementById("seconds");
-
-        if (dEl) {
-            dEl.innerText = d < 10 ? "0" + d : d;
-            hEl.innerText = h < 10 ? "0" + h : h;
-            mEl.innerText = m < 10 ? "0" + m : m;
-            sEl.innerText = s < 10 ? "0" + s : s;
-        }
-
-        // If countdown finished
-        if (distance < 0) {
-            clearInterval(interval);
-            if (dEl) {
-                document.querySelector('.relative.z-10 h4').innerText = "Market Protocol: OPEN";
-            }
-        }
+        if (timerElement) timerElement.innerText = `SYNCING: ${d}D ${h}H ${m}M ${s}S`;
+        if (distance < 0) clearInterval(updateTimer);
     }, 1000);
 }
 
-// Call the function
-startTransferCountdown();
+// --- 4. HASHED ADMIN AUTH LOGIC ---
+function openAuthPortal() {
+    const portal = document.getElementById('adminAuthPortal');
+    const input = document.getElementById('adminPassInput');
+    if (!portal) return;
+    input.value = "";
+    portal.classList.remove('hidden');
+    setTimeout(() => {
+        portal.classList.remove('opacity-0');
+        input.focus();
+    }, 10);
+}
+
+function closeAuthPortal() {
+    const portal = document.getElementById('adminAuthPortal');
+    portal.classList.add('opacity-0');
+    setTimeout(() => portal.classList.add('hidden'), 500);
+}
+
+function verifyAdminAccess() {
+    const input = document.getElementById('adminPassInput').value;
+    if (input === ADMIN_PASSCODE) {
+        showGlobalAlert("fas fa-shield-check", "Access Granted", "Identity Verified.");
+        closeAuthPortal();
+        executeAdminRender();
+    } else {
+        showGlobalAlert("fas fa-exclamation-triangle", "Auth Failed", "Invalid Credentials.");
+        closeAuthPortal();
+        updateView('Overview');
+    }
+}
+
+// --- 5. CORE SYSTEM RENDERING ---
+function renderLeagueSystem(mode) {
+    const mainDisplay = document.getElementById('mainDisplay');
+
+    if (mode === 'Team Selection') {
+        openAuthPortal();
+        return;
+    }
+
+    if (mode === 'Player Selection') {
+        const pendingPlayers = players.filter(p => p.status === 'Pending');
+        const confirmedPlayers = players.filter(p => p.status === 'Confirmed');
+
+        mainDisplay.innerHTML = `
+            <div class="space-y-8 animate-in fade-in duration-500 pb-10">
+                <div class="bg-zinc-900/80 p-8 rounded-[2.5rem] border border-white/5 shadow-2xl backdrop-blur-md">
+                    <h3 class="text-2xl font-black text-white uppercase italic tracking-tighter mb-6 flex items-center gap-3">
+                        <span class="w-2 h-8 bg-red-600 rounded-full"></span> Registration Terminal
+                    </h3>
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <input type="text" id="playerNameInput" placeholder="ENTER NAME..." class="flex-1 bg-black/60 border border-white/10 rounded-2xl px-6 py-4 text-red-500 font-mono focus:outline-none focus:border-red-600 transition-all">
+                        <button onclick="registerPlayer()" class="px-10 py-4 bg-red-600 hover:bg-red-700 text-white font-black uppercase italic rounded-2xl transition-all shadow-lg shadow-red-600/20">Register</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="registry-container border border-white/5 rounded-[2.5rem] p-1 bg-black/20">
+                        <div class="p-6 h-full flex flex-col">
+                            <div class="flex justify-between items-center mb-6 sticky top-0 bg-black/5 backdrop-blur-sm pb-4">
+                                <h4 class="text-[11px] uppercase font-black text-yellow-500 tracking-[0.2em]">Awaiting Assignment</h4>
+                                <span class="bg-yellow-500/10 text-yellow-500 font-mono text-[10px] px-3 py-1 rounded-full border border-yellow-500/20">${pendingPlayers.length}</span>
+                            </div>
+                            <div class="space-y-2 overflow-y-auto pr-2 max-h-[450px] custom-scrollbar">
+                                ${pendingPlayers.map(p => `
+                                    <div class="flex justify-between items-center p-4 bg-zinc-900/30 border border-white/5 rounded-2xl">
+                                        <p class="text-zinc-300 font-bold uppercase text-xs">${p.name}</p>
+                                        <i class="fas fa-satellite-dish text-yellow-500/30 text-xs"></i>
+                                    </div>`).join('') || '<p class="text-gray-700 text-[10px] text-center py-10">NO PENDING SIGNALS</p>'}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="registry-container border border-white/5 rounded-[2.5rem] p-1 bg-black/20">
+                        <div class="p-6 h-full flex flex-col">
+                            <div class="flex justify-between items-center mb-6 sticky top-0 bg-black/5 backdrop-blur-sm pb-4">
+                                <h4 class="text-[11px] uppercase font-black text-emerald-500 tracking-[0.2em]">Active Personnel</h4>
+                                <span class="bg-emerald-500/10 text-emerald-500 font-mono text-[10px] px-3 py-1 rounded-full border border-emerald-500/20">${confirmedPlayers.length}</span>
+                            </div>
+                            <div class="space-y-2 overflow-y-auto pr-2 max-h-[450px] custom-scrollbar">
+                                ${confirmedPlayers.map(p => `
+                                    <div class="flex justify-between items-center p-4 bg-zinc-900/30 border border-white/5 rounded-2xl">
+                                        <p class="text-white font-bold uppercase text-xs">${p.name}</p>
+                                        <span class="text-[9px] text-gray-500 font-mono border border-white/5 px-2 py-1 rounded">${p.team}</span>
+                                    </div>`).join('') || '<p class="text-gray-700 text-[10px] text-center py-10">NO ACTIVE UNITS</p>'}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+    } else if (mode === 'Overview') {
+        // Handle Overview or static pages if necessary
+        mainDisplay.innerHTML = contentData['Overview'] || '';
+    }
+}
+
+function executeAdminRender() {
+    const mainDisplay = document.getElementById('mainDisplay');
+    const pendingPlayers = players.filter(p => p.status === 'Pending');
+    const firstPending = pendingPlayers[0] || null;
+    
+    mainDisplay.innerHTML = `
+        <div class="space-y-8 animate-in slide-in-from-bottom-4 duration-500 pb-20">
+            <div class="bg-red-600/10 border border-red-600/20 p-6 rounded-[2rem] flex flex-col md:flex-row justify-between items-center backdrop-blur-md gap-4">
+                <div>
+                    <h3 class="text-white font-black uppercase italic">Admin Terminal</h3>
+                    <p class="text-red-600 text-[10px] font-bold uppercase mt-1 tracking-[0.2em]">Secure Uplink Active</p>
+                </div>
+                
+                <div class="bg-black/40 px-6 py-3 rounded-2xl border border-white/5 flex items-center gap-4">
+                    <p class="text-[9px] text-gray-500 uppercase font-black">Next in Queue:</p>
+                    <p class="text-xs text-white font-bold italic uppercase">
+                        ${firstPending ? firstPending.name : '<span class="text-zinc-700">None</span>'}
+                    </p>
+                    <div class="w-2 h-2 rounded-full ${firstPending ? 'bg-yellow-500 animate-pulse' : 'bg-zinc-800'}"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${teams.map(t => `
+                    <div class="flex flex-col h-[400px] bg-zinc-900/50 border border-white/10 rounded-[2.5rem] overflow-hidden hover:border-red-600/30 transition-all group">
+                        <div class="p-6 pb-2">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-white font-black italic uppercase text-sm">${t.name}</h4>
+                                <span class="text-[10px] font-mono text-gray-500">${t.id}</span>
+                            </div>
+                            <div class="flex justify-between items-center mt-1">
+                                <p class="text-[9px] text-red-600 font-bold uppercase tracking-widest">Squad Capacity</p>
+                                <p class="text-[10px] text-white font-mono">${t.members.length}/${MAX_SQUAD_SIZE}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex-1 overflow-y-auto px-6 py-2 custom-scrollbar space-y-2">
+                            ${t.members.length > 0 ? t.members.map(m => `
+                                <div class="flex justify-between items-center p-3 bg-white/[0.03] border border-white/5 rounded-xl hover:bg-white/[0.06] transition-all group/member">
+                                    <p class="text-[10px] text-zinc-300 font-mono">/ ${m}</p>
+                                    <button onclick="firePlayer('${m}', '${t.id}')" class="text-red-600 opacity-0 group-hover/member:opacity-100 transition-all p-1">
+                                        <i class="fas fa-user-minus text-[10px]"></i>
+                                    </button>
+                                </div>`).join('') : `
+                                <div class="h-full flex flex-col items-center justify-center opacity-20">
+                                    <i class="fas fa-users-slash text-2xl mb-2"></i>
+                                    <p class="text-[8px] uppercase font-black">No Personnel</p>
+                                </div>
+                            `}
+                        </div>
+
+                        <div class="p-6 pt-2 mt-auto">
+                            <button onclick="assignPlayerToTeam(${firstPending ? firstPending.id : null}, '${t.id}')" 
+                                class="w-full py-4 rounded-xl text-[9px] font-black uppercase transition-all shadow-xl
+                                ${firstPending ? 'bg-red-600 text-white shadow-red-600/20 hover:bg-red-700' : 'bg-white/5 text-gray-600 cursor-not-allowed'}">
+                                ${firstPending ? `Assign Unit` : 'Queue Empty'}
+                            </button>
+                        </div>
+                    </div>`).join('')}
+            </div>
+        </div>`;
+}
+
+// --- 6. CORE LOGIC FUNCTIONS ---
+function saveLeagueData() {
+    localStorage.setItem('mikoko_players', JSON.stringify(players));
+    localStorage.setItem('mikoko_teams', JSON.stringify(teams));
+    startSystemSync();
+}
+
+function registerPlayer() {
+    const nameInput = document.getElementById('playerNameInput');
+    if (!nameInput || !nameInput.value.trim()) return;
+    players.push({ id: Date.now(), name: nameInput.value.trim(), status: 'Pending', team: 'Unassigned' });
+    saveLeagueData();
+    showGlobalAlert("fas fa-hourglass-half", "Entry Logged", "Awaiting Assignment.");
+    renderLeagueSystem('Player Selection'); 
+}
+
+function assignPlayerToTeam(playerId, teamId) {
+    if (!playerId) return;
+    const team = teams.find(t => t.id === teamId);
+    const player = players.find(p => p.id === playerId);
+    if (team.members.length >= MAX_SQUAD_SIZE) {
+        showGlobalAlert("fas fa-circle-xmark", "Squad Full", "Deployment failed.");
+        return;
+    }
+    player.status = 'Confirmed';
+    player.team = team.name;
+    team.members.push(player.name);
+    saveLeagueData();
+    showGlobalAlert("fas fa-check-double", "Success", "Player Deployed.");
+    executeAdminRender();
+}
+
+function firePlayer(playerName, teamId) {
+    const team = teams.find(t => t.id === teamId);
+    const player = players.find(p => p.name === playerName);
+    team.members = team.members.filter(m => m !== playerName);
+    if (player) { player.status = 'Pending'; player.team = 'Unassigned'; }
+    saveLeagueData();
+    executeAdminRender();
+}
+
+function showGlobalAlert(icon, title, message) {
+    const overlay = document.getElementById('globalAlert');
+    const titleEl = document.getElementById('alertTitle');
+    const msgEl = document.getElementById('alertMessage');
+    const iconEl = document.getElementById('alertIcon');
+    if (!overlay) return;
+    overlay.classList.remove('opacity-0', 'pointer-events-none');
+    iconEl.innerHTML = `<i class="${icon} text-red-600 text-5xl"></i>`;
+    titleEl.innerText = title;
+    msgEl.innerText = message;
+    setTimeout(() => overlay.classList.add('opacity-0', 'pointer-events-none'), 3000);
+}
+
+// --- 7. INITIALIZATION ---
+window.onload = () => {
+    startSystemSync();
+    updateView('Overview');
+};
