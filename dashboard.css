@@ -2,6 +2,7 @@
 
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-tap-highlight-color: transparent; /* Clean touch feedback */
 }
 
 /* Sidebar navigation */
@@ -11,12 +12,13 @@ body {
   gap: 8px;
 }
 
-/* Sidebar item */
+/* Sidebar item - Optimized for touch */
 .sidebar-item {
   display: flex;
   align-items: center;
   width: 100%;
   padding: 14px 18px;
+  min-height: 48px; /* Standard mobile touch target */
   border-radius: 14px;
   font-size: 0.95rem;
   color: #71717a;
@@ -29,7 +31,6 @@ body {
 .sidebar-item:hover:not(.active) {
   background: rgba(255, 255, 255, 0.04);
   color: #ffffff;
-  transform: translateX(4px);
 }
 
 /* Red Active State */
@@ -39,17 +40,29 @@ body {
   box-shadow: 0 10px 20px -5px rgba(220, 38, 38, 0.4);
 }
 
-/* Mobile sidebar */
-.mobile-sidebar {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 300px;
-  background: #070707;
-  border-right: 1px solid rgba(255,255,255,0.08);
-  padding: 30px;
-  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+/* Responsive Main Adjustments */
+@media (max-width: 768px) {
+  main {
+    padding: 1.5rem !important; /* Prevents overflow and saves screen space */
+  }
+
+  .stat-card {
+    padding: 20px !important;
+  }
+
+  .stat-value {
+    font-size: 1.75rem !important; /* Scale down text for small screens */
+  }
+
+  #mainDisplay {
+    padding: 1.25rem !important;
+    border-radius: 1.5rem !important;
+  }
+
+  /* Force grid to stack correctly on small phones */
+  .grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
 }
 
 /* Cards */
@@ -59,6 +72,7 @@ body {
   border-radius: 24px;
   padding: 24px;
   transition: all 0.3s ease;
+  height: 100%;
 }
 
 .stat-card:hover {
@@ -67,19 +81,14 @@ body {
     transform: translateY(-5px);
 }
 
-.stat-value {
-  font-size: 2.2rem;
-  font-weight: 800;
-  letter-spacing: -0.05em;
-  color: white;
+/* Modal and Alert Fixes */
+#modalContent, #alertBox {
+  width: 90% !important;
+  max-width: 380px;
+  margin: auto;
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #1a1a1f; border-radius: 10px; }
-
-@keyframes slideIn {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
-}
+::-webkit-scrollbar-thumb { background: rgba(220, 38, 38, 0.2); border-radius: 10px; }
