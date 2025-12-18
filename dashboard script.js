@@ -1580,21 +1580,44 @@ function generateTacticalLink() {
 }
 
 
-////// for the welcome modal // --- Modal Engine ---
+// --- Fixed Modal Engine ---
 
 function closeModal() {
     const modal = document.getElementById('welcomeModal');
     modal.classList.add('opacity-0');
+    // Ensure the pointer events don't block the dashboard after closing
+    modal.style.pointerEvents = 'none'; 
     setTimeout(() => {
         modal.style.display = 'none';
     }, 500);
 }
 
-// Check if user has already seen the welcome message this session
 window.onload = function() {
+    const modal = document.getElementById('welcomeModal');
+    
+    // IF YOU WANT IT TO SHOW EVERY SINGLE TIME YOU RELOAD:
+    // Simply remove the if/else and just use: modal.style.display = 'flex';
+    
     if (sessionStorage.getItem('mikoko_welcomed')) {
-        document.getElementById('welcomeModal').style.display = 'none';
+        // If already seen, remove it immediately
+        modal.style.display = 'none';
     } else {
-        sessionStorage.setItem('mikoko_welcomed', 'true');
+        // If first time, ensure it is set to flex (visible)
+        modal.style.display = 'flex';
+        // Only mark as 'welcomed' when they actually CLICK the close button
+        // This makes testing easier!
     }
+}
+
+// Update your close function to set the item ONLY when they click the button
+function closeModal() {
+    const modal = document.getElementById('welcomeModal');
+    modal.classList.add('opacity-0');
+    
+    // Mark as welcomed now so it won't show on next reload
+    sessionStorage.setItem('mikoko_welcomed', 'true');
+    
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 500);
 }
