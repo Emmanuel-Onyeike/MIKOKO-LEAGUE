@@ -198,8 +198,8 @@ const contentData = {
                 </thead>
                 <tbody class="text-gray-300 font-medium">
                     ${[
-                        "Apex Predators", "Blaze FC", "Citadel United", "Dynamos SC", 
-                        "Elite Vanguard", "Ironbound FC", "Mamba FC", "Rangers FC"
+                        "NIL", "NIL", "NIL", "NIL", 
+                        "NIL", "NIL", "NIL", "NIL"
                     ].map((team, index) => `
                         <tr class="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors group ${index < 4 ? 'bg-green-500/[0.01]' : ''}">
                             <td class="py-4 pl-2 font-mono text-xs ${index < 4 ? 'text-green-500' : 'text-red-600'} font-bold">
@@ -517,88 +517,91 @@ const contentData = {
             <div class="absolute inset-0 bg-black/40 backdrop-blur-[2px] pointer-events-none"></div>
         </div>
     </div>`,
-    'News': `
-    <div class="space-y-8 animate-in pb-12">
+
+    
+   'News': `
+    <div class="space-y-8 animate-in pb-20">
         <div class="flex justify-between items-end">
             <div>
                 <h3 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-red-600">News Hub</h3>
-                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Network Feed: <span class="text-white">Priority Broadcast</span></p>
+                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Direct Feed: <span class="text-white">Admin TOGA // Authority Broadcast</span></p>
             </div>
             <span class="hidden md:block text-[10px] text-gray-600 font-mono uppercase tracking-widest">Date: 18.12.2025</span>
         </div>
 
         <div class="relative rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-red-600/20 bg-[#0a0a0a] group">
             <div class="grid grid-cols-1 lg:grid-cols-2">
-                <div class="relative h-[200px] lg:h-full bg-zinc-900 overflow-hidden">
+                <div class="relative h-[250px] lg:h-full bg-zinc-900 overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10"></div>
                     <div class="absolute inset-0 flex items-center justify-center text-red-600/10 group-hover:scale-110 transition-transform duration-700">
-                         <i class="fas fa-credit-card text-9xl"></i>
+                         <i class="fas fa-edit text-9xl"></i>
                     </div>
-                    <div class="absolute top-6 left-6 z-20">
-                        <span class="px-4 py-1.5 bg-green-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg animate-pulse">Live Now</span>
+                    <div class="absolute top-6 left-6 z-20 flex flex-col gap-2">
+                        <span class="px-4 py-1.5 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">7 Slots Available</span>
+                        <span class="px-4 py-1.5 bg-yellow-500 text-black text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Custom Naming Active</span>
                     </div>
                 </div>
 
                 <div class="p-8 md:p-10 flex flex-col justify-center">
-                    <span class="text-[10px] text-gray-500 font-mono uppercase mb-4">Broadcast: Dec 18, 2025 // Phase 01</span>
+                    <span class="text-[10px] text-red-500 font-black uppercase mb-4 tracking-[0.3em]">Franchise Acquisition</span>
                     <h4 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-white leading-none mb-6">
-                        MIKOKO League <br><span class="text-red-600 text-xl md:text-2xl">Entry Window Official</span>
+                        Own a Team <br><span class="text-red-600 text-xl md:text-4xl">Name Your Legacy</span>
                     </h4>
                     <p class="text-gray-400 text-[11px] md:text-sm uppercase leading-relaxed font-bold tracking-wide mb-8">
-                        The 8-team elite circuit is now accepting registrations. Fee is set at <span class="text-white">₦2,000</span>. Slots are strictly limited to the first 8 verified managers.
+                        The ₦4,000 ownership fee grants you full control. <span class="text-white">When you purchase a team, you choose the name.</span> Define your brand, secure your slot, and lead your squad to the Glory Cup.
                     </p>
-                    <button onclick="updateView('Mikoko Payment')" class="w-full md:w-max px-8 py-4 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-black transition-all">Proceed to Terminal</button>
+                    <div class="flex flex-col gap-4">
+                        <button onclick="updateView('Mikoko Payment')" class="w-full md:w-max px-8 py-4 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-black transition-all">Claim & Name Your Team</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <div class="bg-white/[0.02] border border-white/5 rounded-[2rem] p-6 hover:border-red-600/30 transition-all group">
+        <div class="bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 opacity-5">
+                <i class="fas fa-users text-[15rem]"></i>
+            </div>
+            <div class="relative z-10">
+                <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.4em]">Planning Committee</span>
+                <h4 class="text-2xl font-black italic text-white uppercase mt-2 mb-6">Official Oversight</h4>
+                <p class="text-gray-400 text-xs md:text-sm font-bold uppercase leading-relaxed mb-8 max-w-2xl">
+                    Administered by <span class="text-white font-black italic">TOGA, HASSAN, UGO, ONANA, ZUBBY, DIVINE (White Money), and DERRICK.</span> Decisions and announcements from this group are the only official sources of truth.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    ${['TOGA', 'HASSAN', 'UGO', 'ONANA', 'ZUBBY', 'DIVINE', 'DERRICK'].map(name => `
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-[9px] text-gray-400 font-bold uppercase tracking-widest">${name}</span>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white/[0.02] border border-white/10 rounded-[2rem] p-6 hover:border-red-600/30 transition-all group">
                 <div class="w-10 h-10 bg-red-600/10 rounded-xl flex items-center justify-center mb-6 border border-red-600/20">
-                    <i class="fas fa-sitemap text-red-600 text-sm"></i>
+                    <i class="fas fa-receipt text-red-500 text-sm"></i>
                 </div>
-                <span class="text-[9px] text-red-500 font-black uppercase tracking-widest">Structural Update</span>
-                <h5 class="text-white font-black uppercase italic tracking-tighter text-lg mt-2 mb-3 font-mono">Elite-8 Format Adopted</h5>
+                <span class="text-[9px] text-red-500 font-black uppercase tracking-widest">Payment Security</span>
+                <h5 class="text-white font-black uppercase italic tracking-tighter text-lg mt-2 mb-3">Receipt Confirmation</h5>
                 <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed mb-6">
-                    League has shifted to an 8-team format to increase competition density. Top 4 will advance to the Glory Champion Cup Semi-Finals.
+                    Mikoko League payment has officially begun. Use the transfer section on this site. <span class="text-white">After payment, send your receipt to TOGA's DM for validation.</span>
                 </p>
-                <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-                    <span class="text-[9px] text-gray-600 font-mono uppercase">Status: Finalized</span>
-                </div>
+                <div class="pt-4 border-t border-white/5 text-[9px] text-gray-600 font-mono uppercase italic">Only Valid Channel: MIKOKO TERMINAL</div>
             </div>
 
-            <div class="bg-white/[0.02] border border-white/5 rounded-[2rem] p-6 hover:border-yellow-600/30 transition-all group">
-                <div class="w-10 h-10 bg-yellow-600/10 rounded-xl flex items-center justify-center mb-6 border border-yellow-600/20">
-                    <i class="fas fa-user-shield text-yellow-500 text-sm"></i>
+            <div class="bg-white/[0.02] border border-white/10 rounded-[2rem] p-6 hover:border-white/30 transition-all group">
+                <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center mb-6 border border-white/20">
+                    <i class="fas fa-user-tie text-white text-sm"></i>
                 </div>
-                <span class="text-[9px] text-yellow-500 font-black uppercase tracking-widest">Pending Notice</span>
-                <h5 class="text-white font-black uppercase italic tracking-tighter text-lg mt-2 mb-3">Roster Lockdown</h5>
+                <span class="text-[9px] text-gray-400 font-black uppercase tracking-widest">Manager Protocol</span>
+                <h5 class="text-white font-black uppercase italic tracking-tighter text-lg mt-2 mb-3">Franchise Slot Count</h5>
                 <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed mb-6">
-                    Final squad submission window opens after the payment phase. Ensure your scouting is complete for the 8-team draft.
+                    1 Slot already claimed. 7 Remaining. Once all 8 franchises are sold, the ownership window closes. Secure your spot to participate in the upcoming Season 03.
                 </p>
-                <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-                    <span class="text-[9px] text-gray-600 font-mono uppercase">ETA: Jan 2026</span>
-                </div>
+                <div class="pt-4 border-t border-white/5 text-[9px] text-gray-600 font-mono uppercase italic">Ownership: ₦4,000 // Player: ₦2,000</div>
             </div>
-
-            <div class="bg-white/[0.02] border border-white/5 rounded-[2rem] p-6 hover:border-blue-600/30 transition-all group">
-                <div class="w-10 h-10 bg-blue-600/10 rounded-xl flex items-center justify-center mb-6 border border-blue-600/20">
-                    <i class="fas fa-trophy text-blue-500 text-sm"></i>
-                </div>
-                <span class="text-[9px] text-blue-500 font-black uppercase tracking-widest">Tournament Intel</span>
-                <h5 class="text-white font-black uppercase italic tracking-tighter text-lg mt-2 mb-3">Glory Cup Mechanics</h5>
-                <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed mb-6">
-                    Qualified Top 4 teams will enter a high-stakes knockout bracket. 1st vs 4th, 2nd vs 3rd. Single leg eliminations.
-                </p>
-                <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-                    <span class="text-[9px] text-gray-600 font-mono uppercase">Prize: MIKOKO Cup</span>
-                </div>
-            </div>
-
         </div>
     </div>`,
-
+    
    'Goals Leaderboard': `
 <div class="space-y-8 animate-in">
     <div class="flex flex-col lg:flex-row gap-8">
@@ -934,24 +937,24 @@ const contentData = {
 
 /**
  * MIKOKO LEAGUE FULL SYSTEM SCRIPT
- * Version: 6.0 (Unified & Fixed Navigation)
+ * Version: 7.0 (Franchise Naming Protocol)
  */
 
-// --- 1. GLOBAL DATABASE STATE (UPDATED FOR 8 TEAMS) ---
+// --- 1. GLOBAL DATABASE STATE (8 TEAMS - DEFAULT NIL) ---
 let players = JSON.parse(localStorage.getItem('mikoko_players')) || [];
 let teams = JSON.parse(localStorage.getItem('mikoko_teams')) || [
-    { id: '01A', name: "Apex Predators", members: [] },
-    { id: '02B', name: "Blaze FC", members: [] },
-    { id: '03C', name: "Citadel United", members: [] },
-    { id: '04D', name: "Dynamos SC", members: [] },
-    { id: '05E', name: "Elite Vanguard", members: [] },
-    { id: '06I', name: "Ironbound FC", members: [] },
-    { id: '07M', name: "Mamba FC", members: [] },
-    { id: '08R', name: "Rangers FC", members: [] }
+    { id: '01A', name: "NIL", members: [] },
+    { id: '02B', name: "NIL", members: [] },
+    { id: '03C', name: "NIL", members: [] },
+    { id: '04D', name: "NIL", members: [] },
+    { id: '05E', name: "NIL", members: [] },
+    { id: '06I', name: "NIL", members: [] },
+    { id: '07M', name: "NIL", members: [] },
+    { id: '08R', name: "NIL", members: [] }
 ];
 
 const MAX_SQUAD_SIZE = 10;
-const TOTAL_SLOTS = 80; // 8 teams * 10 players
+const TOTAL_SLOTS = 80; 
 const ADMIN_PASSCODE = "123789";
 
 // --- 2. MASTER UI CONTROLLER ---
@@ -1007,7 +1010,6 @@ function startSystemSync() {
 
     const timerElement = document.getElementById('countdownTimer');
     if (timerElement) {
-        // Updated to reflect the Jan 2026 Season Start
         const targetDate = new Date("Jan 1, 2026 00:00:00").getTime();
         const now = new Date().getTime();
         const distance = targetDate - now;
@@ -1019,7 +1021,7 @@ function startSystemSync() {
     }
 }
 
-// --- 4. HASHED ADMIN AUTH ---
+// --- 4. ADMIN AUTH ---
 function openAuthPortal() {
     const portal = document.getElementById('adminAuthPortal');
     const input = document.getElementById('adminPassInput');
@@ -1105,8 +1107,8 @@ function executeAdminRender() {
         <div class="space-y-8 animate-in pb-20">
             <div class="bg-red-600/10 border border-red-600/20 p-6 rounded-[2rem] flex flex-col md:flex-row justify-between items-center gap-4 backdrop-blur-md">
                 <div>
-                    <h3 class="text-white font-black uppercase italic">Elite-8 Admin Terminal</h3>
-                    <p class="text-[9px] text-red-500 font-bold uppercase tracking-widest">Squad Management Protocol</p>
+                    <h3 class="text-white font-black uppercase italic">Franchise Admin Terminal</h3>
+                    <p class="text-[9px] text-red-500 font-bold uppercase tracking-widest">Elite-8 Control Module</p>
                 </div>
                 <div class="bg-black/50 px-4 py-3 rounded-xl border border-white/10 flex items-center gap-3">
                     <span class="text-[9px] text-gray-500 uppercase font-black">Next In Queue:</span>
@@ -1118,10 +1120,11 @@ function executeAdminRender() {
                 ${teams.map(t => `
                     <div class="flex flex-col h-[400px] bg-zinc-900/50 border border-white/10 rounded-[2rem] overflow-hidden group hover:border-red-600/30 transition-all">
                         <div class="p-5 pb-2">
-                            <h4 class="text-white font-black italic uppercase text-sm truncate">${t.name}</h4>
-                            <div class="flex justify-between mt-1">
-                                <p class="text-[9px] text-red-600 font-bold uppercase tracking-widest">${t.members.length}/10 UNIT CAPACITY</p>
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-white font-black italic uppercase text-sm truncate ${t.name === 'NIL' ? 'text-gray-600' : 'text-white'}">${t.name}</h4>
+                                <button onclick="renameTeam('${t.id}')" class="text-[10px] text-red-600 hover:text-white"><i class="fas fa-pen"></i></button>
                             </div>
+                            <p class="text-[9px] text-red-600 font-bold uppercase tracking-widest mt-1">${t.members.length}/10 UNITS</p>
                         </div>
 
                         <div class="flex-1 overflow-y-auto px-5 py-2 custom-scrollbar space-y-2">
@@ -1131,14 +1134,14 @@ function executeAdminRender() {
                                     <button onclick="firePlayer('${m}', '${t.id}')" class="text-red-600 opacity-0 group-hover/item:opacity-100 transition-all">
                                         <i class="fas fa-trash-alt text-[10px]"></i>
                                     </button>
-                                </div>`).join('') || '<div class="h-full flex flex-col items-center justify-center opacity-10 gap-2"><i class="fas fa-users-slash text-2xl"></i><span class="text-[8px] font-black uppercase">Unmanned</span></div>'}
+                                </div>`).join('') || '<div class="h-full flex flex-col items-center justify-center opacity-10 gap-2"><i class="fas fa-shield-blank text-2xl"></i><span class="text-[8px] font-black uppercase italic">Empty Slot</span></div>'}
                         </div>
 
                         <div class="p-5 pt-2 mt-auto">
                             <button onclick="assignPlayerToTeam(${firstPending ? firstPending.id : null}, '${t.id}')" 
                                 class="w-full py-4 rounded-xl text-[9px] font-black uppercase transition-all 
-                                ${firstPending && t.members.length < MAX_SQUAD_SIZE ? 'bg-red-600 text-white shadow-lg shadow-red-600/20' : 'bg-white/5 text-gray-600 cursor-not-allowed'}">
-                                ${firstPending ? (t.members.length < MAX_SQUAD_SIZE ? 'Assign Member' : 'Squad Full') : 'Empty Queue'}
+                                ${firstPending && t.members.length < MAX_SQUAD_SIZE ? 'bg-red-600 text-white shadow-lg' : 'bg-white/5 text-gray-600 cursor-not-allowed'}">
+                                ${firstPending ? (t.members.length < MAX_SQUAD_SIZE ? 'Assign' : 'Full') : 'Queue Empty'}
                             </button>
                         </div>
                     </div>`).join('')}
@@ -1151,6 +1154,25 @@ function saveLeagueData() {
     localStorage.setItem('mikoko_players', JSON.stringify(players));
     localStorage.setItem('mikoko_teams', JSON.stringify(teams));
     startSystemSync();
+}
+
+function renameTeam(teamId) {
+    const team = teams.find(t => t.id === teamId);
+    const newName = prompt("ENTER NEW FRANCHISE NAME:", team.name === "NIL" ? "" : team.name);
+    
+    if (newName && newName.trim() !== "") {
+        const oldName = team.name;
+        team.name = newName.trim().toUpperCase();
+        
+        // Update all players currently in this team
+        players.forEach(p => {
+            if (p.team === oldName) p.team = team.name;
+        });
+
+        saveLeagueData();
+        executeAdminRender();
+        showGlobalAlert("fas fa-id-card", "Franchise Branded", `Team ${teamId} is now ${team.name}`);
+    }
 }
 
 function registerPlayer() {
@@ -1174,8 +1196,13 @@ function assignPlayerToTeam(playerId, teamId) {
     const team = teams.find(t => t.id === teamId);
     const player = players.find(p => p.id === playerId);
     
+    if (team.name === "NIL") {
+        showGlobalAlert("fas fa-lock", "Access Denied", "Purchase franchise to unlock team assignment.");
+        return;
+    }
+
     if (team.members.length >= MAX_SQUAD_SIZE) {
-        showGlobalAlert("fas fa-users", "Squad Full", "Max capacity reached for this team.");
+        showGlobalAlert("fas fa-users", "Squad Full", "Max capacity reached.");
         return;
     }
 
@@ -1185,19 +1212,14 @@ function assignPlayerToTeam(playerId, teamId) {
     
     saveLeagueData();
     executeAdminRender();
-    showGlobalAlert("fas fa-check-double", "Unit Deployed", `${player.name} assigned to ${team.name}.`);
+    showGlobalAlert("fas fa-check-double", "Unit Deployed", `${player.name} joined ${team.name}.`);
 }
 
 function firePlayer(playerName, teamId) {
     const team = teams.find(t => t.id === teamId);
     const player = players.find(p => p.name === playerName);
-    
     team.members = team.members.filter(m => m !== playerName);
-    if (player) { 
-        player.status = 'Pending'; 
-        player.team = 'Unassigned'; 
-    }
-    
+    if (player) { player.status = 'Pending'; player.team = 'Unassigned'; }
     saveLeagueData();
     executeAdminRender();
 }
@@ -1217,7 +1239,6 @@ window.onload = () => {
     startSystemSync();
     updateView('Overview');
 };
-
 /**
  * MIKOKO LEAGUE - DEDICATED LEADERBOARD ENGINE
  * Handles Expansion and Display for Goals & Assists
