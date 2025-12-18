@@ -6,7 +6,6 @@
     <title>MIKOKO League – Command Center</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="dashboard.css" />
@@ -87,25 +86,13 @@
     </a>
 </div>
 
-       <div class="mt-auto pt-6 pb-4">
+        <div class="mt-auto pt-6 pb-4">
             <div class="h-[1px] w-full bg-white/5 mb-4"></div>
-            
-            <a onclick="updateView('Team Lab')" class="sidebar-item group">
-                <i class="fas fa-flask w-6 group-hover:text-red-600 transition-colors"></i> 
-                <span>Team Lab</span>
+            <a class="sidebar-item opacity-30 cursor-not-allowed">
+                <i class="fas fa-users w-6"></i> <span>Team Lab</span>
             </a>
-
-            <a onclick="updateView('Pure Stream')" class="sidebar-item group">
-                <i class="fas fa-play-circle w-6 group-hover:text-red-600 transition-colors"></i> 
-                <span>Pure Stream</span>
-            </a>
-
-            <a onclick="updateView('Messages')" class="sidebar-item group">
-                <div class="relative">
-                    <i class="fas fa-comment-alt w-6 group-hover:text-red-600 transition-colors"></i>
-                    <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
-                </div>
-                <span>Messages</span>
+            <a class="sidebar-item opacity-30 cursor-not-allowed">
+                <i class="fas fa-stream w-6"></i> <span>Pure Stream</span>
             </a>
         </div>
     </nav>
@@ -122,9 +109,8 @@
         </p>
     </header>
 
-<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    
-    <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="stat-card flex items-center justify-between p-6">
         <div>
             <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Tactical Units</p>
             <p class="stat-value text-2xl font-black italic text-white uppercase tracking-tighter">12 Teams</p>
@@ -134,7 +120,7 @@
         </div>
     </div>
 
-    <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
+    <div class="stat-card flex items-center justify-between p-6">
         <div>
             <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Combat History</p>
             <p class="stat-value text-2xl font-black italic text-white">0 <span class="text-[10px] text-gray-600 not-italic ml-1">MATCHES</span></p>
@@ -144,7 +130,7 @@
         </div>
     </div>
 
-    <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
+    <div class="stat-card flex items-center justify-between p-6">
         <div>
             <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Total Payload</p>
             <p class="stat-value text-2xl font-black italic text-white">0 <span class="text-[10px] text-gray-600 not-italic ml-1">GOALS</span></p>
@@ -154,6 +140,7 @@
         </div>
     </div>
 
+   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
     <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
         <div>
             <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Total Registry</p>
@@ -183,6 +170,7 @@
             <i class="fas fa-bolt text-red-600 text-xl animate-pulse"></i>
         </div>
     </div>
+
 </section>
 <div id="fixtureModal" class="fixed inset-0 z-[10000] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
     <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closeFixtureModal()"></div>
@@ -221,89 +209,22 @@
     </div>
 </div>
 
-<div id="adminAuthPortal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl hidden opacity-0 transition-all duration-500">
-    <div class="w-full max-w-md p-1 border-t border-b border-red-600/30 bg-zinc-900/20">
-        <div class="bg-black p-8 text-center space-y-6">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-600/10 border border-red-600/20 mb-2">
-                <i class="fas fa-fingerprint text-red-600 text-3xl animate-pulse"></i>
+<div id="secureTerminal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500">
+    <div id="terminalBox" class="bg-zinc-900 border border-red-600/30 p-8 rounded-[2.5rem] w-full max-w-md transform scale-95 transition-all duration-500 shadow-2xl shadow-red-600/10">
+        <div class="text-center mb-6">
+            <div class="w-16 h-16 bg-red-600/10 rounded-2xl flex items-center justify-center border border-red-600/20 mx-auto mb-4">
+                <i class="fas fa-fingerprint text-red-600 text-3xl"></i>
             </div>
-            <div>
-                <h2 class="text-white font-black uppercase italic tracking-tighter text-xl">Authorization Required</h2>
-                <p class="text-[9px] text-gray-500 uppercase tracking-[0.3em] mt-1">Protocol Alpha // Secure Node 01</p>
-            </div>
-            
-            <input type="password" id="adminPassInput" placeholder="ENTER ACCESS KEY" 
-                class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-center text-red-600 font-mono tracking-[1em] focus:outline-none focus:border-red-600 transition-all">
-            
-            <div class="flex gap-3">
-                <button onclick="closeAuthPortal()" class="flex-1 py-3 text-[10px] font-black uppercase text-gray-500 hover:text-white transition-colors">Abort</button>
-                <button onclick="verifyAdminAccess()" class="flex-1 py-3 bg-red-600 text-white text-[10px] font-black uppercase italic rounded-lg shadow-lg shadow-red-600/20">Verify Identity</button>
-            </div>
+            <h3 class="text-xl font-black text-white uppercase italic">Security Protocol</h3>
+            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Authorization Required</p>
+        </div>
+        <input type="password" id="terminalPass" placeholder="••••••" class="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 text-center text-2xl tracking-[1em] text-red-600 focus:outline-none focus:border-red-600 mb-4">
+        <div class="flex gap-3">
+            <button onclick="closeSecureTerminal()" class="flex-1 py-4 bg-white/5 hover:bg-white/10 text-gray-400 font-black uppercase italic rounded-xl transition-all text-[10px]">Abort</button>
+            <button onclick="verifySecureAccess()" class="flex-1 py-4 bg-red-600 hover:bg-red-700 text-white font-black uppercase italic rounded-xl transition-all text-[10px]">Authorize</button>
         </div>
     </div>
 </div>
-   
- <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    
-    <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
-        <div>
-            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Tactical Units</p>
-            <p class="stat-value text-2xl font-black italic text-white uppercase tracking-tighter">8 Teams</p>
-        </div>
-        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
-            <i class="fas fa-shield-halved text-red-600 text-xl"></i>
-        </div>
-    </div>
-
-    <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
-        <div>
-            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Combat History</p>
-            <p class="stat-value text-2xl font-black italic text-white">0 <span class="text-[10px] text-gray-600 not-italic ml-1">MATCHES</span></p>
-        </div>
-        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
-            <i class="fas fa-stopwatch text-red-600 text-xl"></i>
-        </div>
-    </div>
-
-    <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
-        <div>
-            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Total Payload</p>
-            <p class="stat-value text-2xl font-black italic text-white">0 <span class="text-[10px] text-gray-600 not-italic ml-1">GOALS</span></p>
-        </div>
-        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
-            <i class="fas fa-soccer-ball text-red-600 text-xl"></i>
-        </div>
-    </div>
-
-    <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
-        <div>
-            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Total Registry</p>
-            <p id="stat-total-players" class="stat-value text-2xl font-black italic text-white uppercase tracking-tighter">0</p>
-        </div>
-        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
-            <i class="fas fa-users text-red-600 text-xl"></i>
-        </div>
-    </div>
-
-    <div class="stat-card flex items-center justify-between p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
-        <div>
-            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Deployed Agents</p>
-            <p id="stat-confirmed-players" class="stat-value text-2xl font-black italic text-white uppercase tracking-tighter">0</p>
-        </div>
-        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
-            <i class="fas fa-check-double text-red-600 text-xl"></i>
-        </div>
-    </div>
-
-    <div class="stat-card flex items-center justify-between p-6 border border-red-600/20 bg-red-600/[0.02] rounded-[2rem]">
-        <div>
-            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Awaiting Orders</p>
-            <p id="stat-pending-players" class="stat-value text-2xl font-black italic text-red-600 uppercase tracking-tighter">0</p>
-        </div>
-        <div class="w-12 h-12 bg-red-600/10 rounded-2xl flex items-center justify-center border border-red-600/20">
-            <i class="fas fa-bolt text-red-600 text-xl animate-pulse"></i>
-        </div>
-    </div>
     <div id="mainDisplay" class="mt-10 bg-[#070707] border border-white/5 rounded-[2.5rem] p-10 min-h-[500px] transition-all duration-500">
     </div>
 </main>
