@@ -86,13 +86,25 @@
     </a>
 </div>
 
-        <div class="mt-auto pt-6 pb-4">
+       <div class="mt-auto pt-6 pb-4">
             <div class="h-[1px] w-full bg-white/5 mb-4"></div>
-            <a class="sidebar-item opacity-30 cursor-not-allowed">
-                <i class="fas fa-users w-6"></i> <span>Team Lab</span>
+            
+            <a onclick="updateView('Team Lab')" class="sidebar-item group">
+                <i class="fas fa-flask w-6 group-hover:text-red-600 transition-colors"></i> 
+                <span>Team Lab</span>
             </a>
-            <a class="sidebar-item opacity-30 cursor-not-allowed">
-                <i class="fas fa-stream w-6"></i> <span>Pure Stream</span>
+
+            <a onclick="updateView('Pure Stream')" class="sidebar-item group">
+                <i class="fas fa-play-circle w-6 group-hover:text-red-600 transition-colors"></i> 
+                <span>Pure Stream</span>
+            </a>
+
+            <a onclick="updateView('Messages')" class="sidebar-item group">
+                <div class="relative">
+                    <i class="fas fa-comment-alt w-6 group-hover:text-red-600 transition-colors"></i>
+                    <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+                </div>
+                <span>Messages</span>
             </a>
         </div>
     </nav>
