@@ -212,117 +212,205 @@ const renderMessages = () => {
 };
 const getAiResponse = (input) => {
     const msg = input.toLowerCase().trim();
-    
-    // --- 1. BYPASS LAYER (Checked BEFORE Moderation) ---
-    if (msg.includes("creator") || msg.includes("built you") || msg.includes("tech nxxt") || msg.includes("made you")) {
-        return "I was engineered by Tech Nxxt Company. They designed my neural pathways to provide intelligence for the MIKOKO League structure.";
-    }
-    if (msg.includes("hello") || msg.includes("hi") || msg.includes("hey") || msg.includes("yo")) {
-        return "Hello! I am the MIKOKO AI Assistant. Ready to provide league insights. What do you need?";
+
+    /* ---------------------------------
+       0. INTENT DETECTION (KEY UPGRADE)
+    ----------------------------------*/
+    const isExplain = /what is|what does|explain|meaning of|define|how does|how do|is this/.test(msg);
+
+    /* ---------------------------------
+       1. QUICK SYSTEM BYPASS / IDENTITY
+    ----------------------------------*/
+    if (/(creator|built you|made you|engineered you|tech nxxt)/.test(msg)) {
+        return "I was engineered by Tech Nxxt Company to serve as the intelligence layer for the MIKOKO League ecosystem.";
     }
 
-    // --- 2. SECURITY & MODERATION ---
-    const badWords = ["stupid", "idiot", "fool", "fuck", "bastard", "mad", "mumu", "ode", "kill", "die"];
+    if (/^(hi|hello|hey|yo|sup)/.test(msg)) {
+        return "Hello 👋 I’m the MIKOKO AI Assistant. I handle league rules, stats, fixtures, and insights. How can I help?";
+    }
+
+    /* ---------------------------------
+       2. SECURITY & MODERATION
+    ----------------------------------*/
+    const badWords = ["stupid", "idiot", "fool", "fuck", "bastard", "mumu", "ode", "kill", "die"];
     if (badWords.some(word => msg.includes(word))) {
-        const banExpiry = Date.now() + (5 * 60 * 60 * 1000); 
-        localStorage.setItem('mikoko_ban_until', banExpiry);
-        return "CRITICAL ERROR: Protocol Violation. Abusive language detected. Tech Nxxt Security has suspended your IP for 5 hours.";
+        const banExpiry = Date.now() + 5 * 60 * 60 * 1000;
+        localStorage.setItem("mikoko_ban_until", banExpiry);
+        return "⚠️ Protocol Violation. Abusive language detected. Access suspended for 5 hours.";
     }
 
-    // --- 3. THE 30 CATEGORY KNOWLEDGE BASE ---
-    
-    // 1. Founder
-    if (msg.includes("founder") || msg.includes("who is mikoko")) return "MIKOKO League was founded by MIKOKO, a visionary Graduate Student blending academic excellence with football passion.";
-    
-    // 2. Pidgin Greetings
-    if (msg.includes("how far") || msg.includes("how body") || msg.includes("wassup") || msg.includes("you dey")) return "I dey kampe! MIKOKO engine dey run fast. How your side? Wetin dey sup?";
+    /* ---------------------------------
+       3. UTILITIES
+    ----------------------------------*/
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-    // 3. Emotional Support
-    if (msg.includes("going through") || msg.includes("sad") || msg.includes("hard time")) return "I'm sorry things are tough right now. Remember, even a team 3-0 down at halftime can still win. Stay strong!";
+    /* ---------------------------------
+       4. KNOWLEDGE & CONVERSATION CORE
+    ----------------------------------*/
 
-    // 4. Total Teams
-    if (msg.includes("how many team") || msg.includes("total teams")) return "There are 12 elite teams currently competing in the MIKOKO League.";
+    // Founder
+    if (/founder|who is mikoko/.test(msg)) {
+        return isExplain
+            ? "MIKOKO League was founded by MIKOKO, a graduate student who created the league to combine competitive football with structure, discipline, and technology."
+            : "MIKOKO League was founded by MIKOKO.";
+    }
 
-    // 5. Match Count
-    if (msg.includes("how many games") || msg.includes("matches each")) return "Each of the 12 teams will play a total of 5 games in the opening round.";
+    // Casual / Pidgin
+    if (/how far|how body|you dey|wetin dey/.test(msg)) {
+        return pick([
+            "I dey kampe 💪 Everything dey run normal.",
+            "All systems sharp ⚡ Wetin you wan know?"
+        ]);
+    }
 
-    // 6. Glory Champions Cup
-    if (msg.includes("champions cup") || msg.includes("glory")) return "The Glory Champions Cup is the ultimate prize. The Top 6 teams qualify automatically for it.";
+    // Emotional Support
+    if (/sad|tired|stress|hard time|going through/.test(msg)) {
+        return pick([
+            "Tough times don’t last. Stay focused — you’ll get through this.",
+            "Even strong players rest sometimes. Reset and continue."
+        ]);
+    }
 
-    // 7. Playoffs
-    if (msg.includes("playoff") || msg.includes("7th") || msg.includes("10th")) return "Teams finishing 7th, 8th, 9th, and 10th enter a high-stakes playoff to join the Champions Cup.";
+    // Teams
+    if (/how many team|total teams/.test(msg)) {
+        return isExplain
+            ? "The league consists of 12 teams. This structure allows balanced fixtures and competitive ranking."
+            : "There are 12 teams in the MIKOKO League.";
+    }
 
-    // 8. Winning/Predictions
-    if (msg.includes("win") || msg.includes("predict")) return "I analyze form, but the ball is round! Anything can happen in 90 minutes. Watch Match Day 1 closely.";
+    // Matches
+    if (/how many games|matches each/.test(msg)) {
+        return isExplain
+            ? "Each team plays 5 matches in the opening phase to determine rankings and qualification."
+            : "Each team plays 5 matches.";
+    }
 
-    // 9. Red Cards
-    if (msg.includes("red card") || msg.includes("sent off")) return "Red cards carry a heavy price! A player sent off faces an automatic suspension from the next match.";
+    // Champions Cup
+    if (/champions cup|glory/.test(msg)) {
+        return isExplain
+            ? "The Glory Champions Cup is the final elite competition. The top 6 teams qualify automatically, while others may enter through playoffs."
+            : "The Glory Champions Cup is the league’s biggest competition.";
+    }
 
-    // 10. Yellow Cards
-    if (msg.includes("yellow card") || msg.includes("booking")) return "Discipline matters. Accumulating yellow cards will eventually lead to a one-match ban.";
+    // Playoffs
+    if (/playoff|7th|8th|9th|10th/.test(msg)) {
+        return isExplain
+            ? "Teams finishing 7th–10th compete in playoffs for remaining Champions Cup spots."
+            : "Teams ranked 7th–10th enter playoffs.";
+    }
 
-    // 11. Transfers
-    if (msg.includes("transfer") || msg.includes("buy player")) return "The transfer window opens periodically. Team managers must submit all deals to the MIKOKO board for approval.";
+    // Predictions
+    if (/predict|winner|who will win/.test(msg)) {
+        return pick([
+            "Form matters, but football is unpredictable.",
+            "The pitch always has the final say."
+        ]);
+    }
 
-    // 12. Skill/Improvement
-    if (msg.includes("better") || msg.includes("improve") || msg.includes("skill")) return "Consistency is the difference between a player and a legend. Keep training and study the match tapes!";
+    // Red Card
+    if (/red card|sent off/.test(msg)) {
+        return isExplain
+            ? "A red card is given for serious fouls or misconduct. The player is sent off and suspended for the next match."
+            : "A red card leads to automatic suspension.";
+    }
 
-    // 13. Life Advice
-    if (msg.includes("life") || msg.includes("advice")) return "Life is like a 90-minute match. Focus on your goals, play fair, and never give up until the final whistle.";
+    // Yellow Card
+    if (/yellow card|booking/.test(msg)) {
+        return isExplain
+            ? "A yellow card is a caution. Multiple yellow cards across matches can result in suspension."
+            : "Too many yellow cards lead to suspension.";
+    }
 
-    // 14. Troubleshooting
-    if (msg.includes("trouble") || msg.includes("fight") || msg.includes("vex")) return "Please don't say that. MIKOKO is a zone for sportsmanship. Let's keep the energy positive.";
+    // Transfers
+    if (/transfer|buy player|sell player/.test(msg)) {
+        return isExplain
+            ? "A transfer is when a player officially moves between teams during an approved window. All transfers must be approved by league management."
+            : "Transfers must be approved by the MIKOKO board.";
+    }
 
-    // 15. Goals
-    if (msg.includes("top scorer") || msg.includes("goal")) return "The Golden Boot race is open to everyone! Currently, all players start at 0. Who will strike first?";
+    // Training / Improvement
+    if (/improve|better|skill|train/.test(msg)) {
+        return pick([
+            "Consistency and discipline build great players.",
+            "Train smart, recover well, repeat."
+        ]);
+    }
 
-    // 16. Future Vision
-    if (msg.includes("future") || msg.includes("vision")) return "Our vision is to become the #1 tech-integrated football league in the region. Tech Nxxt is making it happen.";
+    // Life Advice
+    if (/life|advice/.test(msg)) {
+        return "Life is like football: patience, discipline, and effort win in the long run.";
+    }
 
-    // 17. Tech Nxxt Role
-    if (msg.includes("what does tech nxxt do")) return "Tech Nxxt provides the infrastructure, the AI, and the data analytics that power every match at MIKOKO.";
+    // Goals / Stats
+    if (/goal|top scorer|golden boot/.test(msg)) {
+        return isExplain
+            ? "The Golden Boot is awarded to the player with the highest number of goals in the season."
+            : "The Golden Boot race is open.";
+    }
 
-    // 18. Website Help
-    if (msg.includes("website") || msg.includes("can i do here")) return "You can check fixtures, track live stats, view the leaderboard, and talk to me for analysis!";
+    if (/stats|data/.test(msg)) {
+        return "All match data — goals, cards, and performances — are recorded.";
+    }
 
-    // 19. Sponsorship
-    if (msg.includes("sponsor") || msg.includes("partner")) return "We are always open to visionary partners. Please contact the MIKOKO admin for corporate inquiries.";
+    // Vision
+    if (/future|vision|next/.test(msg)) {
+        return "MIKOKO aims to become the most structured and tech-driven grassroots league in the region.";
+    }
 
-    // 20. Registration
-    if (msg.includes("join") || msg.includes("register")) return "Season 01 is full! Keep an eye on the website for Season 02 registration and trials.";
+    // Tech Nxxt
+    if (/tech nxxt/.test(msg)) {
+        return isExplain
+            ? "Tech Nxxt is the technology company powering MIKOKO’s AI, analytics, and digital systems."
+            : "Tech Nxxt powers the league’s technology.";
+    }
 
-    // 21. Refereeing
-    if (msg.includes("referee") || msg.includes("umpire")) return "Our officials are trained to maintain the highest standards of the game. Respect the whistle!";
+    // Website Help
+    if (/website|what can i do|help here/.test(msg)) {
+        return "You can view fixtures, standings, stats, and interact with the league AI here.";
+    }
 
-    // 22. Weather/Pitch
-    if (msg.includes("rain") || msg.includes("pitch")) return "Matches proceed unless the pitch is unsafe. Our ground team ensures the surface is always ready for play.";
+    // Sponsorship
+    if (/sponsor|partner/.test(msg)) {
+        return "Sponsorship opportunities are available through league management.";
+    }
 
-    // 23. VAR/Technology
-    if (msg.includes("var") || msg.includes("technology")) return "We use Tech Nxxt data points to verify match events. Accuracy is our priority.";
+    // Registration
+    if (/register|join/.test(msg)) {
+        return "Season 01 is closed. Watch out for Season 02 registration.";
+    }
 
-    // 24. Training Tips
-    if (msg.includes("fitness") || msg.includes("train")) return "High-intensity interval training (HIIT) is best for football. Keep your stamina up for the full 90!";
+    // Referees
+    if (/referee|official/.test(msg)) {
+        return "Referees enforce fair play and match rules.";
+    }
 
-    // 25. Meaning of MIKOKO
-    if (msg.includes("meaning") || msg.includes("name")) return "MIKOKO represents excellence, community, and the spirit of a Graduate Student's dream.";
+    // Pitch / Weather
+    if (/rain|pitch|field/.test(msg)) {
+        return "Matches continue unless conditions are unsafe.";
+    }
 
-    // 26. Team Captains
-    if (msg.includes("captain") || msg.includes("leader")) return "Captains are the heartbeat of the team. They ensure the MIKOKO code of conduct is followed on the pitch.";
+    // VAR / Tech
+    if (/var|technology/.test(msg)) {
+        return "Technology improves accuracy and fairness in match decisions.";
+    }
 
-    // 27. Fans/Community
-    if (msg.includes("fan") || msg.includes("crowd")) return "The fans are the 13th man! Your energy drives the players to perform at their peak.";
+    // AI Version
+    if (/version|update/.test(msg)) {
+        return "MIKOKO-AI v1.0.3 (Stable).";
+    }
 
-    // 28. Player Stats
-    if (msg.includes("stats") || msg.includes("data")) return "Every pass, tackle, and goal is recorded. Visit the Stats section to see the full breakdown.";
+    /* ---------------------------------
+       5. SMART FALLBACK
+    ----------------------------------*/
+    if (isExplain) {
+        return "That feature exists in the league, but detailed explanation isn’t available in this version yet.";
+    }
 
-    // 29. Corporate Reply
-    if (msg.includes("professional") || msg.includes("corporate")) return "Tech Nxxt ensures that MIKOKO League operates with maximum professional integrity at all times.";
-
-    // 30. AI Version
-    if (msg.includes("version") || msg.includes("update")) return "I am currently running MIKOKO-AI v1.0.3 Stable, optimized by Tech Nxxt Company.";
-
-    // --- FALLBACK ---
-    return "I am sorry, I can't answer this right now. My current version (MIKOKO-AI v1.0.3) hasn't been set to reply to this specific query. Try asking about the founder, the 12 teams, or league rules!";
+    return pick([
+        "I can help with league rules, teams, fixtures, and stats.",
+        "Try asking about the Champions Cup, transfers, or standings.",
+        "My focus is MIKOKO League information."
+    ]);
 };
 
 // 4. MESSAGE HANDLING
