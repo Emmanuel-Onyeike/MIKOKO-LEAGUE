@@ -78,7 +78,7 @@ const contentData = {
                             <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-3 border border-white/5 group-hover:border-red-600/50 transition-colors">
                                 <i class="fas fa-shield-halved text-2xl text-white"></i>
                             </div>
-                            <p class="font-bold text-sm uppercase">Blaze FC</p>
+                            <p class="font-bold text-sm uppercase">NIL</p>
                         </div>
                         
                         <div class="text-center">
@@ -90,7 +90,7 @@ const contentData = {
                             <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-3 border border-white/5 group-hover:border-red-600/50 transition-colors">
                                 <i class="fas fa-shield-halved text-2xl text-red-600"></i>
                             </div>
-                            <p class="font-bold text-sm uppercase">Rangers Fc</p>
+                            <p class="font-bold text-sm uppercase">NIL</p>
                         </div>
                     </div>
                 </div>
