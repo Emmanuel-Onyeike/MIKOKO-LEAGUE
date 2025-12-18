@@ -478,3 +478,39 @@ const hideToast = () => {
 micBtn.addEventListener('click', () => {
     showToast("Voice command is not available in v1.0.3");
 });
+
+
+///// INSTRUCTION 
+let currentSlide = 0;
+const slides = document.querySelectorAll('.briefing-slide');
+const dots = document.querySelectorAll('.dot');
+
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.classList.toggle('hidden', i !== index);
+        dots[i].classList.toggle('bg-red-600', i === index);
+        dots[i].classList.toggle('bg-gray-800', i !== index);
+    });
+}
+
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+}
+
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+}
+
+function closeBriefing() {
+    const briefing = document.getElementById('missionBriefing');
+    briefing.classList.add('opacity-0', 'pointer-events-none');
+    setTimeout(() => briefing.remove(), 500); // Remove from DOM after fade out
+}
+
+// Auto-show on load (optional)
+window.onload = () => {
+    // You can add logic here to only show it once using localStorage
+    document.getElementById('missionBriefing').style.display = 'flex';
+};
