@@ -944,6 +944,140 @@ const contentData = {
         </div>
     </div>
 </div>`,
+    'Team Lab': `
+<div class="space-y-8 animate-in pb-12">
+    <div class="flex justify-between items-end">
+        <div>
+            <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Tactical Lab</h3>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-white">Simulation Environment</span></p>
+        </div>
+        <i class="fas fa-flask text-red-600 opacity-20 text-3xl"></i>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 aspect-[3/4] md:aspect-video bg-emerald-900/20 border border-white/10 rounded-[3rem] relative overflow-hidden group">
+            <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+            <div class="absolute inset-4 border-2 border-white/10 rounded-2xl flex items-center justify-center">
+                <div class="w-40 h-40 border-2 border-white/10 rounded-full"></div>
+                <div class="absolute h-full w-[1px] bg-white/10"></div>
+            </div>
+            
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-10">
+                <i class="fas fa-microchip text-red-600 text-4xl mb-4 animate-pulse"></i>
+                <h4 class="text-white font-black uppercase italic tracking-tighter text-xl">Tactical Engine Offline</h4>
+                <p class="text-gray-500 text-[10px] font-bold uppercase mt-2 max-w-xs">Squad visualization unlocks once the draft pool is finalized and teams are named.</p>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <div class="p-8 bg-zinc-900/50 border border-white/5 rounded-[2.5rem]">
+                <span class="text-[9px] text-red-600 font-black uppercase tracking-widest">Formation Config</span>
+                <h5 class="text-white font-black uppercase italic mt-2 mb-6">Select Setup</h5>
+                <div class="grid grid-cols-2 gap-3">
+                    ${['4-4-2', '4-3-3', '3-5-2', '4-5-1'].map(f => `
+                        <button class="py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] text-gray-400 font-black hover:bg-red-600 hover:text-white transition-all">${f}</button>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <div class="p-8 bg-[#0a0a0a] border border-red-600/20 rounded-[2.5rem]">
+                <i class="fas fa-exclamation-triangle text-red-600 mb-4"></i>
+                <h5 class="text-white font-black uppercase italic text-sm mb-2">Manager Access</h5>
+                <p class="text-[10px] text-gray-500 font-bold uppercase leading-relaxed">Only verified Team Owners can save custom tactics to the league database.</p>
+            </div>
+        </div>
+    </div>
+</div>`,
+
+    
+    'Pure Stream': `
+<div class="space-y-8 animate-in pb-12">
+    <div class="flex justify-between items-end">
+        <div>
+            <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Pure Stream</h3>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-red-600 animate-pulse">OFF AIR</span></p>
+        </div>
+        <i class="fas fa-satellite-dish text-red-600 opacity-20 text-3xl"></i>
+    </div>
+
+    <div class="relative aspect-video bg-black rounded-[3rem] border border-white/5 overflow-hidden group">
+        <div class="absolute inset-0 flex flex-col items-center justify-center z-10">
+            <div class="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center mb-6 shadow-2xl shadow-red-600/40 group-hover:scale-110 transition-transform">
+                <i class="fas fa-play text-white ml-1"></i>
+            </div>
+            <p class="text-white font-black uppercase italic tracking-widest text-sm">Waiting for Matchday 01</p>
+            <p class="text-gray-600 text-[9px] font-bold uppercase mt-2">Signal Strength: 100% // Latency: 22ms</p>
+        </div>
+        <div class="absolute bottom-8 left-8 right-8 flex justify-between items-center z-20">
+            <span class="px-3 py-1 bg-red-600 text-white text-[8px] font-black uppercase rounded">Live Feed</span>
+            <div class="flex gap-4">
+                <i class="fas fa-expand text-white/20 text-xs"></i>
+                <i class="fas fa-cog text-white/20 text-xs"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        ${[1, 2, 3].map(i => `
+            <div class="bg-zinc-900/50 border border-white/5 rounded-3xl p-4 opacity-40">
+                <div class="aspect-video bg-black rounded-2xl mb-4 flex items-center justify-center">
+                    <i class="fas fa-film text-gray-800"></i>
+                </div>
+                <span class="text-[8px] text-gray-500 font-black uppercase">Archive Log 0${i}</span>
+                <p class="text-[10px] text-white font-bold uppercase mt-1">Season 02 Highlights</p>
+            </div>
+        `).join('')}
+    </div>
+</div>`,
+
+    'Messages': `
+<div class="space-y-8 animate-in pb-12">
+    <div class="flex justify-between items-end">
+        <div>
+            <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Comms Center</h3>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-green-500 italic">Encrypted Connection Stable</span></p>
+        </div>
+        <i class="fas fa-envelope-open-text text-red-600 opacity-20 text-3xl"></i>
+    </div>
+
+    <div class="bg-zinc-900/50 border border-white/5 rounded-[2.5rem] p-6 md:p-10 min-h-[500px] flex flex-col">
+        <div class="space-y-6 flex-1">
+            <div class="flex gap-4 max-w-2xl">
+                <div class="w-10 h-10 rounded-xl bg-red-600 flex-shrink-0 flex items-center justify-center shadow-lg shadow-red-600/20">
+                    <i class="fas fa-robot text-white text-xs"></i>
+                </div>
+                <div class="bg-white/5 border border-white/10 p-5 rounded-2xl rounded-tl-none">
+                    <span class="text-[9px] text-red-600 font-black uppercase tracking-widest block mb-2">System Admin // TOGA</span>
+                    <p class="text-xs text-gray-300 font-bold uppercase leading-relaxed">
+                        Welcome to Season 03. All Team Owners must DM their receipts for <span class="text-white">Franchise Naming Rights</span>. Use the Financial Node for account details.
+                    </p>
+                    <span class="text-[8px] text-gray-600 font-mono mt-3 block">SENT: 18.12.2025 // 14:00</span>
+                </div>
+            </div>
+
+            <div class="flex gap-4 max-w-2xl ml-auto flex-row-reverse">
+                <div class="w-10 h-10 rounded-xl bg-white/10 border border-white/10 flex-shrink-0 flex items-center justify-center">
+                    <i class="fas fa-users text-white text-xs"></i>
+                </div>
+                <div class="bg-red-600/10 border border-red-600/20 p-5 rounded-2xl rounded-tr-none text-right">
+                    <span class="text-[9px] text-gray-400 font-black uppercase tracking-widest block mb-2">League Committee</span>
+                    <p class="text-xs text-gray-300 font-bold uppercase leading-relaxed">
+                        Registration for the draft pool is currently at ₦2,000. Ensure you have your ID cards ready for the Jan 18th window.
+                    </p>
+                    <span class="text-[8px] text-gray-600 font-mono mt-3 block">SENT: 18.12.2025 // 15:45</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-10 relative">
+            <input type="text" placeholder="SECURE MESSAGE UNAVAILABLE - BROADCAST ONLY" disabled 
+                class="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-5 text-[10px] font-black uppercase tracking-widest text-gray-700 cursor-not-allowed">
+            <div class="absolute right-4 top-1/2 -translate-y-1/2">
+                <i class="fas fa-lock text-gray-800"></i>
+            </div>
+        </div>
+    </div>
+</div>`,
 };
 
 /**
