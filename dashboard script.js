@@ -876,20 +876,33 @@ const contentData = {
     </div>
 </div>`,
    'Mikoko Payment': `
-<div class="space-y-8 animate-in">
+<div class="space-y-8 animate-in pb-12">
     <div class="flex justify-between items-end">
         <div>
             <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Financial Node</h3>
-            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-yellow-500">System Restricted</span></p>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-green-500">Payment Channels Active</span></p>
         </div>
-        <i class="fas fa-lock text-yellow-500 opacity-20 text-3xl"></i>
+        <i class="fas fa-file-invoice-dollar text-red-600 opacity-20 text-3xl"></i>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-6 bg-red-600/10 border border-red-600/20 rounded-3xl">
+            <span class="text-[9px] text-red-600 font-black uppercase tracking-widest">Franchise Fee</span>
+            <h4 class="text-2xl font-black text-white italic uppercase">₦4,000</h4>
+            <p class="text-[10px] text-gray-400 font-bold uppercase mt-1">To Own, Name, & Coach a Team</p>
+        </div>
+        <div class="p-6 bg-white/5 border border-white/10 rounded-3xl">
+            <span class="text-[9px] text-gray-400 font-black uppercase tracking-widest">Player Fee</span>
+            <h4 class="text-2xl font-black text-white italic uppercase">₦2,000</h4>
+            <p class="text-[10px] text-gray-400 font-bold uppercase mt-1">To Register for the Draft Pool</p>
+        </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div class="p-8 bg-zinc-900/50 border border-white/10 rounded-[2.5rem] relative overflow-hidden opacity-60">
+        <div class="p-8 bg-zinc-900/50 border border-white/10 rounded-[2.5rem] relative overflow-hidden">
             <div class="relative z-10">
-                <span class="text-[9px] text-red-600 font-black uppercase tracking-[0.2em]">Official Payment Node</span>
-                <h4 class="text-2xl font-black text-white italic mt-2 mb-6 uppercase tracking-tighter">Required Fee: ₦2,000</h4>
+                <span class="text-[9px] text-red-600 font-black uppercase tracking-[0.2em]">Transfer Protocol</span>
+                <h4 class="text-xl font-black text-white italic mt-2 mb-6 uppercase tracking-tighter">Account Information</h4>
                 
                 <div class="space-y-4">
                     <div class="p-4 bg-white/5 rounded-2xl border border-white/5">
@@ -908,27 +921,30 @@ const contentData = {
             </div>
         </div>
 
-        <div class="relative p-8 bg-[#0a0a0a] border border-red-600/20 rounded-[2.5rem] flex flex-col items-center justify-center text-center overflow-hidden">
-            
-            <div class="absolute inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center p-8">
-                <div class="w-16 h-16 bg-red-600/10 border border-red-600/50 rounded-full flex items-center justify-center mb-4">
-                    <i class="fas fa-shield-slash text-red-600 text-2xl animate-pulse"></i>
+        <div class="relative p-8 bg-[#0a0a0a] border border-red-600/20 rounded-[2.5rem] flex flex-col justify-center overflow-hidden">
+            <div class="relative z-10">
+                <div class="w-12 h-12 bg-red-600/10 border border-red-600/30 rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-paper-plane text-red-600"></i>
                 </div>
-                <h5 class="text-white font-black uppercase italic tracking-widest text-sm">Upload Restricted</h5>
-                <p class="text-gray-500 text-[9px] font-bold uppercase mt-3 leading-relaxed tracking-widest">
-                    Manual verification is offline.<br>
-                    Next Update: <span class="text-red-600">UNLEASH V2.0</span>
-                </p>
-                <div class="mt-6 px-4 py-1 border border-white/10 rounded-full">
-                    <span class="text-[8px] text-gray-500 font-black uppercase">Protocol: Locked</span>
+                <h4 class="text-white font-black uppercase italic text-xl tracking-tighter mb-4">Verification Steps</h4>
+                <ul class="space-y-4">
+                    <li class="flex gap-4">
+                        <span class="w-5 h-5 rounded-full bg-red-600 text-white text-[10px] flex items-center justify-center font-black">1</span>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase leading-relaxed">Transfer the exact fee (₦2,000 or ₦4,000) to the account provided.</p>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="w-5 h-5 rounded-full bg-red-600 text-white text-[10px] flex items-center justify-center font-black">2</span>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase leading-relaxed">Capture a clear screenshot of the successful transaction receipt.</p>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="w-5 h-5 rounded-full bg-red-600 text-white text-[10px] flex items-center justify-center font-black">3</span>
+                        <p class="text-[10px] text-white font-black uppercase leading-relaxed">Send the receipt directly to <span class="text-red-600">TOGA's DM</span> for manual validation.</p>
+                    </li>
+                </ul>
+                
+                <div class="mt-8 pt-6 border-t border-white/5">
+                    <p class="text-[9px] text-gray-600 font-mono uppercase italic">Note: Only payments verified by the Planning Committee are valid.</p>
                 </div>
-            </div>
-
-            <input type="file" disabled class="hidden">
-            
-            <div class="opacity-10">
-                <i class="fas fa-cloud-arrow-up text-4xl mb-4"></i>
-                <p class="text-[10px] uppercase font-bold tracking-widest text-white">Tap to Upload</p>
             </div>
         </div>
     </div>
