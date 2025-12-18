@@ -1254,92 +1254,86 @@ function renderLeagueSystem(mode) {
         return;
     }
 
-  if (mode === 'Team Selection') {
-        openAuthPortal();
-        return;
-    }
+    if (mode === 'Player Selection') {
+        const pending = players.filter(p => p.status === 'Pending');
+        const active = players.filter(p => p.status === 'Confirmed');
 
-    if (mode === 'Player Selection') {
-        const pending = players.filter(p => p.status === 'Pending');
-        const active = players.filter(p => p.status === 'Confirmed');
+        mainDisplay.innerHTML = `
+            <div class="space-y-8 animate-in pb-10">
+                <div class="bg-zinc-900/80 p-6 md:p-8 rounded-[2rem] border border-white/5">
+                    <h3 class="text-white font-black uppercase italic mb-4">Registration Terminal</h3>
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <input type="text" id="playerNameInput" placeholder="ENTER PLAYER NAME..." class="flex-1 bg-black/60 border border-white/10 rounded-2xl px-6 py-4 text-red-500 font-mono focus:outline-none focus:border-red-600">
+                        <button onclick="registerPlayer()" class="px-10 py-4 bg-red-600 text-white font-black uppercase italic rounded-2xl hover:bg-white hover:text-red-600 transition-all">Register</button>
+                    </div>
+                </div>
 
-        mainDisplay.innerHTML = `
-            <div class="space-y-8 animate-in pb-10">
-                <div class="bg-zinc-900/80 p-6 md:p-8 rounded-[2rem] border border-white/5">
-                    <h3 class="text-white font-black uppercase italic mb-4">Registration Terminal</h3>
-                    <div class="flex flex-col md:flex-row gap-4">
-                        <input type="text" id="playerNameInput" placeholder="ENTER PLAYER NAME..." class="flex-1 bg-black/60 border border-white/10 rounded-2xl px-6 py-4 text-red-500 font-mono focus:outline-none focus:border-red-600">
-                        <button onclick="registerPlayer()" class="px-10 py-4 bg-red-600 text-white font-black uppercase italic rounded-2xl hover:bg-white hover:text-red-600 transition-all">Register</button>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="border border-white/5 rounded-[2.5rem] p-6 bg-black/40">
-                        <h4 class="text-yellow-500 font-black uppercase text-[10px] mb-4 tracking-widest">Awaiting Assignment (${pending.length})</h4>
-                        <div class="space-y-2 overflow-y-auto max-h-[450px] custom-scrollbar pr-2">
-                            ${pending.map(p => `<div class="p-4 bg-white/5 rounded-2xl flex justify-between items-center"><span class="text-white font-bold text-xs uppercase">${p.name}</span><i class="fas fa-clock text-yellow-500/20 text-xs"></i></div>`).join('') || '<p class="text-zinc-800 text-center py-10 font-black uppercase italic">No Pending Units</p>'}
-                        </div>
-                    </div>
-                    <div class="border border-white/5 rounded-[2.5rem] p-6 bg-black/40">
-                        <h4 class="text-emerald-500 font-black uppercase text-[10px] mb-4 tracking-widest">Active Roster (${active.length})</h4>
-                        <div class="space-y-2 overflow-y-auto max-h-[450px] custom-scrollbar pr-2">
-                            ${active.map(p => `<div class="p-4 bg-white/5 rounded-2xl flex justify-between items-center"><span class="text-white font-bold text-xs uppercase">${p.name}</span><span class="text-[8px] text-zinc-500 font-black uppercase border border-white/5 px-2 py-1 rounded italic">${p.team}</span></div>`).join('') || '<p class="text-zinc-800 text-center py-10 font-black uppercase italic">Roster Empty</p>'}
-                        </div>
-                    </div>
-                </div>
-            </div>`; 
-}
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="border border-white/5 rounded-[2.5rem] p-6 bg-black/40">
+                        <h4 class="text-yellow-500 font-black uppercase text-[10px] mb-4 tracking-widest">Awaiting Assignment (${pending.length})</h4>
+                        <div class="space-y-2 overflow-y-auto max-h-[450px] custom-scrollbar pr-2">
+                            ${pending.map(p => `<div class="p-4 bg-white/5 rounded-2xl flex justify-between items-center"><span class="text-white font-bold text-xs uppercase">${p.name}</span><i class="fas fa-clock text-yellow-500/20 text-xs"></i></div>`).join('') || '<p class="text-zinc-800 text-center py-10 font-black uppercase italic">No Pending Units</p>'}
+                        </div>
+                    </div>
+                    <div class="border border-white/5 rounded-[2.5rem] p-6 bg-black/40">
+                        <h4 class="text-emerald-500 font-black uppercase text-[10px] mb-4 tracking-widest">Active Roster (${active.length})</h4>
+                        <div class="space-y-2 overflow-y-auto max-h-[450px] custom-scrollbar pr-2">
+                            ${active.map(p => `<div class="p-4 bg-white/5 rounded-2xl flex justify-between items-center"><span class="text-white font-bold text-xs uppercase">${p.name}</span><span class="text-[8px] text-zinc-500 font-black uppercase border border-white/5 px-2 py-1 rounded italic">${p.team}</span></div>`).join('') || '<p class="text-zinc-800 text-center py-10 font-black uppercase italic">Roster Empty</p>'}
+                        </div>
+                    </div>
+                </div>
+            </div>`;
     }
 }
 
 function executeAdminRender() {
     const mainDisplay = document.getElementById('mainDisplay');
     const firstPending = players.find(p => p.status === 'Pending');
-    
-  mainDisplay.innerHTML = `
-        <div class="space-y-8 animate-in pb-20">
-            <div class="bg-red-600/10 border border-red-600/20 p-6 rounded-[2rem] flex flex-col md:flex-row justify-between items-center gap-4 backdrop-blur-md">
-                <div>
-                    <h3 class="text-white font-black uppercase italic">Franchise Admin Terminal</h3>
-                    <p class="text-[9px] text-red-500 font-bold uppercase tracking-widest">Elite-8 Control Module</p>
-                </div>
-                <div class="bg-black/50 px-4 py-3 rounded-xl border border-white/10 flex items-center gap-3">
-                    <span class="text-[9px] text-gray-500 uppercase font-black">Next In Queue:</span>
-                    <span class="text-xs text-white font-bold italic uppercase">${firstPending ? firstPending.name : 'NO PENDING'}</span>
-                </div>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                ${teams.map(t => `
-                    <div class="flex flex-col h-[400px] bg-zinc-900/50 border border-white/10 rounded-[2rem] overflow-hidden group hover:border-red-600/30 transition-all">
-                        <div class="p-5 pb-2">
-                            <div class="flex justify-between items-start">
-                                <h4 class="text-white font-black italic uppercase text-sm truncate ${t.name === 'NIL' ? 'text-gray-600' : 'text-white'}">${t.name}</h4>
-                                <button onclick="renameTeam('${t.id}')" class="text-[10px] text-red-600 hover:text-white"><i class="fas fa-pen"></i></button>
-                            </div>
-                            <p class="text-[9px] text-red-600 font-bold uppercase tracking-widest mt-1">${t.members.length}/10 UNITS</p>
-                        </div>
+    mainDisplay.innerHTML = `
+        <div class="space-y-8 animate-in pb-20">
+            <div class="bg-red-600/10 border border-red-600/20 p-6 rounded-[2rem] flex flex-col md:flex-row justify-between items-center gap-4 backdrop-blur-md">
+                <div>
+                    <h3 class="text-white font-black uppercase italic">Franchise Admin Terminal</h3>
+                    <p class="text-[9px] text-red-500 font-bold uppercase tracking-widest">Elite-8 Control Module</p>
+                </div>
+                <div class="bg-black/50 px-4 py-3 rounded-xl border border-white/10 flex items-center gap-3">
+                    <span class="text-[9px] text-gray-500 uppercase font-black">Next In Queue:</span>
+                    <span class="text-xs text-white font-bold italic uppercase">${firstPending ? firstPending.name : 'NO PENDING'}</span>
+                </div>
+            </div>
 
-                        <div class="flex-1 overflow-y-auto px-5 py-2 custom-scrollbar space-y-2">
-                            ${t.members.map(m => `
-                                <div class="flex justify-between items-center p-3 bg-white/[0.03] border border-white/5 rounded-xl group/item">
-                                    <p class="text-[9px] text-zinc-300 font-mono uppercase font-bold">${m}</p>
-                                    <button onclick="firePlayer('${m}', '${t.id}')" class="text-red-600 opacity-0 group-hover/item:opacity-100 transition-all">
-                                        <i class="fas fa-trash-alt text-[10px]"></i>
-                                    </button>
-                                </div>`).join('') || '<div class="h-full flex flex-col items-center justify-center opacity-10 gap-2"><i class="fas fa-shield-blank text-2xl"></i><span class="text-[8px] font-black uppercase italic">Empty Slot</span></div>'}
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                ${teams.map(t => `
+                    <div class="flex flex-col h-[400px] bg-zinc-900/50 border border-white/10 rounded-[2rem] overflow-hidden group hover:border-red-600/30 transition-all">
+                        <div class="p-5 pb-2">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-white font-black italic uppercase text-sm truncate ${t.name === 'NIL' ? 'text-gray-600' : 'text-white'}">${t.name}</h4>
+                                <button onclick="renameTeam('${t.id}')" class="text-[10px] text-red-600 hover:text-white"><i class="fas fa-pen"></i></button>
+                            </div>
+                            <p class="text-[9px] text-red-600 font-bold uppercase tracking-widest mt-1">${t.members.length}/10 UNITS</p>
+                        </div>
 
-                        <div class="p-5 pt-2 mt-auto">
-                            <button onclick="assignPlayerToTeam(${firstPending ? firstPending.id : null}, '${t.id}')" 
-                                class="w-full py-4 rounded-xl text-[9px] font-black uppercase transition-all 
-                                ${firstPending && t.members.length < MAX_SQUAD_SIZE ? 'bg-red-600 text-white shadow-lg' : 'bg-white/5 text-gray-600 cursor-not-allowed'}">
-                                ${firstPending ? (t.members.length < MAX_SQUAD_SIZE ? 'Assign' : 'Full') : 'Queue Empty'}
-                            </button>
-                        </div>
-                    </div>`).join('')}
-            </div>
-        </div>`; 
+                        <div class="flex-1 overflow-y-auto px-5 py-2 custom-scrollbar space-y-2">
+                            ${t.members.map(m => `
+                                <div class="flex justify-between items-center p-3 bg-white/[0.03] border border-white/5 rounded-xl group/item">
+                                    <p class="text-[9px] text-zinc-300 font-mono uppercase font-bold">${m}</p>
+                                    <button onclick="firePlayer('${m}', '${t.id}')" class="text-red-600 opacity-0 group-hover/item:opacity-100 transition-all">
+                                        <i class="fas fa-trash-alt text-[10px]"></i>
+                                    </button>
+                                </div>`).join('') || '<div class="h-full flex flex-col items-center justify-center opacity-10 gap-2"><i class="fas fa-shield-blank text-2xl"></i><span class="text-[8px] font-black uppercase italic">Empty Slot</span></div>'}
+                        </div>
+
+                        <div class="p-5 pt-2 mt-auto">
+                            <button onclick="assignPlayerToTeam(${firstPending ? firstPending.id : null}, '${t.id}')" 
+                                class="w-full py-4 rounded-xl text-[9px] font-black uppercase transition-all 
+                                ${firstPending && t.members.length < MAX_SQUAD_SIZE ? 'bg-red-600 text-white shadow-lg' : 'bg-white/5 text-gray-600 cursor-not-allowed'}">
+                                ${firstPending ? (t.members.length < MAX_SQUAD_SIZE ? 'Assign' : 'Full') : 'Queue Empty'}
+                            </button>
+                        </div>
+                    </div>`).join('')}
+            </div>
+        </div>`;
 }
 
 // --- 6. CORE LOGIC ---
