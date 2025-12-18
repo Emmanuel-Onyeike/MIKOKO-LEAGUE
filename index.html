@@ -7,10 +7,11 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
   <link rel="stylesheet" href="styles.css" />
   
   <style>
-    /* Critical UI Animations & Utilities */
+    /* Adding a tiny bit of page-specific utility for the glow effect */
     .glow-button {
       transition: all 0.3s ease;
       box-shadow: 0 0 0 rgba(220, 38, 38, 0);
@@ -19,287 +20,503 @@
       box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
       transform: scale(1.02);
     }
-    .animate-scan {
-      animation: scan 3s linear infinite;
-    }
-    @keyframes scan {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-    .scrollbar-hide::-webkit-scrollbar { display: none; }
-    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
 
-<body class="bg-[#050505] text-white min-h-screen flex flex-col items-center">
+<body class="min-h-screen flex flex-col items-center pt-8 md:pt-12 pb-20 space-y-12">
 
-  <header class="w-full flex flex-col items-center pt-10 md:pt-16 px-6 mb-12">
-    <div class="mb-6 p-1 bg-gradient-to-b from-white/10 to-transparent rounded-3xl">
-      <div class="bg-black rounded-[1.4rem] p-4 border border-white/5">
-        <img src="mikoko.png" alt="MIKOKO Logo" class="w-16 h-16 md:w-20 md:h-20 object-contain">
-      </div>
-    </div>
-    <div class="text-center">
-      <h1 class="text-4xl md:text-6xl font-black tracking-tighter italic">MIKOKO <span class="text-red-600">LEAGUE</span></h1>
-      <p class="text-[10px] md:text-xs uppercase tracking-[0.4em] text-gray-500 font-bold mt-2">Official Competition Platform</p>
-    </div>
-  </header>
+ <header class="mikoko-header">
+  <div class="logo-box">
+    <img src="mikoko.png" alt="Logo" class="league-logo">
+  </div>
 
-  <main class="w-full max-w-5xl px-6 space-y-24 pb-32">
-    
-    <section class="relative overflow-hidden bg-white/[0.03] border border-white/10 rounded-[2.5rem] p-10 md:p-20 text-center">
-      <div class="absolute -top-24 -left-24 w-80 h-80 bg-red-600/10 blur-[120px] rounded-full"></div>
+  <div class="header-brand">
+    <h1 class="title">MIKOKO LEAGUE</h1>
+    <p class="subtitle uppercase tracking-widest">Official Competition Platform</p>
+  </div>
+</header>
+
+  <main class="w-full max-w-5xl px-6">
+    <section class="relative overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-16 text-center">
+      
+      <div class="absolute -top-24 -left-24 w-64 h-64 bg-red-600/10 blur-[100px] rounded-full"></div>
       
       <div class="relative z-10">
-        <span class="inline-block px-5 py-1.5 mb-8 text-[10px] font-black tracking-widest text-red-500 uppercase bg-red-500/10 border border-red-500/20 rounded-full">
+        <span class="inline-block px-4 py-1 mb-6 text-xs font-bold tracking-widest text-red-500 uppercase bg-red-500/10 border border-red-500/20 rounded-full">
           Season 03 is Live
         </span>
         
-        <h2 class="text-4xl md:text-7xl font-black tracking-tighter mb-8 leading-tight">
-          THE HOME OF <br><span class="text-red-500 italic">COMPETITIVE</span> FOOTBALL
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight mb-6">
+          The Home of <span class="text-red-500">Competitive</span> Football
         </h2>
 
-        <p class="max-w-2xl mx-auto text-sm md:text-lg text-gray-400 leading-relaxed mb-12">
+        <p class="max-w-2xl mx-auto text-base md:text-lg text-gray-400 leading-relaxed mb-10">
           Experience football like never before. Stay updated with real-time fixtures, 
           in-depth player statistics, and community-driven league news.
         </p>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="Dashboard.html" class="glow-button px-10 py-5 bg-red-600 hover:bg-red-700 text-white font-black uppercase tracking-widest rounded-2xl transition-all flex items-center justify-center gap-3 text-xs">
-            <i class="fas fa-th-large text-sm"></i> View Dashboard
-          </a>
-          <div class="flex gap-4">
+  <a href="Dashboard.html" class="glow-button px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-3">
+    <i class="fas fa-house text-sm"></i>
+    View Dashboard
+  </a>
+  <a href="javascript:void(0)" id="openAiBtn" class="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold rounded-xl transition-all flex items-center gap-2">
+    <i class="fas fa-robot text-red-500"></i> Peak AI
+  </a>
+  <button id="checkUpdateBtn" class="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold rounded-xl transition-all flex items-center gap-2 group">
+    <i class="fas fa-sync-alt text-gray-400 group-hover:rotate-180 transition-all duration-700"></i> Check for Updates
+  </button>
+</div>
+      </div>
+    </section>
+<div id="updateModal" class="fixed inset-0 z-[40000] hidden flex items-center justify-center px-4">
+  <div class="absolute inset-0 bg-black/95 backdrop-blur-xl"></div>
+  
+  <div class="relative w-full max-w-md bg-[#050505] border border-white/10 rounded-[2.5rem] p-10 overflow-hidden shadow-2xl">
+    <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-red-500 to-transparent animate-scan"></div>
+
+    <div class="flex flex-col items-center text-center">
+      <div id="updateIcon" class="relative w-24 h-24 mb-8">
+        <div class="absolute inset-0 rounded-full border-2 border-white/5"></div>
+        <div id="updateSpinner" class="absolute inset-0 rounded-full border-t-2 border-red-500 animate-spin"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <i class="fas fa-microchip text-2xl text-red-500 animate-pulse"></i>
+        </div>
+      </div>
+
+      <h3 id="updateHeader" class="text-white font-black uppercase tracking-[0.3em] text-sm mb-4">Initialising...</h3>
+      <p id="updateStatus" class="text-gray-500 text-[10px] uppercase tracking-widest leading-relaxed h-4">
+        Connecting to Tech Nxxt Servers
+      </p>
+
+      <div id="progressWrapper" class="w-full bg-white/5 h-1.5 rounded-full mt-8 overflow-hidden hidden">
+        <div id="updateProgressBar" class="bg-red-600 h-full w-0 transition-all duration-1000"></div>
+      </div>
+
+      <button id="closeUpdateBtn" class="mt-8 px-6 py-2 bg-white/5 border border-white/10 text-gray-400 text-[10px] uppercase font-bold rounded-lg hover:bg-white/10 hidden transition-all">
+        Exit Terminal
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div id="aiModal" class="fixed inset-0 z-[10000] hidden flex items-center justify-center px-4">
+  <div class="absolute inset-0 bg-black/90 backdrop-blur-md" id="closeAiBtn"></div>
+  
+  <div class="relative w-full max-w-lg bg-[#0a0a0a] border border-white/10 rounded-[2rem] shadow-2xl overflow-hidden flex flex-col h-[600px] max-h-[80vh]">
+    
+    <div class="p-5 border-b border-white/5 flex justify-between items-center bg-white/5">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center animate-pulse">
+          <i class="fas fa-robot text-white text-xs"></i>
+        </div>
+        <h3 class="text-white text-sm font-bold uppercase tracking-tighter">MIKOKO AI Assistant</h3>
+      </div>
+      <button class="text-gray-500 hover:text-white" id="closeAiX"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div id="chatWindow" class="flex-grow p-6 overflow-y-auto space-y-4 scrollbar-hide flex flex-col">
+      </div>
+
+    <div id="typingIndicator" class="px-6 py-2 hidden">
+      <div class="flex space-x-1 bg-white/5 w-16 h-8 items-center justify-center rounded-2xl border border-white/5">
+        <div class="w-1.5 h-1.5 bg-red-500 rounded-full animate-bounce"></div>
+        <div class="w-1.5 h-1.5 bg-red-500 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+        <div class="w-1.5 h-1.5 bg-red-500 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+        <div class="w-1.5 h-1.5 bg-red-500 rounded-full animate-bounce [animation-delay:0.6s]"></div>
+      </div>
+    </div>
+
+   <div class="p-6 bg-[#0a0a0a] border-t border-white/5 backdrop-blur-xl">
+      <form id="aiForm" class="relative group">
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-red-600 to-red-900 rounded-2xl opacity-0 group-focus-within:opacity-20 transition duration-500 blur-md"></div>
+        
+        <div class="relative flex items-center bg-white/5 border border-white/10 rounded-2xl group-focus-within:border-red-500/50 group-focus-within:bg-black transition-all duration-300">
           
-            <button id="checkUpdateBtn" class="flex-1 sm:flex-none px-8 py-5 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 group text-xs">
-              <i class="fas fa-sync-alt text-gray-400 group-hover:rotate-180 transition-all duration-700"></i>
+          <input type="text" id="aiInput" autocomplete="off" placeholder="Ask about the league..." 
+            class="w-full bg-transparent py-4 px-5 text-sm text-white placeholder:text-gray-600 focus:outline-none">
+          
+          <div class="flex items-center pr-3 space-x-2">
+           <button type="button" id="micBtn" class="hidden sm:flex p-2 text-gray-600 hover:text-red-500 transition-colors">
+    <i class="fas fa-microphone text-xs"></i>
+</button>
+            
+            <button type="submit" class="p-3 bg-red-600 hover:bg-red-500 text-white rounded-xl transition-all active:scale-90 shadow-lg shadow-red-600/20 flex items-center justify-center">
+              <i class="fas fa-paper-plane text-xs"></i>
             </button>
           </div>
         </div>
-      </div>
-    </section>
+      </form>
 
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-white/5 border border-white/10 p-8 rounded-[2rem] flex items-center space-x-6 hover:bg-white/10 transition-all group">
-        <div class="w-16 h-16 rounded-2xl bg-red-600/10 border border-red-500/20 flex items-center justify-center transition-transform group-hover:scale-110">
-          <i class="fas fa-users text-red-500 text-2xl"></i>
+      <div class="flex justify-between items-center mt-4 px-1">
+        <div class="flex items-center space-x-2">
+          <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+          <p class="text-[9px] text-gray-500 uppercase tracking-[0.2em] font-bold">Powered by Tech Nxxt AI Engine</p>
+        </div>
+        <p class="text-[8px] text-red-500/50 uppercase font-black tracking-widest">v1.0.3 Stable</p>
+      </div>
+    </div> 
+</div> 
+</div> 
+
+<div id="toastContainer" class="fixed top-6 right-6 z-[30000] pointer-events-none">
+    <div id="toast" class="flex items-center gap-3 bg-black/90 border border-white/10 backdrop-blur-xl px-6 py-4 rounded-2xl shadow-2xl translate-x-[150%] transition-all duration-500 pointer-events-auto">
+        <div class="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center">
+            <i class="fas fa-info-circle text-red-500 text-sm"></i>
         </div>
         <div>
-          <div class="text-white text-4xl font-black italic">12</div>
-          <div class="text-[10px] text-gray-500 uppercase tracking-widest font-black">Active Teams</div>
+            <h5 class="text-white text-xs font-bold uppercase tracking-widest">System Update</h5>
+            <p id="toastMessage" class="text-gray-500 text-[10px] uppercase tracking-tighter mt-0.5">Feature not available yet.</p>
         </div>
-      </div>
-
-      <div class="bg-white/5 border border-white/10 p-8 rounded-[2rem] flex items-center space-x-6 hover:bg-white/10 transition-all group">
-        <div class="w-16 h-16 rounded-2xl bg-red-600/10 border border-red-500/20 flex items-center justify-center transition-transform group-hover:scale-110">
-          <i class="fas fa-futbol text-red-500 text-2xl"></i>
-        </div>
-        <div>
-          <div class="text-white text-4xl font-black italic">0</div>
-          <div class="text-[10px] text-gray-500 uppercase tracking-widest font-black">Matches Played</div>
-        </div>
-      </div>
-
-      <div class="bg-white/5 border border-white/10 p-8 rounded-[2rem] flex items-center space-x-6 hover:bg-white/10 transition-all group">
-        <div class="w-16 h-16 rounded-2xl bg-red-600/10 border border-red-500/20 flex items-center justify-center transition-transform group-hover:scale-110">
-          <i class="fas fa-trophy text-red-500 text-2xl"></i>
-        </div>
-        <div>
-          <div class="text-white text-4xl font-black italic">0</div>
-          <div class="text-[10px] text-gray-500 uppercase tracking-widest font-black">Goals Scored</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="space-y-12">
-      <div class="text-center">
-        <h2 class="text-3xl md:text-5xl font-black tracking-tighter uppercase italic text-white">League <span class="text-red-600">Features</span></h2>
-        <p class="text-gray-500 mt-4 text-xs md:text-sm uppercase tracking-widest font-bold">The ecosystem of modern amateur football</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="bg-white/5 border border-white/10 p-8 rounded-[2.5rem] hover:border-red-500/50 transition-all group">
-          <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
-            <i class="fas fa-chart-line text-red-500 text-2xl"></i>
-          </div>
-          <h3 class="text-xl font-black text-white mb-3 uppercase italic">Live Statistics</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">Track player performance, goal contributions, and clean sheets in real-time.</p>
-        </div>
-
-        <div class="bg-white/5 border border-white/10 p-8 rounded-[2.5rem] hover:border-red-500/50 transition-all group">
-          <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
-            <i class="fas fa-calendar-alt text-red-500 text-2xl"></i>
-          </div>
-          <h3 class="text-xl font-black text-white mb-3 uppercase italic">Smart Fixtures</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">Access match schedules with real-time venue and timing updates.</p>
-        </div>
-
-        <div class="bg-white/5 border border-white/10 p-8 rounded-[2.5rem] hover:border-red-500/50 transition-all group">
-          <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
-            <i class="fas fa-shield-alt text-red-500 text-2xl"></i>
-          </div>
-          <h3 class="text-xl font-black text-white mb-3 uppercase italic">Team Hub</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">View rosters, histories, and standings for all 12 competing clubs.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="space-y-8">
-      <div class="flex justify-between items-end border-b border-white/10 pb-6">
-        <div>
-          <h2 class="text-3xl md:text-4xl font-black tracking-tighter text-white uppercase italic">Upcoming <span class="text-red-500">Fixtures</span></h2>
-          <p class="text-gray-500 text-[10px] font-black uppercase tracking-widest mt-1">Match Day 01 • Season 03</p>
-        </div>
-        <a href="#" class="text-red-500 font-black text-[10px] uppercase tracking-[0.2em] hover:text-white transition-colors px-4 py-2 bg-red-500/10 rounded-lg">View All</a>
-      </div>
-
-      <div class="grid gap-4">
-        <div class="bg-white/5 border border-white/10 p-6 md:p-8 rounded-[2.5rem] flex flex-col md:flex-row items-center justify-between gap-8 hover:bg-white/10 transition-all">
-          <div class="flex items-center gap-6 w-full md:w-1/3 justify-center md:justify-start">
-            <span class="font-black text-white uppercase tracking-tighter text-lg">Team Alpha</span>
-            <div class="w-14 h-14 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-xl font-black shadow-2xl shrink-0">A</div>
-          </div>
-
-          <div class="flex flex-col items-center">
-            <div class="bg-red-600 text-white px-6 py-1 rounded-full font-black text-xs italic mb-2 shadow-lg shadow-red-600/20">VS</div>
-            <span class="text-[10px] text-gray-500 uppercase font-black tracking-widest">Sat, 20 Dec • 16:00</span>
-          </div>
-
-          <div class="flex items-center gap-6 w-full md:w-1/3 justify-center md:justify-end">
-            <div class="w-14 h-14 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-xl font-black shadow-2xl shrink-0">B</div>
-            <span class="font-black text-white uppercase tracking-tighter text-lg">Team Bravo</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-      <div class="relative group overflow-hidden bg-gradient-to-br from-red-600/20 to-black border border-white/10 rounded-[3rem] p-12 flex flex-col items-center text-center">
-        <div class="absolute top-8 left-8 px-4 py-1 bg-red-600 text-[10px] font-black uppercase tracking-widest rounded-full">
-          Player of the Week
-        </div>
-        <div class="w-48 h-48 md:w-64 md:h-64 bg-zinc-900 rounded-full mb-8 border-4 border-red-500/30 overflow-hidden relative shadow-2xl">
-          <div class="absolute inset-0 flex items-center justify-center text-zinc-800">
-            <i class="fas fa-user text-8xl"></i>
-          </div>
-        </div>
-        <h3 class="text-4xl font-black text-white uppercase italic tracking-tighter">NIL <span class="text-red-500">NIL</span></h3>
-        <p class="text-gray-500 font-bold uppercase text-[10px] tracking-[0.3em] mt-2">Strikers FC • Forward</p>
-        <div class="flex gap-10 mt-10">
-          <div class="text-center"><span class="block text-3xl font-black text-white italic">0</span><span class="text-[9px] text-gray-500 uppercase font-black tracking-widest">Goals</span></div>
-          <div class="text-center border-x border-white/10 px-10"><span class="block text-3xl font-black text-white italic">0</span><span class="text-[9px] text-gray-500 uppercase font-black tracking-widest">Assists</span></div>
-          <div class="text-center"><span class="block text-3xl font-black text-white italic">0</span><span class="text-[9px] text-gray-500 uppercase font-black tracking-widest">MVP</span></div>
-        </div>
-      </div>
-
-      <div class="bg-white/5 border border-white/10 rounded-[3rem] p-10 flex flex-col">
-        <h3 class="text-2xl font-black text-white mb-8 flex items-center italic uppercase">
-          <i class="fas fa-fire text-red-500 mr-4"></i> Top Scorers
-        </h3>
-        <div class="space-y-4 flex-grow">
-          <div class="flex items-center p-4 bg-white/5 rounded-2xl border border-white/5">
-            <div class="w-10 font-black text-red-600 italic text-xl">01</div>
-            <div class="flex-grow flex items-center space-x-4">
-              <div class="w-10 h-10 rounded-full bg-zinc-800 border border-white/10"></div>
-              <span class="text-sm font-black uppercase tracking-tight text-white">To Be Determined</span>
-            </div>
-            <div class="w-10 text-right font-black italic text-xl">0</div>
-          </div>
-        </div>
-        <button class="w-full mt-8 py-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition-all">
-          View Full Player Stats
+        <button id="closeToast" class="ml-4 text-gray-600 hover:text-white transition-colors">
+            <i class="fas fa-times text-xs"></i>
         </button>
+    </div>
+</div>
+
+<div id="suspensionAlert" class="fixed inset-0 z-[20000] hidden flex items-center justify-center px-4 pointer-events-none">
+    <div class="relative w-full max-w-sm bg-black/90 border border-red-500/50 backdrop-blur-xl p-6 rounded-2xl shadow-[0_0_50px_rgba(239,68,68,0.2)] transform transition-all duration-500 scale-90 opacity-0 pointer-events-auto" id="alertBox">
+        
+        <button id="closeAlert" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="flex flex-col items-center text-center">
+            <div class="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center mb-4">
+                <i class="fas fa-gavel text-red-500 text-xl"></i>
+            </div>
+            <h4 class="text-white font-black uppercase tracking-widest text-sm mb-2">Security Protocol</h4>
+            <p id="alertMessage" class="text-gray-400 text-xs leading-relaxed uppercase tracking-tighter">
+                Access denied. Suspension active.
+            </p>
+            <div class="w-full bg-white/5 h-1 mt-6 rounded-full overflow-hidden">
+                <div id="alertProgress" class="bg-red-600 h-full w-full"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 w-full max-w-5xl px-6">
+  
+  <div class="bg-white/5 border border-white/10 p-6 rounded-2xl flex items-center space-x-5 transition-all hover:bg-white/10 group">
+    <div class="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center transition-transform group-hover:scale-110">
+      <i class="fas fa-users text-red-500 text-xl"></i>
+    </div>
+    <div>
+      <div class="text-white text-3xl font-bold">12</div>
+      <div class="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Active Teams</div>
+    </div>
+  </div>
+
+  <div class="bg-white/5 border border-white/10 p-6 rounded-2xl flex items-center space-x-5 transition-all hover:bg-white/10 group">
+    <div class="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center transition-transform group-hover:scale-110">
+      <i class="fas fa-futbol text-red-500 text-xl"></i>
+    </div>
+    <div>
+      <div class="text-white text-3xl font-bold">0</div>
+      <div class="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Matches Played</div>
+    </div>
+  </div>
+
+  <div class="bg-white/5 border border-white/10 p-6 rounded-2xl flex items-center space-x-5 transition-all hover:bg-white/10 group">
+    <div class="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center transition-transform group-hover:scale-110">
+      <i class="fas fa-trophy text-red-500 text-xl"></i>
+    </div>
+    <div>
+      <div class="text-white text-3xl font-bold">0</div>
+      <div class="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Goals Scored</div>
+    </div>
+  </div>
+  
+</section>
+
+<section class="w-full max-w-5xl px-6 mt-20 mb-20">
+  <div class="text-center mb-12">
+    <h2 class="text-2xl md:text-4xl font-black tracking-tight text-white uppercase">
+      League <span class="text-red-500">Features</span>
+    </h2>
+    <p class="text-gray-400 mt-2 text-sm md:text-base">Everything you need to follow the MIKOKO competition.</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    
+    <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-red-500/50 transition-all duration-300 group">
+      <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
+        <i class="fas fa-chart-line text-red-500 text-2xl"></i>
       </div>
-    </section>
+      <h3 class="text-xl font-bold text-white mb-3">Live Statistics</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">Track player performance, goal contributions, and clean sheets in real-time as the season progresses.</p>
+    </div>
+
+    <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-red-500/50 transition-all duration-300 group">
+      <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
+        <i class="fas fa-calendar-alt text-red-500 text-2xl"></i>
+      </div>
+      <h3 class="text-xl font-bold text-white mb-3">Smart Fixtures</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">Never miss a kickoff. Access complete match schedules with venue details and timing updates.</p>
+    </div>
+
+    <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-red-500/50 transition-all duration-300 group">
+      <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
+        <i class="fas fa-shield-alt text-red-500 text-2xl"></i>
+      </div>
+      <h3 class="text-xl font-bold text-white mb-3">Team Hub</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">Deep dive into all 12 competing teams. View rosters, history, and current league standing.</p>
+    </div>
+
+    <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-red-500/50 transition-all duration-300 group">
+      <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
+        <i class="fas fa-user-lock text-red-500 text-2xl"></i>
+      </div>
+      <h3 class="text-xl font-bold text-white mb-3">Secure Admin</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">Advanced authentication for league officials to manage scores and player data securely.</p>
+    </div>
+
+    <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-red-500/50 transition-all duration-300 group">
+      <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
+        <i class="fas fa-camera-retro text-red-500 text-2xl"></i>
+      </div>
+      <h3 class="text-xl font-bold text-white mb-3">Match Highlights</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">Relive the best moments with exclusive photo galleries and video highlights from every match day.</p>
+    </div>
+
+    <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-red-500/50 transition-all duration-300 group">
+      <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
+        <i class="fas fa-comments text-red-500 text-2xl"></i>
+      </div>
+      <h3 class="text-xl font-bold text-white mb-3">Fan Engagement</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">Stay connected with community news, announcements, and official league press releases.</p>
+    </div>
+
+  </div>
+</section>
+<section class="w-full max-w-5xl px-6 mt-12">
+  <div class="flex justify-between items-end mb-8">
+    <div>
+      <h2 class="text-2xl md:text-4xl font-black tracking-tight text-white uppercase">Upcoming <span class="text-red-500">Fixtures</span></h2>
+      <p class="text-gray-400 text-sm">Match Day 01 • Season 01</p>
+    </div>
+    <a href="#" class="text-red-500 font-bold text-sm uppercase tracking-widest hover:underline">View All</a>
+  </div>
+
+  <div class="space-y-4">
+    <div class="bg-white/5 border border-white/10 p-4 md:p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 hover:bg-white/10 transition-all">
+      <div class="flex items-center space-x-4 w-full md:w-1/3 justify-center md:justify-start">
+        <span class="font-bold text-white uppercase tracking-wider">Team Alpha</span>
+        <div class="w-10 h-10 rounded-full bg-gray-800 border border-white/10 flex items-center justify-center text-xs">A</div>
+      </div>
+
+      <div class="flex flex-col items-center">
+        <div class="bg-red-600/20 text-red-500 px-4 py-1 rounded-lg font-black text-sm mb-2">VS</div>
+        <span class="text-xs text-gray-500 uppercase font-bold">Sat, 20 Dec • 16:00</span>
+      </div>
+
+      <div class="flex items-center space-x-4 w-full md:w-1/3 justify-center md:justify-end">
+        <div class="w-10 h-10 rounded-full bg-gray-800 border border-white/10 flex items-center justify-center text-xs">B</div>
+        <span class="font-bold text-white uppercase tracking-wider">Team Bravo</span>
+      </div>
+    </div>
+
+    <div class="bg-white/5 border border-white/10 p-4 md:p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 hover:bg-white/10 transition-all opacity-80">
+      <div class="flex items-center space-x-4 w-full md:w-1/3 justify-center md:justify-start">
+        <span class="font-bold text-white uppercase tracking-wider">Lions FC</span>
+        <div class="w-10 h-10 rounded-full bg-gray-800 border border-white/10 flex items-center justify-center text-xs">L</div>
+      </div>
+
+      <div class="flex flex-col items-center">
+        <div class="bg-red-600/20 text-red-500 px-4 py-1 rounded-lg font-black text-sm mb-2">VS</div>
+        <span class="text-xs text-gray-500 uppercase font-bold">Sat, 20 Dec • 18:30</span>
+      </div>
+
+      <div class="flex items-center space-x-4 w-full md:w-1/3 justify-center md:justify-end">
+        <div class="w-10 h-10 rounded-full bg-gray-800 border border-white/10 flex items-center justify-center text-xs">W</div>
+        <span class="font-bold text-white uppercase tracking-wider">Wolves FC</span>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="w-full max-w-5xl px-6 mt-16">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+    
+    <div class="relative group overflow-hidden bg-gradient-to-br from-red-600/20 to-transparent border border-white/10 rounded-[2.5rem] p-8 md:p-12 flex flex-col items-center text-center">
+      <div class="absolute top-6 left-6 px-4 py-1 bg-red-600 text-[10px] font-black uppercase tracking-widest rounded-full">
+        Player of the Week
+      </div>
+      
+      <div class="w-48 h-48 md:w-64 md:h-64 bg-gray-800 rounded-full mb-6 border-4 border-red-500/30 overflow-hidden relative">
+        <div class="absolute inset-0 flex items-center justify-center text-gray-600 italic">
+          <i class="fas fa-user text-6xl"></i>
+        </div>
+        </div>
+
+      <h3 class="text-3xl font-black text-white uppercase tracking-tighter italic">NIL <span class="text-red-500">NIL</span></h3>
+      <p class="text-gray-400 font-medium uppercase text-sm tracking-widest mt-1">Strikers FC • Forward</p>
+      
+      <div class="flex gap-8 mt-6">
+        <div class="text-center">
+          <span class="block text-2xl font-bold text-white">0</span>
+          <span class="text-[10px] text-gray-500 uppercase font-bold">Goals</span>
+        </div>
+        <div class="text-center border-x border-white/10 px-8">
+          <span class="block text-2xl font-bold text-white">0</span>
+          <span class="text-[10px] text-gray-500 uppercase font-bold">Assists</span>
+        </div>
+        <div class="text-center">
+          <span class="block text-2xl font-bold text-white">0</span>
+          <span class="text-[10px] text-gray-500 uppercase font-bold">MVP</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white/5 border border-white/10 rounded-[2rem] p-8">
+      <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+        <i class="fas fa-fire text-red-500 mr-3"></i> Top Scorers
+      </h3>
+      
+      <div class="space-y-4">
+        <div class="flex text-[10px] uppercase font-bold text-gray-500 px-2">
+          <div class="w-10">Pos</div>
+          <div class="flex-grow">Player</div>
+          <div class="w-10 text-right">G</div>
+        </div>
+
+        <div class="flex items-center p-3 bg-white/5 rounded-xl border border-white/5">
+          <div class="w-10 font-bold text-red-500">01</div>
+          <div class="flex-grow flex items-center space-x-3">
+            <div class="w-6 h-6 rounded-full bg-gray-700"></div>
+            <span class="text-sm font-semibold text-white">TBD</span>
+          </div>
+          <div class="w-10 text-right font-bold">0</div>
+        </div>
+        
+        <div class="flex items-center p-3 opacity-50">
+          <div class="w-10 font-bold text-gray-600">02</div>
+          <div class="flex-grow flex items-center space-x-3">
+            <div class="w-6 h-6 rounded-full bg-gray-700"></div>
+            <span class="text-sm font-semibold text-gray-400">TBD</span>
+          </div>
+          <div class="w-10 text-right font-bold text-gray-400">0</div>
+        </div>
+
+        <div class="flex items-center p-3 opacity-30">
+          <div class="w-10 font-bold text-gray-600">03</div>
+          <div class="flex-grow flex items-center space-x-3">
+            <div class="w-6 h-6 rounded-full bg-gray-700"></div>
+            <span class="text-sm font-semibold text-gray-400">TBD</span>
+          </div>
+          <div class="w-10 text-right font-bold text-gray-400">0</div>
+        </div>
+      </div>
+
+      <button class="w-full mt-6 py-3 border border-white/10 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-white/5 transition-all">
+        View Full Player Stats
+      </button>
+    </div>
+
+  </div>
+</section>
+<div id="missionBriefing" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-8 bg-black/95 backdrop-blur-xl transition-all duration-500">
+    <div class="relative w-full max-w-2xl bg-[#0a0a0a] border border-white/10 rounded-[3rem] overflow-hidden shadow-[0_0_100px_rgba(220,38,38,0.1)]">
+        
+        <button onclick="closeBriefing()" class="absolute top-8 right-8 z-50 text-gray-500 hover:text-white transition-colors">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+
+        <div id="briefingCarousel" class="relative">
+            
+            <div class="briefing-slide p-10 md:p-16 flex flex-col items-center text-center animate-in">
+                <div class="w-20 h-20 bg-red-600/10 rounded-full flex items-center justify-center mb-8 border border-red-600/20">
+                    <i class="fas fa-microchip text-red-600 text-3xl"></i>
+                </div>
+                <h2 class="text-[10px] text-red-600 font-black uppercase tracking-[0.4em] mb-2">Protocol 01: Intelligent Systems</h2>
+                <h3 class="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter">AI Verification <span class="text-red-600 text-sm block md:inline">Online</span></h3>
+                <p class="mt-6 text-gray-500 text-sm leading-relaxed max-w-md">
+                    The Financial Node is now powered by OCR-AI. Your payment screenshots are analyzed in real-time. Ensure your name and amount are clearly visible for instant synchronization.
+                </p>
+            </div>
+
+            <div class="briefing-slide hidden p-10 md:p-16 flex flex-col items-center text-center animate-in">
+                <div class="w-20 h-20 bg-blue-600/10 rounded-full flex items-center justify-center mb-8 border border-blue-600/20">
+                    <i class="fas fa-handshake text-blue-600 text-3xl"></i>
+                </div>
+                <h2 class="text-[10px] text-blue-600 font-black uppercase tracking-[0.4em] mb-2">Protocol 02: Economic Hub</h2>
+                <h3 class="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter">Transfer Market <span class="text-blue-600 text-sm block md:inline">Locked</span></h3>
+                <p class="mt-6 text-gray-500 text-sm leading-relaxed max-w-md">
+                    The trade terminal is under security lock until <span class="text-white font-bold">January 18th</span>. Monitor the countdown. Prepare your rosters for the first expansion draft.
+                </p>
+            </div>
+
+            <div class="briefing-slide hidden p-10 md:p-16 flex flex-col items-center text-center animate-in">
+                <div class="w-20 h-20 bg-yellow-600/10 rounded-full flex items-center justify-center mb-8 border border-yellow-600/20">
+                    <i class="fas fa-bolt text-yellow-600 text-3xl"></i>
+                </div>
+                <h2 class="text-[10px] text-yellow-600 font-black uppercase tracking-[0.4em] mb-2">Protocol 03: Future State</h2>
+                <h3 class="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter">Update <span class="text-yellow-600 text-sm block md:inline">Inbound</span></h3>
+                <p class="mt-6 text-gray-500 text-sm leading-relaxed max-w-md">
+                    Next update unleashes: <span class="text-white font-bold">Squad Management</span> and <span class="text-white font-bold">Live Match Nodes</span>. Stay connected to the grid for Season 01 deployment.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="flex justify-between items-center p-8 bg-white/[0.02] border-t border-white/5">
+            <button onclick="prevSlide()" class="p-4 rounded-full hover:bg-white/5 text-gray-500 hover:text-white transition-all">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            
+            <div class="flex gap-2">
+                <div class="dot w-2 h-2 rounded-full bg-red-600"></div>
+                <div class="dot w-2 h-2 rounded-full bg-gray-800"></div>
+                <div class="dot w-2 h-2 rounded-full bg-gray-800"></div>
+            </div>
+
+            <button onclick="nextSlide()" class="p-4 rounded-full hover:bg-white/5 text-gray-500 hover:text-white transition-all">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<footer class="w-full mt-32 bg-black border-t border-white/5 pt-16 pb-8 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+      <div>
+        <h4 class="text-white font-bold uppercase tracking-widest mb-4">MIKOKO LEAGUE</h4>
+        <p class="text-gray-500 text-sm leading-relaxed">
+          The premier destination for competitive amateur football. Built for the community, driven by passion.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold uppercase tracking-widest mb-4">Quick Links</h4>
+        <ul class="text-gray-500 text-sm space-y-2">
+          <li><a href="#" class="hover:text-red-500 transition-colors">Season Standings</a></li>
+          <li><a href="#" class="hover:text-red-500 transition-colors">Join a Team</a></li>
+          <li><a href="#" class="hover:text-red-500 transition-colors">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold uppercase tracking-widest mb-4">Follow Us</h4>
+        <div class="flex space-x-4 text-xl text-gray-500">
+          <a href="#" class="hover:text-red-500"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="hover:text-red-500"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="hover:text-red-500"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 space-y-4 md:space-y-0">
+      <p>&copy; 2025 MIKOKO League. All rights reserved.</p>
+      <div class="flex items-center space-x-2">
+        <span>Powered by</span>
+        <span class="text-white font-bold tracking-tighter text-sm italic">Tech Nxxt <span class="text-red-500">Company</span></span>
+      </div>
+    </div>
+  </div>
+</footer>
 
   </main>
 
-  <div id="missionBriefing" class="fixed inset-0 z-[100000] flex items-center justify-center p-6 bg-black/98 backdrop-blur-2xl">
-    <div class="relative w-full max-w-2xl bg-[#080808] border border-white/10 rounded-[3.5rem] overflow-hidden shadow-2xl shadow-red-600/10">
-      <button onclick="closeBriefing()" class="absolute top-10 right-10 z-50 text-gray-600 hover:text-white transition-colors">
-        <i class="fas fa-times text-2xl"></i>
-      </button>
-      <div id="briefingCarousel">
-        <div class="briefing-slide p-12 md:p-20 flex flex-col items-center text-center">
-          <div class="w-24 h-24 bg-red-600/10 rounded-[2rem] flex items-center justify-center mb-8 border border-red-600/20 shadow-inner">
-            <i class="fas fa-microchip text-red-600 text-4xl"></i>
-          </div>
-          <h2 class="text-[10px] text-red-600 font-black uppercase tracking-[0.5em] mb-4">Protocol 01: Intelligent Systems</h2>
-          <h3 class="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-none">AI VERIFICATION <span class="text-red-600 block text-lg mt-2 font-black tracking-widest">ONLINE</span></h3>
-          <p class="mt-8 text-gray-500 text-sm leading-relaxed max-w-md">Financial Nodes are now powered by OCR-AI. Ensure your name and amount are visible for instant synchronization.</p>
-        </div>
-      </div>
-      <div class="flex justify-between items-center p-10 bg-white/[0.02] border-t border-white/5">
-        <button onclick="prevSlide()" class="p-5 rounded-full hover:bg-white/5 text-gray-600 hover:text-white transition-all"><i class="fas fa-chevron-left"></i></button>
-        <div class="flex gap-3">
-          <div class="dot w-2 h-2 rounded-full bg-red-600"></div>
-          <div class="dot w-2 h-2 rounded-full bg-zinc-800"></div>
-          <div class="dot w-2 h-2 rounded-full bg-zinc-800"></div>
-        </div>
-        <button onclick="nextSlide()" class="p-5 rounded-full hover:bg-white/5 text-gray-600 hover:text-white transition-all"><i class="fas fa-chevron-right"></i></button>
-      </div>
-    </div>
-  </div>
-
-  <div id="aiModal" class="fixed inset-0 z-[50000] hidden flex items-center justify-center p-6 bg-black/90 backdrop-blur-md">
-    <div class="absolute inset-0" id="closeAiBtn"></div>
-    <div class="relative w-full max-w-lg bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col h-[650px] max-h-[85vh]">
-      <div class="p-6 border-b border-white/5 flex justify-between items-center bg-white/5">
-        <div class="flex items-center gap-4">
-          <div class="w-10 h-10 rounded-2xl bg-red-600 flex items-center justify-center animate-pulse"><i class="fas fa-robot text-white"></i></div>
-          <h3 class="text-white text-xs font-black uppercase tracking-widest">MIKOKO AI Assistant</h3>
-        </div>
-        <button class="text-gray-500 hover:text-white" id="closeAiX"><i class="fas fa-times"></i></button>
-      </div>
-      <div id="chatWindow" class="flex-grow p-8 overflow-y-auto space-y-6 scrollbar-hide flex flex-col"></div>
-      <div class="p-8 border-t border-white/5">
-        <form id="aiForm" class="relative">
-          <input type="text" id="aiInput" placeholder="Ask about the league..." class="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-6 text-sm text-white focus:outline-none focus:border-red-600/50 transition-all pr-16">
-          <button type="submit" class="absolute right-3 top-3 p-3 bg-red-600 hover:bg-red-500 text-white rounded-xl transition-all active:scale-95"><i class="fas fa-paper-plane"></i></button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div id="updateModal" class="fixed inset-0 z-[60000] hidden flex items-center justify-center p-6 bg-black/95 backdrop-blur-xl">
-    <div class="relative w-full max-w-md bg-black border border-white/10 rounded-[3rem] p-12 text-center overflow-hidden">
-      <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-red-500 to-transparent animate-scan"></div>
-      <div id="updateIcon" class="relative w-28 h-28 mx-auto mb-10">
-        <div class="absolute inset-0 rounded-full border-4 border-white/5"></div>
-        <div id="updateSpinner" class="absolute inset-0 rounded-full border-t-4 border-red-600 animate-spin"></div>
-        <div class="absolute inset-0 flex items-center justify-center"><i class="fas fa-microchip text-4xl text-red-600 animate-pulse"></i></div>
-      </div>
-      <h3 id="updateHeader" class="text-white font-black uppercase tracking-[0.4em] text-xs mb-4">Initialising...</h3>
-      <p id="updateStatus" class="text-gray-600 text-[9px] uppercase tracking-widest leading-relaxed h-4">Connecting to Tech Nxxt Servers</p>
-      <div id="progressWrapper" class="w-full bg-white/5 h-1 rounded-full mt-10 overflow-hidden hidden">
-        <div id="updateProgressBar" class="bg-red-600 h-full w-0 transition-all duration-1000"></div>
-      </div>
-      <button id="closeUpdateBtn" class="mt-10 px-8 py-3 bg-white/5 border border-white/10 text-gray-500 text-[10px] uppercase font-black rounded-xl hover:text-white transition-all hidden">Exit Terminal</button>
-    </div>
-  </div>
-
-  <div id="toastContainer" class="fixed top-10 right-10 z-[70000] pointer-events-none">
-    <div id="toast" class="flex items-center gap-4 bg-zinc-900 border border-white/10 px-8 py-5 rounded-2xl shadow-2xl translate-x-[150%] transition-all duration-500 pointer-events-auto">
-      <div class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center"><i class="fas fa-info-circle text-red-500"></i></div>
-      <div>
-        <h5 class="text-white text-[10px] font-black uppercase tracking-widest">System Update</h5>
-        <p id="toastMessage" class="text-gray-500 text-[9px] uppercase font-bold mt-1">Feature currently under deployment.</p>
-      </div>
-    </div>
-  </div>
-
-  <footer class="w-full bg-black border-t border-white/5 py-20 px-10">
-    <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
-      <div class="text-center md:text-left">
-        <h4 class="text-white font-black italic text-2xl uppercase">MIKOKO <span class="text-red-600">LEAGUE</span></h4>
-        <p class="text-gray-600 text-[10px] uppercase tracking-widest font-black mt-2">Built for the community, driven by passion.</p>
-      </div>
-      <div class="flex items-center space-x-2 grayscale opacity-50">
-        <span class="text-xs text-gray-500 uppercase font-black">Powered by</span>
-        <span class="text-white font-black italic text-lg">Tech Nxxt <span class="text-red-600">Company</span></span>
-      </div>
-    </div>
-  </footer>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
