@@ -1055,62 +1055,61 @@ const contentData = {
         </div>
     </div>
 </div>`,
-
 'Messages': `
-<div class="space-y-8 animate-in pb-12">
-    <div class="flex justify-between items-end">
+<div class="space-y-6 md:space-y-8 animate-in pb-12">
+    <div class="flex justify-between items-end px-2 md:px-0">
         <div>
-            <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Comms Center</h3>
-            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-green-500 italic">Encrypted Connection Stable</span></p>
+            <h3 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-red-600">Comms Center</h3>
+            <p class="text-gray-500 text-[8px] md:text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-green-500 italic">Encrypted Connection Stable</span></p>
         </div>
-        <i class="fas fa-shield-alt text-red-600 opacity-20 text-3xl"></i>
+        <i class="fas fa-shield-alt text-red-600 opacity-20 text-2xl md:text-3xl"></i>
     </div>
 
-    <div class="bg-zinc-900/50 border border-white/5 rounded-[2.5rem] p-6 md:p-10 min-h-[500px] flex flex-col relative overflow-hidden">
+    <div class="bg-zinc-900/50 border border-white/5 rounded-[2rem] md:rounded-[2.5rem] p-4 md:p-10 min-h-[450px] md:min-h-[500px] flex flex-col relative overflow-hidden">
         
         <div class="space-y-6 flex-1 relative z-10">
-            <div class="flex gap-4 max-w-2xl">
-                <div class="w-10 h-10 rounded-xl bg-red-600 flex-shrink-0 flex items-center justify-center shadow-lg shadow-red-600/20">
-                    <i class="fas fa-robot text-white text-xs"></i>
+            <div class="flex gap-3 md:gap-4 max-w-[90%] md:max-w-2xl">
+                <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-red-600 flex-shrink-0 flex items-center justify-center shadow-lg shadow-red-600/20">
+                    <i class="fas fa-robot text-white text-[10px] md:text-xs"></i>
                 </div>
-                <div class="bg-white/5 border border-white/10 p-5 rounded-2xl rounded-tl-none">
-                    <span class="text-[9px] text-red-600 font-black uppercase tracking-widest block mb-2">System Admin // TOGA</span>
-                    <p class="text-xs text-gray-300 font-bold uppercase leading-relaxed">
+                <div class="bg-white/5 border border-white/10 p-4 md:p-5 rounded-2xl rounded-tl-none">
+                    <span class="text-[8px] md:text-[9px] text-red-600 font-black uppercase tracking-widest block mb-1 md:mb-2">System Admin // TOGA</span>
+                    <p class="text-[11px] md:text-xs text-gray-300 font-bold uppercase leading-relaxed">
                         Welcome to Season 03. All Team Owners must DM their receipts for <span class="text-white">Franchise Naming Rights</span>. Use the Financial Node for account details.
                     </p>
-                    <span class="text-[8px] text-gray-600 font-mono mt-3 block">SENT: 18.12.2025 // 14:00</span>
+                    <span class="text-[7px] md:text-[8px] text-gray-600 font-mono mt-3 block uppercase tracking-tight">SENT: 18.12.2025 // 14:00</span>
                 </div>
             </div>
 
-            <div class="flex gap-4 max-w-2xl ml-auto flex-row-reverse">
-                <div class="w-10 h-10 rounded-xl bg-white/10 border border-white/10 flex-shrink-0 flex items-center justify-center">
-                    <i class="fas fa-users text-white text-xs"></i>
+            <div class="flex gap-3 md:gap-4 max-w-[90%] md:max-w-2xl ml-auto flex-row-reverse">
+                <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-white/10 border border-white/10 flex-shrink-0 flex items-center justify-center">
+                    <i class="fas fa-users text-white text-[10px] md:text-xs"></i>
                 </div>
-                <div class="bg-red-600/10 border border-red-600/20 p-5 rounded-2xl rounded-tr-none text-right">
-                    <span class="text-[9px] text-gray-400 font-black uppercase tracking-widest block mb-2">League Committee</span>
-                    <p class="text-xs text-gray-300 font-bold uppercase leading-relaxed">
+                <div class="bg-red-600/10 border border-red-600/20 p-4 md:p-5 rounded-2xl rounded-tr-none text-right">
+                    <span class="text-[8px] md:text-[9px] text-gray-400 font-black uppercase tracking-widest block mb-1 md:mb-2">League Committee</span>
+                    <p class="text-[11px] md:text-xs text-gray-300 font-bold uppercase leading-relaxed">
                         Registration for the draft pool is currently at ₦2,000. Ensure you have your ID cards ready for the Jan 18th window.
                     </p>
-                    <span class="text-[8px] text-gray-600 font-mono mt-3 block">SENT: 18.12.2025 // 15:45</span>
+                    <span class="text-[7px] md:text-[8px] text-gray-600 font-mono mt-3 block uppercase tracking-tight">SENT: 18.12.2025 // 15:45</span>
                 </div>
             </div>
         </div>
 
-        <div class="mt-10 pt-6 border-t border-white/5 relative">
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#121212] px-4 py-1 rounded-full border border-white/10">
-                <span class="text-[8px] text-gray-500 font-black uppercase tracking-[0.2em]">Transmission Status</span>
+        <div class="mt-8 md:mt-10 pt-6 border-t border-white/5 relative">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#0d0d0d] px-3 md:px-4 py-1 rounded-full border border-white/10 whitespace-nowrap">
+                <span class="text-[7px] md:text-[8px] text-gray-500 font-black uppercase tracking-[0.2em]">Transmission Status</span>
             </div>
             
-            <div class="flex flex-col items-center justify-center py-8 bg-black/40 rounded-3xl border border-dashed border-white/10">
-                <i class="fas fa-terminal text-red-600 mb-3 text-sm animate-pulse"></i>
-                <h5 class="text-white font-black uppercase italic text-[11px] tracking-widest">Two-Way Comms Disabled</h5>
-                <p class="text-gray-600 text-[9px] font-bold uppercase mt-1">Direct messaging and manager chat will be <span class="text-red-600">available in the next update</span>.</p>
+            <div class="flex flex-col items-center justify-center py-6 md:py-8 bg-black/40 rounded-2xl md:rounded-3xl border border-dashed border-white/10 px-4 text-center">
+                <i class="fas fa-terminal text-red-600 mb-2 md:mb-3 text-xs md:text-sm animate-pulse"></i>
+                <h5 class="text-white font-black uppercase italic text-[10px] md:text-[11px] tracking-widest">Two-Way Comms Disabled</h5>
+                <p class="text-gray-600 text-[8px] md:text-[9px] font-bold uppercase mt-1 leading-tight">Direct messaging and manager chat will be <span class="text-red-600">available in the next update</span>.</p>
             </div>
         </div>
     </div>
 
-    <div class="p-4 bg-white/[0.02] border border-white/5 rounded-2xl text-center">
-        <p class="text-[8px] text-gray-600 uppercase font-bold tracking-[0.3em]">All transmissions are monitored by MIKOKO Security Protocols</p>
+    <div class="px-4 py-3 bg-white/[0.02] border border-white/5 rounded-xl md:rounded-2xl text-center">
+        <p class="text-[7px] md:text-[8px] text-gray-600 uppercase font-bold tracking-[0.2em] md:tracking-[0.3em] leading-tight">All transmissions are monitored by MIKOKO Security Protocols</p>
     </div>
 </div>`,
 };
