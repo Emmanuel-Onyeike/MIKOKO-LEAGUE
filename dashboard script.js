@@ -1317,62 +1317,50 @@ function executeAdminRender() {
     const mainDisplay = document.getElementById('mainDisplay');
     const firstPending = players.find(p => p.status === 'Pending');
     
-    mainDisplay.innerHTML = `
-    <div class="space-y-6 animate-in pb-10 flex flex-col h-full max-h-[calc(100vh-200px)]">
-        
-        <div class="bg-red-600/10 border border-red-600/20 p-4 md:p-6 rounded-[2rem] flex flex-col md:flex-row justify-between items-center gap-4 backdrop-blur-md flex-shrink-0">
-            <div class="text-center md:text-left">
-                <h3 class="text-white font-black uppercase italic text-sm md:text-base">Franchise Admin Terminal</h3>
-                <p class="text-[8px] md:text-[9px] text-red-500 font-bold uppercase tracking-widest">Elite-8 Control Module</p>
-            </div>
-            <div class="bg-black/50 px-4 py-2 md:py-3 rounded-xl border border-white/10 flex items-center gap-3 w-full md:w-auto justify-center">
-                <span class="text-[8px] md:text-[9px] text-gray-500 uppercase font-black">Next In Queue:</span>
-                <span class="text-xs text-white font-bold italic uppercase truncate max-w-[120px]">
-                    ${firstPending ? firstPending.name : 'NO PENDING'}
-                </span>
-            </div>
-        </div>
+  mainDisplay.innerHTML = `
+        <div class="space-y-8 animate-in pb-20">
+            <div class="bg-red-600/10 border border-red-600/20 p-6 rounded-[2rem] flex flex-col md:flex-row justify-between items-center gap-4 backdrop-blur-md">
+                <div>
+                    <h3 class="text-white font-black uppercase italic">Franchise Admin Terminal</h3>
+                    <p class="text-[9px] text-red-500 font-bold uppercase tracking-widest">Elite-8 Control Module</p>
+                </div>
+                <div class="bg-black/50 px-4 py-3 rounded-xl border border-white/10 flex items-center gap-3">
+                    <span class="text-[9px] text-gray-500 uppercase font-black">Next In Queue:</span>
+                    <span class="text-xs text-white font-bold italic uppercase">${firstPending ? firstPending.name : 'NO PENDING'}</span>
+                </div>
+            </div>
 
-        <div class="flex-1 overflow-y-auto custom-scrollbar pr-2">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                ${teams.map(t => `
-                    <div class="flex flex-col h-[380px] md:h-[400px] bg-zinc-900/50 border border-white/10 rounded-[2rem] overflow-hidden group hover:border-red-600/30 transition-all">
-                        
-                        <div class="p-5 pb-2 flex-shrink-0 bg-gradient-to-b from-white/[0.02] to-transparent">
-                            <div class="flex justify-between items-start gap-2">
-                                <h4 class="text-white font-black italic uppercase text-xs md:text-sm truncate ${t.name === 'NIL' ? 'text-gray-600' : 'text-white'}">${t.name}</h4>
-                                <button onclick="renameTeam('${t.id}')" class="text-[10px] text-red-600 hover:text-white flex-shrink-0">
-                                    <i class="fas fa-pen"></i>
-                                </button>
-                            </div>
-                            <p class="text-[8px] md:text-[9px] text-red-600 font-bold uppercase tracking-widest mt-1">${t.members.length}/10 UNITS</p>
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                ${teams.map(t => `
+                    <div class="flex flex-col h-[400px] bg-zinc-900/50 border border-white/10 rounded-[2rem] overflow-hidden group hover:border-red-600/30 transition-all">
+                        <div class="p-5 pb-2">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-white font-black italic uppercase text-sm truncate ${t.name === 'NIL' ? 'text-gray-600' : 'text-white'}">${t.name}</h4>
+                                <button onclick="renameTeam('${t.id}')" class="text-[10px] text-red-600 hover:text-white"><i class="fas fa-pen"></i></button>
+                            </div>
+                            <p class="text-[9px] text-red-600 font-bold uppercase tracking-widest mt-1">${t.members.length}/10 UNITS</p>
+                        </div>
 
-                        <div class="flex-1 overflow-y-auto px-4 py-2 custom-scrollbar space-y-2">
-                            ${t.members.map(m => `
-                                <div class="flex justify-between items-center p-2.5 bg-white/[0.03] border border-white/5 rounded-xl group/item">
-                                    <p class="text-[8px] md:text-[9px] text-zinc-300 font-mono uppercase font-bold truncate pr-2">${m}</p>
-                                    <button onclick="firePlayer('${m}', '${t.id}')" class="text-red-600 opacity-100 md:opacity-0 md:group-hover/item:opacity-100 transition-all flex-shrink-0">
-                                        <i class="fas fa-trash-alt text-[9px]"></i>
-                                    </button>
-                                </div>`).join('') || `
-                                <div class="h-full flex flex-col items-center justify-center opacity-10 gap-2">
-                                    <i class="fas fa-shield-blank text-xl"></i>
-                                    <span class="text-[8px] font-black uppercase italic">Empty Slot</span>
-                                </div>`}
-                        </div>
+                        <div class="flex-1 overflow-y-auto px-5 py-2 custom-scrollbar space-y-2">
+                            ${t.members.map(m => `
+                                <div class="flex justify-between items-center p-3 bg-white/[0.03] border border-white/5 rounded-xl group/item">
+                                    <p class="text-[9px] text-zinc-300 font-mono uppercase font-bold">${m}</p>
+                                    <button onclick="firePlayer('${m}', '${t.id}')" class="text-red-600 opacity-0 group-hover/item:opacity-100 transition-all">
+                                        <i class="fas fa-trash-alt text-[10px]"></i>
+                                    </button>
+                                </div>`).join('') || '<div class="h-full flex flex-col items-center justify-center opacity-10 gap-2"><i class="fas fa-shield-blank text-2xl"></i><span class="text-[8px] font-black uppercase italic">Empty Slot</span></div>'}
+                        </div>
 
-                        <div class="p-4 md:p-5 pt-2 mt-auto bg-gradient-to-t from-black/40 to-transparent">
-                            <button onclick="assignPlayerToTeam(${firstPending ? firstPending.id : null}, '${t.id}')" 
-                                class="w-full py-3 md:py-4 rounded-xl text-[9px] font-black uppercase transition-all 
-                                ${firstPending && t.members.length < MAX_SQUAD_SIZE ? 'bg-red-600 text-white shadow-lg active:scale-95' : 'bg-white/5 text-gray-600 cursor-not-allowed'}">
-                                ${firstPending ? (t.members.length < MAX_SQUAD_SIZE ? 'Assign' : 'Full') : 'Queue Empty'}
-                            </button>
-                        </div>
-                    </div>`).join('')}
-            </div>
-        </div>
-    </div>`;
+                        <div class="p-5 pt-2 mt-auto">
+                            <button onclick="assignPlayerToTeam(${firstPending ? firstPending.id : null}, '${t.id}')" 
+                                class="w-full py-4 rounded-xl text-[9px] font-black uppercase transition-all 
+                                ${firstPending && t.members.length < MAX_SQUAD_SIZE ? 'bg-red-600 text-white shadow-lg' : 'bg-white/5 text-gray-600 cursor-not-allowed'}">
+                                ${firstPending ? (t.members.length < MAX_SQUAD_SIZE ? 'Assign' : 'Full') : 'Queue Empty'}
+                            </button>
+                        </div>
+                    </div>`).join('')}
+            </div>
+        </div>`; 
 }
 
 // --- 6. CORE LOGIC ---
