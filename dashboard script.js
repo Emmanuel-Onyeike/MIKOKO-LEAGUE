@@ -1254,61 +1254,40 @@ function renderLeagueSystem(mode) {
         return;
     }
 
-  if (mode === 'Player Selection') {
-    const pending = players.filter(p => p.status === 'Pending');
-    const active = players.filter(p => p.status === 'Confirmed');
+  if (mode === 'Team Selection') {
+        openAuthPortal();
+        return;
+    }
 
-    mainDisplay.innerHTML = `
-        <div class="space-y-6 animate-in pb-6 flex flex-col h-full max-h-[calc(100vh-200px)]">
-            
-            <div class="bg-zinc-900/80 p-4 md:p-6 rounded-[2rem] border border-white/5 flex-shrink-0">
-                <h3 class="text-white font-black uppercase italic mb-3 text-sm tracking-widest">Registration Terminal</h3>
-                <div class="flex flex-col md:flex-row gap-3">
-                    <input type="text" id="playerNameInput" placeholder="ENTER PLAYER NAME..." 
-                        class="flex-1 bg-black/60 border border-white/10 rounded-xl px-5 py-3 text-red-500 font-mono text-xs focus:outline-none focus:border-red-600">
-                    <button onclick="registerPlayer()" 
-                        class="px-8 py-3 bg-red-600 text-white font-black uppercase italic rounded-xl hover:bg-white hover:text-red-600 transition-all text-xs">
-                        Register
-                    </button>
-                </div>
-            </div>
+    if (mode === 'Player Selection') {
+        const pending = players.filter(p => p.status === 'Pending');
+        const active = players.filter(p => p.status === 'Confirmed');
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1 min-h-0">
-                
-                <div class="border border-white/5 rounded-[2rem] p-4 bg-black/40 flex flex-col min-h-[300px] lg:min-h-0">
-                    <div class="flex justify-between items-center mb-3 px-2">
-                        <h4 class="text-yellow-500 font-black uppercase text-[10px] tracking-widest">Awaiting Assignment</h4>
-                        <span class="bg-yellow-500/10 text-yellow-500 px-2 py-0.5 rounded text-[9px] font-bold">${pending.length}</span>
-                    </div>
-                    
-                    <div class="flex-1 overflow-y-auto custom-scrollbar space-y-2 pr-1">
-                        ${pending.map(p => `
-                            <div class="p-3 bg-white/5 rounded-xl flex justify-between items-center border border-white-[0.02]">
-                                <span class="text-white font-bold text-[10px] uppercase truncate mr-2">${p.name}</span>
-                                <i class="fas fa-clock text-yellow-500/20 text-[10px]"></i>
-                            </div>
-                        `).join('') || '<div class="h-full flex items-center justify-center"><p class="text-zinc-800 text-[10px] font-black uppercase italic">No Pending Units</p></div>'}
-                    </div>
-                </div>
+        mainDisplay.innerHTML = `
+            <div class="space-y-8 animate-in pb-10">
+                <div class="bg-zinc-900/80 p-6 md:p-8 rounded-[2rem] border border-white/5">
+                    <h3 class="text-white font-black uppercase italic mb-4">Registration Terminal</h3>
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <input type="text" id="playerNameInput" placeholder="ENTER PLAYER NAME..." class="flex-1 bg-black/60 border border-white/10 rounded-2xl px-6 py-4 text-red-500 font-mono focus:outline-none focus:border-red-600">
+                        <button onclick="registerPlayer()" class="px-10 py-4 bg-red-600 text-white font-black uppercase italic rounded-2xl hover:bg-white hover:text-red-600 transition-all">Register</button>
+                    </div>
+                </div>
 
-                <div class="border border-white/5 rounded-[2rem] p-4 bg-black/40 flex flex-col min-h-[300px] lg:min-h-0">
-                    <div class="flex justify-between items-center mb-3 px-2">
-                        <h4 class="text-emerald-500 font-black uppercase text-[10px] tracking-widest">Active Roster</h4>
-                        <span class="bg-emerald-500/10 text-emerald-500 px-2 py-0.5 rounded text-[9px] font-bold">${active.length}</span>
-                    </div>
-
-                    <div class="flex-1 overflow-y-auto custom-scrollbar space-y-2 pr-1">
-                        ${active.map(p => `
-                            <div class="p-3 bg-white/5 rounded-xl flex justify-between items-center border border-white-[0.02]">
-                                <span class="text-white font-bold text-[10px] uppercase truncate mr-2">${p.name}</span>
-                                <span class="text-[7px] text-zinc-500 font-black uppercase border border-white/5 px-2 py-0.5 rounded italic whitespace-nowrap">${p.team}</span>
-                            </div>
-                        `).join('') || '<div class="h-full flex items-center justify-center"><p class="text-zinc-800 text-[10px] font-black uppercase italic">Roster Empty</p></div>'}
-                    </div>
-                </div>
-
-            </div>
-        </div>`;
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="border border-white/5 rounded-[2.5rem] p-6 bg-black/40">
+                        <h4 class="text-yellow-500 font-black uppercase text-[10px] mb-4 tracking-widest">Awaiting Assignment (${pending.length})</h4>
+                        <div class="space-y-2 overflow-y-auto max-h-[450px] custom-scrollbar pr-2">
+                            ${pending.map(p => `<div class="p-4 bg-white/5 rounded-2xl flex justify-between items-center"><span class="text-white font-bold text-xs uppercase">${p.name}</span><i class="fas fa-clock text-yellow-500/20 text-xs"></i></div>`).join('') || '<p class="text-zinc-800 text-center py-10 font-black uppercase italic">No Pending Units</p>'}
+                        </div>
+                    </div>
+                    <div class="border border-white/5 rounded-[2.5rem] p-6 bg-black/40">
+                        <h4 class="text-emerald-500 font-black uppercase text-[10px] mb-4 tracking-widest">Active Roster (${active.length})</h4>
+                        <div class="space-y-2 overflow-y-auto max-h-[450px] custom-scrollbar pr-2">
+                            ${active.map(p => `<div class="p-4 bg-white/5 rounded-2xl flex justify-between items-center"><span class="text-white font-bold text-xs uppercase">${p.name}</span><span class="text-[8px] text-zinc-500 font-black uppercase border border-white/5 px-2 py-1 rounded italic">${p.team}</span></div>`).join('') || '<p class="text-zinc-800 text-center py-10 font-black uppercase italic">Roster Empty</p>'}
+                        </div>
+                    </div>
+                </div>
+            </div>`; 
 }
     }
 }
