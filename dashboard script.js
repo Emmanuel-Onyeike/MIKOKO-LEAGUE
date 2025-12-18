@@ -944,50 +944,66 @@ const contentData = {
         </div>
     </div>
 </div>`,
-    'Team Lab': `
+   'Team Lab': `
 <div class="space-y-8 animate-in pb-12">
-    <div class="flex justify-between items-end">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
             <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Tactical Lab</h3>
-            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-white">Simulation Environment</span></p>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-green-500">Live Simulation Active</span></p>
         </div>
-        <i class="fas fa-flask text-red-600 opacity-20 text-3xl"></i>
+        <div class="flex gap-2">
+            <button onclick="saveTacticalMap()" class="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[10px] text-white font-black uppercase hover:bg-red-600 transition-all">
+                <i class="fas fa-camera mr-2"></i> Save to Gallery
+            </button>
+            <button onclick="generateTacticalLink()" class="px-4 py-2 bg-red-600 text-white rounded-xl text-[10px] font-black uppercase shadow-lg shadow-red-600/20">
+                <i class="fas fa-link mr-2"></i> Share Link
+            </button>
+        </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="lg:col-span-2 aspect-[3/4] md:aspect-video bg-emerald-900/20 border border-white/10 rounded-[3rem] relative overflow-hidden group">
-            <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
-            <div class="absolute inset-4 border-2 border-white/10 rounded-2xl flex items-center justify-center">
-                <div class="w-40 h-40 border-2 border-white/10 rounded-full"></div>
-                <div class="absolute h-full w-[1px] bg-white/10"></div>
+        <div class="lg:col-span-2 space-y-4">
+            <div id="tacticalPitch" class="relative aspect-[3/4] md:aspect-video bg-emerald-900/30 border-4 border-white/10 rounded-[2.5rem] overflow-hidden backdrop-blur-sm">
+                <div class="absolute inset-6 border-2 border-white/5 rounded-lg pointer-events-none">
+                    <div class="absolute top-1/2 left-0 right-0 h-[2px] bg-white/5"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border-2 border-white/5 rounded-full"></div>
+                </div>
+
+                <div id="dropZone" class="absolute inset-0 z-10" ondrop="dropPlayer(event)" ondragover="allowDrop(event)">
+                    </div>
             </div>
-            
-            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-10">
-                <i class="fas fa-microchip text-red-600 text-4xl mb-4 animate-pulse"></i>
-                <h4 class="text-white font-black uppercase italic tracking-tighter text-xl">Tactical Engine Offline</h4>
-                <p class="text-gray-500 text-[10px] font-bold uppercase mt-2 max-w-xs">Squad visualization unlocks once the draft pool is finalized and teams are named.</p>
+
+            <div class="flex gap-4">
+                <input type="text" id="tacticalTeamName" placeholder="ENTER SQUAD NAME..." class="flex-1 bg-zinc-900 border border-white/10 rounded-2xl px-6 py-4 text-white font-black italic uppercase text-sm">
+                <select id="matchType" onchange="initTacticalLab()" class="bg-zinc-900 border border-white/10 rounded-2xl px-4 text-red-600 font-black uppercase text-xs">
+                    <option value="11">11-Man Game</option>
+                    <option value="9">9-Man Game</option>
+                    <option value="7">7-Man Game</option>
+                    <option value="5">5-Man Game</option>
+                </select>
             </div>
         </div>
 
         <div class="space-y-6">
-            <div class="p-8 bg-zinc-900/50 border border-white/5 rounded-[2.5rem]">
-                <span class="text-[9px] text-red-600 font-black uppercase tracking-widest">Formation Config</span>
-                <h5 class="text-white font-black uppercase italic mt-2 mb-6">Select Setup</h5>
-                <div class="grid grid-cols-2 gap-3">
-                    ${['4-4-2', '4-3-3', '3-5-2', '4-5-1'].map(f => `
-                        <button class="py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] text-gray-400 font-black hover:bg-red-600 hover:text-white transition-all">${f}</button>
-                    `).join('')}
-                </div>
+            <div class="p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
+                <h5 class="text-white font-black uppercase italic text-xs mb-4">Player Reserves (Drag Units)</h5>
+                <div id="playerBench" class="flex flex-wrap gap-3 min-h-[100px] p-4 bg-black/40 rounded-2xl border border-dashed border-white/10">
+                    </div>
             </div>
-            
-            <div class="p-8 bg-[#0a0a0a] border border-red-600/20 rounded-[2.5rem]">
-                <i class="fas fa-exclamation-triangle text-red-600 mb-4"></i>
-                <h5 class="text-white font-black uppercase italic text-sm mb-2">Manager Access</h5>
-                <p class="text-[10px] text-gray-500 font-bold uppercase leading-relaxed">Only verified Team Owners can save custom tactics to the league database.</p>
+
+            <div class="p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
+                <h5 class="text-white font-black uppercase italic text-xs mb-4">Auto-Formations</h5>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="applyFormation('4-4-2')" class="p-3 bg-white/5 border border-white/10 rounded-xl text-[9px] text-gray-400 font-black uppercase hover:text-red-600">4-4-2 Standard</button>
+                    <button onclick="applyFormation('4-3-3')" class="p-3 bg-white/5 border border-white/10 rounded-xl text-[9px] text-gray-400 font-black uppercase hover:text-red-600">4-3-3 Attack</button>
+                    <button onclick="applyFormation('3-5-2')" class="p-3 bg-white/5 border border-white/10 rounded-xl text-[9px] text-gray-400 font-black uppercase hover:text-red-600">3-5-2 Wide</button>
+                    <button onclick="applyFormation('clear')" class="p-3 bg-red-600/10 border border-red-600/20 rounded-xl text-[9px] text-red-600 font-black uppercase">Reset Board</button>
+                </div>
             </div>
         </div>
     </div>
-</div>`,
+</div>
+`,
 
     
     'Pure Stream': `
@@ -1442,4 +1458,103 @@ function syncLeaderboardData() {
         // This is where you would map your players into the HTML rows
         // If you prefer to keep them static for now, this can stay empty
     }
+}
+
+
+
+/// for the team lab
+// --- TACTICAL LAB ENGINE ---
+
+function initTacticalLab() {
+    const bench = document.getElementById('playerBench');
+    const matchType = document.getElementById('matchType').value;
+    if(!bench) return;
+
+    bench.innerHTML = '';
+    // Always provide 12 units for the coach to choose from
+    for(let i = 1; i <= 12; i++) {
+        const playerDot = document.createElement('div');
+        playerDot.id = `tactical-player-${i}`;
+        playerDot.draggable = true;
+        playerDot.ondragstart = dragPlayer;
+        playerDot.className = "w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-[10px] text-white font-black cursor-move border-2 border-white/20 shadow-lg";
+        playerDot.innerText = i;
+        bench.appendChild(playerDot);
+    }
+}
+
+function allowDrop(ev) { ev.preventDefault(); }
+
+function dragPlayer(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function dropPlayer(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData("text");
+    const player = document.getElementById(data);
+    const dropZone = document.getElementById('dropZone');
+    
+    // Calculate position relative to the pitch
+    const rect = dropZone.getBoundingClientRect();
+    const x = ((ev.clientX - rect.left) / rect.width) * 100;
+    const y = ((ev.clientY - rect.top) / rect.height) * 100;
+
+    player.style.position = 'absolute';
+    player.style.left = `${x}%`;
+    player.style.top = `${y}%`;
+    player.style.transform = 'translate(-50%, -50%)';
+    
+    dropZone.appendChild(player);
+}
+
+function applyFormation(type) {
+    const players = Array.from(document.querySelectorAll('[id^="tactical-player-"]'));
+    const dropZone = document.getElementById('dropZone');
+    
+    if(type === 'clear') {
+        initTacticalLab();
+        return;
+    }
+
+    // Basic coordinate logic for formations
+    const formations = {
+        '4-4-2': [
+            {t:90, l:50}, // GK
+            {t:70, l:20}, {t:70, l:40}, {t:70, l:60}, {t:70, l:80}, // DEF
+            {t:40, l:20}, {t:40, l:40}, {t:40, l:60}, {t:40, l:80}, // MID
+            {t:15, l:40}, {t:15, l:60} // ATT
+        ]
+    };
+
+    const coords = formations[type] || [];
+    coords.forEach((pos, i) => {
+        if(players[i]) {
+            players[i].style.position = 'absolute';
+            players[i].style.left = `${pos.l}%`;
+            players[i].style.top = `${pos.t}%`;
+            players[i].style.transform = 'translate(-50%, -50%)';
+            dropZone.appendChild(players[i]);
+        }
+    });
+}
+
+function saveTacticalMap() {
+    const pitch = document.getElementById('tacticalPitch');
+    // Note: requires <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    html2canvas(pitch).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `Mikoko-Tactics-${Date.now()}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+        showGlobalAlert("fas fa-file-download", "Tactics Exported", "Saved to your device gallery.");
+    });
+}
+
+function generateTacticalLink() {
+    const teamName = document.getElementById('tacticalTeamName').value || "Unnamed Squad";
+    const shareUrl = window.location.href.split('?')[0] + "?view=TeamLab&team=" + btoa(teamName);
+    
+    navigator.clipboard.writeText(shareUrl);
+    showGlobalAlert("fas fa-link", "Link Generated", "Share this link with your squad group.");
 }
