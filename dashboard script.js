@@ -946,118 +946,130 @@ const contentData = {
 </div>`,
    'Team Lab': `
 <div class="space-y-8 animate-in pb-12">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+    <div class="flex justify-between items-end">
         <div>
             <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Tactical Lab</h3>
-            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-green-500">Live Simulation Active</span></p>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-yellow-500 italic">Integration Pending</span></p>
         </div>
-        <div class="flex gap-2">
-            <button onclick="saveTacticalMap()" class="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[10px] text-white font-black uppercase hover:bg-red-600 transition-all">
-                <i class="fas fa-camera mr-2"></i> Save to Gallery
-            </button>
-            <button onclick="generateTacticalLink()" class="px-4 py-2 bg-red-600 text-white rounded-xl text-[10px] font-black uppercase shadow-lg shadow-red-600/20">
-                <i class="fas fa-link mr-2"></i> Share Link
-            </button>
+        <i class="fas fa-flask text-red-600 opacity-20 text-3xl"></i>
+    </div>
+
+    <div class="relative p-10 md:p-20 bg-[#0a0a0a] border border-white/5 rounded-[3rem] overflow-hidden flex flex-col items-center justify-center text-center">
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.1)_0%,transparent_70%)]"></div>
+            <div class="absolute inset-10 border-2 border-white/5 rounded-full"></div>
+            <div class="absolute top-0 bottom-0 left-1/2 w-[1px] bg-white/5"></div>
+        </div>
+
+        <div class="relative z-10 max-w-md">
+            <div class="w-20 h-20 bg-zinc-900 border border-white/10 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
+                <i class="fas fa-microchip text-red-600 text-3xl animate-pulse"></i>
+            </div>
+            
+            <h4 class="text-2xl font-black text-white italic uppercase tracking-tighter mb-4">
+                Digital Board <br>
+                <span class="text-red-600">Offline</span>
+            </h4>
+
+            <p class="text-[11px] text-gray-500 font-bold uppercase leading-relaxed tracking-widest mb-10">
+                The interactive tactical suite is currently being synchronized with the MIKOKO Main Node. Manual drag-and-drop formations and shareable links will be <span class="text-white">available in the next update</span>.
+            </p>
+
+            <div class="inline-flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-2xl">
+                <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                <span class="text-[9px] text-gray-400 font-black uppercase tracking-[0.2em]">Check back after Season 03 Protocol Initialization</span>
+            </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="lg:col-span-2 space-y-4">
-            <div id="tacticalPitch" class="relative aspect-[3/4] md:aspect-video bg-emerald-900/30 border-4 border-white/10 rounded-[2.5rem] overflow-hidden backdrop-blur-sm">
-                <div class="absolute inset-6 border-2 border-white/5 rounded-lg pointer-events-none">
-                    <div class="absolute top-1/2 left-0 right-0 h-[2px] bg-white/5"></div>
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border-2 border-white/5 rounded-full"></div>
-                </div>
-
-                <div id="dropZone" class="absolute inset-0 z-10" ondrop="dropPlayer(event)" ondragover="allowDrop(event)">
-                    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 opacity-50">
+        <div class="p-6 bg-zinc-900/50 border border-dashed border-white/10 rounded-3xl flex items-center gap-6">
+            <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center">
+                <i class="fas fa-layer-group text-gray-600"></i>
             </div>
-
-            <div class="flex gap-4">
-                <input type="text" id="tacticalTeamName" placeholder="ENTER SQUAD NAME..." class="flex-1 bg-zinc-900 border border-white/10 rounded-2xl px-6 py-4 text-white font-black italic uppercase text-sm">
-                <select id="matchType" onchange="initTacticalLab()" class="bg-zinc-900 border border-white/10 rounded-2xl px-4 text-red-600 font-black uppercase text-xs">
-                    <option value="11">11-Man Game</option>
-                    <option value="9">9-Man Game</option>
-                    <option value="7">7-Man Game</option>
-                    <option value="5">5-Man Game</option>
-                </select>
+            <div>
+                <p class="text-[9px] text-red-600 font-black uppercase tracking-widest">Upcoming</p>
+                <p class="text-xs text-white font-bold uppercase">Dynamic 5-11 Man Logic</p>
             </div>
         </div>
-
-        <div class="space-y-6">
-            <div class="p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
-                <h5 class="text-white font-black uppercase italic text-xs mb-4">Player Reserves (Drag Units)</h5>
-                <div id="playerBench" class="flex flex-wrap gap-3 min-h-[100px] p-4 bg-black/40 rounded-2xl border border-dashed border-white/10">
-                    </div>
+        <div class="p-6 bg-zinc-900/50 border border-dashed border-white/10 rounded-3xl flex items-center gap-6">
+            <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center">
+                <i class="fas fa-camera text-gray-600"></i>
             </div>
-
-            <div class="p-6 bg-zinc-900/50 border border-white/5 rounded-[2rem]">
-                <h5 class="text-white font-black uppercase italic text-xs mb-4">Auto-Formations</h5>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="applyFormation('4-4-2')" class="p-3 bg-white/5 border border-white/10 rounded-xl text-[9px] text-gray-400 font-black uppercase hover:text-red-600">4-4-2 Standard</button>
-                    <button onclick="applyFormation('4-3-3')" class="p-3 bg-white/5 border border-white/10 rounded-xl text-[9px] text-gray-400 font-black uppercase hover:text-red-600">4-3-3 Attack</button>
-                    <button onclick="applyFormation('3-5-2')" class="p-3 bg-white/5 border border-white/10 rounded-xl text-[9px] text-gray-400 font-black uppercase hover:text-red-600">3-5-2 Wide</button>
-                    <button onclick="applyFormation('clear')" class="p-3 bg-red-600/10 border border-red-600/20 rounded-xl text-[9px] text-red-600 font-black uppercase">Reset Board</button>
-                </div>
+            <div>
+                <p class="text-[9px] text-red-600 font-black uppercase tracking-widest">Upcoming</p>
+                <p class="text-xs text-white font-bold uppercase">Tactical Screenshot Export</p>
             </div>
         </div>
     </div>
-</div>
-`,
-
+</div>`,
     
-    'Pure Stream': `
+   'Pure Stream': `
 <div class="space-y-8 animate-in pb-12">
     <div class="flex justify-between items-end">
         <div>
             <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Pure Stream</h3>
-            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-red-600 animate-pulse">OFF AIR</span></p>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-zinc-600">Signal Offline</span></p>
         </div>
-        <i class="fas fa-satellite-dish text-red-600 opacity-20 text-3xl"></i>
+        <i class="fas fa-satellite text-red-600 opacity-20 text-3xl"></i>
     </div>
 
-    <div class="relative aspect-video bg-black rounded-[3rem] border border-white/5 overflow-hidden group">
-        <div class="absolute inset-0 flex flex-col items-center justify-center z-10">
-            <div class="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center mb-6 shadow-2xl shadow-red-600/40 group-hover:scale-110 transition-transform">
-                <i class="fas fa-play text-white ml-1"></i>
+    <div class="relative aspect-video bg-[#0a0a0a] rounded-[3rem] border border-white/5 overflow-hidden group">
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://media.giphy.com/media/oEI9uWUicGLeU/giphy.gif')] bg-cover"></div>
+        
+        <div class="absolute inset-0 flex flex-col items-center justify-center z-10 text-center p-6">
+            <div class="w-20 h-20 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-6 relative">
+                <i class="fas fa-video-slash text-gray-600 text-2xl"></i>
+                <div class="absolute inset-0 rounded-full border-2 border-red-600/20 animate-ping"></div>
             </div>
-            <p class="text-white font-black uppercase italic tracking-widest text-sm">Waiting for Matchday 01</p>
-            <p class="text-gray-600 text-[9px] font-bold uppercase mt-2">Signal Strength: 100% // Latency: 22ms</p>
+            
+            <h4 class="text-white font-black uppercase italic tracking-widest text-lg mb-2">Broadcasting Protocol Locked</h4>
+            <p class="text-gray-500 text-[10px] font-bold uppercase max-w-xs leading-relaxed">
+                Visual downlink is currently disabled. High-definition match streams and highlight reels will be <span class="text-red-600">deployed in the next update</span>.
+            </p>
         </div>
-        <div class="absolute bottom-8 left-8 right-8 flex justify-between items-center z-20">
-            <span class="px-3 py-1 bg-red-600 text-white text-[8px] font-black uppercase rounded">Live Feed</span>
+
+        <div class="absolute bottom-8 left-8 right-8 flex justify-between items-center z-20 opacity-20">
+            <div class="flex items-center gap-3">
+                <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                <span class="text-[8px] text-gray-400 font-black uppercase tracking-widest">Feed: MKK-LIVE-NULL</span>
+            </div>
             <div class="flex gap-4">
-                <i class="fas fa-expand text-white/20 text-xs"></i>
-                <i class="fas fa-cog text-white/20 text-xs"></i>
+                <div class="w-8 h-1 bg-white/10 rounded-full"></div>
+                <div class="w-12 h-1 bg-white/10 rounded-full"></div>
             </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        ${[1, 2, 3].map(i => `
-            <div class="bg-zinc-900/50 border border-white/5 rounded-3xl p-4 opacity-40">
-                <div class="aspect-video bg-black rounded-2xl mb-4 flex items-center justify-center">
-                    <i class="fas fa-film text-gray-800"></i>
-                </div>
-                <span class="text-[8px] text-gray-500 font-black uppercase">Archive Log 0${i}</span>
-                <p class="text-[10px] text-white font-bold uppercase mt-1">Season 02 Highlights</p>
+    <div class="p-8 bg-zinc-900/50 border border-white/5 rounded-[2.5rem] flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-6">
+            <div class="w-12 h-12 bg-red-600/10 rounded-2xl flex items-center justify-center text-red-600">
+                <i class="fas fa-clock"></i>
             </div>
-        `).join('')}
+            <div>
+                <h5 class="text-white font-black uppercase italic text-sm">Synchronizing Media Node</h5>
+                <p class="text-[10px] text-gray-500 font-bold uppercase mt-1">Estimated Arrival: Season 03 Kick-off</p>
+            </div>
+        </div>
+        <div class="px-6 py-2 border border-white/10 rounded-full">
+            <span class="text-[9px] text-gray-400 font-black uppercase tracking-widest">Protocol: 0.8.2-BETA</span>
+        </div>
     </div>
 </div>`,
 
-    'Messages': `
+'Messages': `
 <div class="space-y-8 animate-in pb-12">
     <div class="flex justify-between items-end">
         <div>
             <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Comms Center</h3>
             <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-green-500 italic">Encrypted Connection Stable</span></p>
         </div>
-        <i class="fas fa-envelope-open-text text-red-600 opacity-20 text-3xl"></i>
+        <i class="fas fa-shield-alt text-red-600 opacity-20 text-3xl"></i>
     </div>
 
-    <div class="bg-zinc-900/50 border border-white/5 rounded-[2.5rem] p-6 md:p-10 min-h-[500px] flex flex-col">
-        <div class="space-y-6 flex-1">
+    <div class="bg-zinc-900/50 border border-white/5 rounded-[2.5rem] p-6 md:p-10 min-h-[500px] flex flex-col relative overflow-hidden">
+        
+        <div class="space-y-6 flex-1 relative z-10">
             <div class="flex gap-4 max-w-2xl">
                 <div class="w-10 h-10 rounded-xl bg-red-600 flex-shrink-0 flex items-center justify-center shadow-lg shadow-red-600/20">
                     <i class="fas fa-robot text-white text-xs"></i>
@@ -1085,13 +1097,21 @@ const contentData = {
             </div>
         </div>
 
-        <div class="mt-10 relative">
-            <input type="text" placeholder="SECURE MESSAGE UNAVAILABLE - BROADCAST ONLY" disabled 
-                class="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-5 text-[10px] font-black uppercase tracking-widest text-gray-700 cursor-not-allowed">
-            <div class="absolute right-4 top-1/2 -translate-y-1/2">
-                <i class="fas fa-lock text-gray-800"></i>
+        <div class="mt-10 pt-6 border-t border-white/5 relative">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#121212] px-4 py-1 rounded-full border border-white/10">
+                <span class="text-[8px] text-gray-500 font-black uppercase tracking-[0.2em]">Transmission Status</span>
+            </div>
+            
+            <div class="flex flex-col items-center justify-center py-8 bg-black/40 rounded-3xl border border-dashed border-white/10">
+                <i class="fas fa-terminal text-red-600 mb-3 text-sm animate-pulse"></i>
+                <h5 class="text-white font-black uppercase italic text-[11px] tracking-widest">Two-Way Comms Disabled</h5>
+                <p class="text-gray-600 text-[9px] font-bold uppercase mt-1">Direct messaging and manager chat will be <span class="text-red-600">available in the next update</span>.</p>
             </div>
         </div>
+    </div>
+
+    <div class="p-4 bg-white/[0.02] border border-white/5 rounded-2xl text-center">
+        <p class="text-[8px] text-gray-600 uppercase font-bold tracking-[0.3em]">All transmissions are monitored by MIKOKO Security Protocols</p>
     </div>
 </div>`,
 };
