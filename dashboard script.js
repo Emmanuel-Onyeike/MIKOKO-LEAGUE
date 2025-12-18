@@ -165,36 +165,33 @@ const contentData = {
 
         </div>
     </div>`,
-    
-    'Standings': `
-    <div class="space-y-6 animate-in">
+   'Standings': `
+    <div class="space-y-6 animate-in pb-10">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <h3 class="text-2xl font-black italic uppercase tracking-tighter text-red-600">League Table</h3>
-                <p class="text-gray-500 text-[10px] uppercase tracking-widest font-bold">Season 03 // Pre-Matchday Calibration</p>
+                <p class="text-gray-500 text-[10px] uppercase tracking-widest font-bold">Season 03 // 08 Team Protocol</p>
             </div>
-            <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-xl">
-    <p class="text-[10px] text-gray-400 uppercase font-bold tracking-widest">
-            Protocol: <span class="text-white font-black">Top 8 Qualify for Glory Cup Quarter-Finals</span>
-        </p>
-        <p class="text-[9px] text-red-500 font-bold uppercase tracking-tighter mt-1">
-            Current Sort: Alphabetical (Initial)
-        </p>
+            <div class="bg-white/5 border border-white/10 px-4 py-3 rounded-xl md:rounded-2xl">
+                <p class="text-[9px] md:text-[10px] text-gray-400 uppercase font-bold tracking-widest">
+                    Protocol: <span class="text-white font-black">Top 4 Qualify for Glory Champion Cup</span>
+                </p>
+                <p class="text-[8px] md:text-[9px] text-red-500 font-bold uppercase tracking-tighter mt-1">
+                    Format: Semi-Finals & Grand Finale
+                </p>
             </div>
         </div>
 
-        <div class="overflow-x-auto -mx-6 px-6 md:mx-0 md:px-0">
-            <table class="w-full text-left border-collapse min-w-[600px]">
+        <div class="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+            <table class="w-full text-left border-collapse min-w-[500px] md:min-w-full">
                 <thead>
                     <tr class="text-gray-500 border-b border-white/5 uppercase text-[10px] tracking-[0.2em] font-black">
                         <th class="pb-4 pl-2">Pos</th>
                         <th class="pb-4">Team</th>
                         <th class="pb-4 text-center">P</th>
-                        <th class="pb-4 text-center text-green-500">W</th>
-                        <th class="pb-4 text-center text-yellow-500">D</th>
-                        <th class="pb-4 text-center text-red-500">L</th>
-                        <th class="pb-4 text-center">GF</th>
-                        <th class="pb-4 text-center">GA</th>
+                        <th class="pb-4 text-center text-green-500 hidden md:table-cell">W</th>
+                        <th class="pb-4 text-center text-yellow-500 hidden md:table-cell">D</th>
+                        <th class="pb-4 text-center text-red-500 hidden md:table-cell">L</th>
                         <th class="pb-4 text-center">GD</th>
                         <th class="pb-4 text-right pr-2 text-white">Pts</th>
                     </tr>
@@ -202,23 +199,25 @@ const contentData = {
                 <tbody class="text-gray-300 font-medium">
                     ${[
                         "Apex Predators", "Blaze FC", "Citadel United", "Dynamos SC", 
-                        "Elite Vanguard", "Ironbound FC", "Mamba FC", "Rangers FC", 
-                        "Shadow Strikers", "Spartan Ath", "Titan Warriors", "Viper Squad"
+                        "Elite Vanguard", "Ironbound FC", "Mamba FC", "Rangers FC"
                     ].map((team, index) => `
-                        <tr class="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors group">
-                            <td class="py-4 pl-2 font-mono text-xs text-red-600 font-bold">${(index + 1).toString().padStart(2, '0')}</td>
+                        <tr class="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors group ${index < 4 ? 'bg-green-500/[0.01]' : ''}">
+                            <td class="py-4 pl-2 font-mono text-xs ${index < 4 ? 'text-green-500' : 'text-red-600'} font-bold">
+                                ${(index + 1).toString().padStart(2, '0')}
+                            </td>
                             <td class="py-4">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-6 h-6 bg-white/5 border border-white/10 rounded flex items-center justify-center text-[10px] font-black group-hover:border-red-600/50 transition-colors uppercase italic">${team.charAt(0)}</div>
-                                    <span class="font-bold text-sm tracking-tight text-white">${team}</span>
+                                    <div class="w-7 h-7 bg-white/5 border border-white/10 rounded flex items-center justify-center text-[10px] font-black group-hover:border-red-600/50 transition-colors uppercase italic">${team.charAt(0)}</div>
+                                    <div class="flex flex-col">
+                                        <span class="font-bold text-sm tracking-tight text-white">${team}</span>
+                                        ${index < 4 ? '<span class="text-[7px] text-green-500 uppercase font-black tracking-widest md:hidden">Qualified</span>' : ''}
+                                    </div>
                                 </div>
                             </td>
                             <td class="py-4 text-center font-mono text-xs">0</td>
-                            <td class="py-4 text-center font-mono text-xs text-gray-500">0</td>
-                            <td class="py-4 text-center font-mono text-xs text-gray-500">0</td>
-                            <td class="py-4 text-center font-mono text-xs text-gray-500">0</td>
-                            <td class="py-4 text-center font-mono text-xs text-gray-500">0</td>
-                            <td class="py-4 text-center font-mono text-xs text-gray-500">0</td>
+                            <td class="py-4 text-center font-mono text-xs text-gray-500 hidden md:table-cell">0</td>
+                            <td class="py-4 text-center font-mono text-xs text-gray-500 hidden md:table-cell">0</td>
+                            <td class="py-4 text-center font-mono text-xs text-gray-500 hidden md:table-cell">0</td>
                             <td class="py-4 text-center font-mono text-xs">0</td>
                             <td class="py-4 text-right pr-2 font-black text-white">0</td>
                         </tr>
@@ -227,16 +226,21 @@ const contentData = {
             </table>
         </div>
 
-        <div class="mt-8 p-6 bg-red-600/5 border border-red-600/10 rounded-2xl">
+        <div class="mt-8 p-6 bg-red-600/5 border border-red-600/10 rounded-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-10">
+                <i class="fas fa-trophy text-4xl text-red-600"></i>
+            </div>
             <p class="text-[10px] text-gray-500 uppercase font-black tracking-widest flex items-center gap-2">
-                <i class="fas fa-circle-info text-red-600"></i> Qualification Rule
+                <i class="fas fa-circle-info text-red-600"></i> Glory Champion Cup Path
             </p>
-            <p class="text-xs text-gray-400 mt-2 leading-relaxed">
-                Positions are currently tied due to zero matches played. Tie-breakers will be determined by 1. Points, 2. Goal Difference, 3. Goals Scored once the league commences.
+            <p class="text-xs text-gray-400 mt-2 leading-relaxed uppercase font-bold italic">
+                The <span class="text-green-500">Top 4</span> teams automatically advance to the knockouts:
+                <br class="hidden md:block"> 
+                1st vs 4th | 2nd vs 3rd (Semi-Finals) → Winner advances to the Grand Finale.
             </p>
         </div>
     </div>`,
-
+    
     'Live': `
     <div class="flex flex-col items-center justify-center min-h-[400px] text-center animate-in">
         <div class="relative w-32 h-32 mb-8">
@@ -271,44 +275,60 @@ const contentData = {
         </div>
     </div>`,
 
-    'Upcoming': `
-    <div class="space-y-8 animate-in">
-        <div>
-            <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Match Schedule</h3>
-            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: Official Schedule Control</p>
+   'Upcoming': `
+    <div class="space-y-8 animate-in pb-10">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+            <div>
+                <h3 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-red-600">Match Schedule</h3>
+                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: Season 03 Protocol // 04 Fixtures Active</p>
+            </div>
+            <div class="px-4 py-2 bg-white/5 border border-white/10 rounded-full">
+                <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Matchday 01</span>
+            </div>
         </div>
 
         <div class="grid gap-4">
             ${[
-                { teams: "Blaze FC vs Rangers FC", id: 1 },
-                { teams: "Mamba FC vs Viper Squad", id: 2 },
-                { teams: "Apex Predators vs Titan Warriors", id: 3 },
-                { teams: "Citadel United vs Ironbound FC", id: 4 },
-                { teams: "Shadow Strikers vs Elite Vanguard", id: 5 }
+                { home: "Apex Predators", away: "Rangers FC", id: 1 },
+                { home: "Blaze FC", away: "Mamba FC", id: 2 },
+                { home: "Citadel United", away: "Viper Squad", id: 3 },
+                { home: "Dynamos SC", away: "Ironbound FC", id: 4 }
             ].map((match) => `
-                <div class="p-6 bg-[#0a0a0a] border border-white/5 rounded-[2rem] flex flex-col md:flex-row justify-between items-center group">
-                    <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-center text-[10px] font-black text-gray-600">0${match.id}</div>
-                        <h4 class="text-white font-black text-lg uppercase italic tracking-tighter">${match.teams}</h4>
+                <div class="p-5 md:p-6 bg-[#0a0a0a] border border-white/5 rounded-[1.5rem] md:rounded-[2rem] flex flex-col md:flex-row justify-between items-center group transition-all hover:border-red-600/20">
+                    <div class="flex items-center gap-4 md:gap-6 w-full md:w-auto">
+                        <div class="hidden md:flex w-12 h-12 bg-white/5 rounded-2xl border border-white/5 items-center justify-center text-[10px] font-black text-gray-600 group-hover:text-red-600 transition-colors">0${match.id}</div>
+                        
+                        <div class="flex items-center justify-between md:justify-start gap-3 md:gap-6 w-full md:w-auto">
+                            <span class="text-white font-black text-sm md:text-lg uppercase italic tracking-tighter w-24 md:w-auto text-left">${match.home}</span>
+                            <span class="text-red-600 font-black italic text-xs md:text-sm">VS</span>
+                            <span class="text-white font-black text-sm md:text-lg uppercase italic tracking-tighter w-24 md:w-auto text-right md:text-left">${match.away}</span>
+                        </div>
                     </div>
                     
-                    <div class="flex items-center gap-4 mt-4 md:mt-0">
-                        <div class="text-center md:text-right mr-4">
-                            <span class="block text-[11px] text-red-600 font-black uppercase tracking-widest">NIL</span>
-                            <span class="block text-[9px] text-gray-600 font-mono mt-1 uppercase">Time: NIL</span>
+                    <div class="flex flex-row md:items-center gap-3 mt-6 md:mt-0 w-full md:w-auto border-t border-white/5 md:border-none pt-4 md:pt-0">
+                        <div class="hidden lg:block text-right mr-4">
+                            <span class="block text-[10px] text-red-600 font-black uppercase tracking-widest">TBD</span>
+                            <span class="block text-[8px] text-gray-600 font-mono mt-0.5 uppercase">Arena: Main Core</span>
                         </div>
-                        <button onclick="openFixtureDetails('${match.teams}')" class="px-5 py-2 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">
+                        
+                        <button onclick="openFixtureDetails('${match.home} vs ${match.away}')" class="flex-1 md:flex-none px-4 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all">
                             Details
                         </button>
-                        <button onclick="broadcastUpdate('${match.teams}')" class="px-5 py-2 bg-red-600/10 hover:bg-red-600 text-red-600 hover:text-white border border-red-600/20 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">
-                            <i class="fas fa-satellite-dish mr-1"></i> Save & Push
+                        
+                        <button onclick="broadcastUpdate('${match.home} vs ${match.away}')" class="flex-1 md:flex-none px-4 py-3 bg-red-600/10 hover:bg-red-600 text-red-600 hover:text-white border border-red-600/20 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-satellite-dish"></i> <span>Push</span>
                         </button>
                     </div>
                 </div>
             `).join('')}
         </div>
+
+        <div class="p-4 bg-white/[0.02] border border-dashed border-white/10 rounded-2xl text-center">
+            <p class="text-[9px] text-gray-600 uppercase font-bold tracking-[0.3em]">All Kick-off times are subject to MIKOKO Main Node synchronization</p>
+        </div>
     </div>`,
 
+    
   'Stats': `
     <div class="space-y-8 animate-in">
         <div class="flex justify-between items-end">
@@ -497,22 +517,21 @@ const contentData = {
             <div class="absolute inset-0 bg-black/40 backdrop-blur-[2px] pointer-events-none"></div>
         </div>
     </div>`,
-    
-       'News': `
-    <div class="space-y-8 animate-in">
+    'News': `
+    <div class="space-y-8 animate-in pb-12">
         <div class="flex justify-between items-end">
             <div>
-                <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">News Hub</h3>
+                <h3 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-red-600">News Hub</h3>
                 <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Network Feed: <span class="text-white">Priority Broadcast</span></p>
             </div>
             <span class="hidden md:block text-[10px] text-gray-600 font-mono uppercase tracking-widest">Date: 18.12.2025</span>
         </div>
 
-        <div class="relative rounded-[3rem] overflow-hidden border border-red-600/20 bg-[#0a0a0a] group">
+        <div class="relative rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-red-600/20 bg-[#0a0a0a] group">
             <div class="grid grid-cols-1 lg:grid-cols-2">
-                <div class="relative h-[300px] lg:h-full bg-zinc-900 overflow-hidden">
+                <div class="relative h-[200px] lg:h-full bg-zinc-900 overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10"></div>
-                    <div class="absolute inset-0 flex items-center justify-center text-red-600/10 group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 flex items-center justify-center text-red-600/10 group-hover:scale-110 transition-transform duration-700">
                          <i class="fas fa-credit-card text-9xl"></i>
                     </div>
                     <div class="absolute top-6 left-6 z-20">
@@ -520,49 +539,63 @@ const contentData = {
                     </div>
                 </div>
 
-                <div class="p-10 flex flex-col justify-center">
-                    <span class="text-[10px] text-gray-500 font-mono uppercase mb-4">Broadcast: Dec 18, 2025 // 00:00 AM</span>
-                    <h4 class="text-3xl font-black italic uppercase tracking-tighter text-white leading-none mb-6">
-                        MIKOKO League <br><span class="text-red-600">Payment Window Open</span>
+                <div class="p-8 md:p-10 flex flex-col justify-center">
+                    <span class="text-[10px] text-gray-500 font-mono uppercase mb-4">Broadcast: Dec 18, 2025 // Phase 01</span>
+                    <h4 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-white leading-none mb-6">
+                        MIKOKO League <br><span class="text-red-600 text-xl md:text-2xl">Entry Window Official</span>
                     </h4>
-                    <p class="text-gray-400 text-sm uppercase leading-relaxed font-bold tracking-wide mb-8">
-                        The payment portal for the upcoming season is officially active as of today, Dec 18th. Entry fee is set at <span class="text-white">₦2,000</span>. Please navigate to the Mikoko Payment terminal to secure your team's slot.
+                    <p class="text-gray-400 text-[11px] md:text-sm uppercase leading-relaxed font-bold tracking-wide mb-8">
+                        The 8-team elite circuit is now accepting registrations. Fee is set at <span class="text-white">₦2,000</span>. Slots are strictly limited to the first 8 verified managers.
                     </p>
-                    <div class="flex items-center gap-4">
-                        <button onclick="updateView('Mikoko Payment')" class="px-8 py-3 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-black transition-all">Proceed to Payment</button>
-                    </div>
+                    <button onclick="updateView('Mikoko Payment')" class="w-full md:w-max px-8 py-4 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-black transition-all">Proceed to Terminal</button>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-8 hover:border-yellow-600/30 transition-all group">
-                <div class="w-12 h-12 bg-yellow-600/10 rounded-2xl flex items-center justify-center mb-6 border border-yellow-600/20">
-                    <i class="fas fa-user-clock text-yellow-500 text-lg"></i>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div class="bg-white/[0.02] border border-white/5 rounded-[2rem] p-6 hover:border-red-600/30 transition-all group">
+                <div class="w-10 h-10 bg-red-600/10 rounded-xl flex items-center justify-center mb-6 border border-red-600/20">
+                    <i class="fas fa-sitemap text-red-600 text-sm"></i>
                 </div>
-                <span class="text-[9px] text-yellow-500 font-black uppercase tracking-widest">Pending Announcement</span>
-                <h5 class="text-white font-black uppercase italic tracking-tighter text-xl mt-2 mb-3">Roster Selection Deadline</h5>
-                <p class="text-gray-500 text-[11px] font-bold uppercase leading-relaxed mb-6">
-                    The final deadline for team and player selections will be announced shortly. Ensure your scouting reports are complete and ready for the active window.
+                <span class="text-[9px] text-red-500 font-black uppercase tracking-widest">Structural Update</span>
+                <h5 class="text-white font-black uppercase italic tracking-tighter text-lg mt-2 mb-3 font-mono">Elite-8 Format Adopted</h5>
+                <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed mb-6">
+                    League has shifted to an 8-team format to increase competition density. Top 4 will advance to the Glory Champion Cup Semi-Finals.
                 </p>
-                <div class="flex justify-between items-center pt-4 border-t border-white/5">
-                    <span class="text-[9px] text-gray-600 font-mono">STATUS: AWAITING CALIBRATION</span>
+                <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+                    <span class="text-[9px] text-gray-600 font-mono uppercase">Status: Finalized</span>
                 </div>
             </div>
 
-            <div class="bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-8 hover:border-blue-600/30 transition-all group">
-                <div class="w-12 h-12 bg-blue-600/10 rounded-2xl flex items-center justify-center mb-6 border border-blue-600/20">
-                    <i class="fas fa-calendar-alt text-blue-500 text-lg"></i>
+            <div class="bg-white/[0.02] border border-white/5 rounded-[2rem] p-6 hover:border-yellow-600/30 transition-all group">
+                <div class="w-10 h-10 bg-yellow-600/10 rounded-xl flex items-center justify-center mb-6 border border-yellow-600/20">
+                    <i class="fas fa-user-shield text-yellow-500 text-sm"></i>
                 </div>
-                <span class="text-[9px] text-blue-500 font-black uppercase tracking-widest">Future Protocol</span>
-                <h5 class="text-white font-black uppercase italic tracking-tighter text-xl mt-2 mb-3">Season 03 // 2026 Arriving</h5>
-                <p class="text-gray-500 text-[11px] font-bold uppercase leading-relaxed mb-6">
-                    The horizon is clear. Season 03 2026 is almost here. We are evolving the network to bring a more competitive and technologically advanced league experience.
+                <span class="text-[9px] text-yellow-500 font-black uppercase tracking-widest">Pending Notice</span>
+                <h5 class="text-white font-black uppercase italic tracking-tighter text-lg mt-2 mb-3">Roster Lockdown</h5>
+                <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed mb-6">
+                    Final squad submission window opens after the payment phase. Ensure your scouting is complete for the 8-team draft.
                 </p>
-                <div class="flex justify-between items-center pt-4 border-t border-white/5">
-                    <span class="text-[9px] text-gray-600 font-mono">ETA: Q1 2026</span>
+                <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+                    <span class="text-[9px] text-gray-600 font-mono uppercase">ETA: Jan 2026</span>
                 </div>
             </div>
+
+            <div class="bg-white/[0.02] border border-white/5 rounded-[2rem] p-6 hover:border-blue-600/30 transition-all group">
+                <div class="w-10 h-10 bg-blue-600/10 rounded-xl flex items-center justify-center mb-6 border border-blue-600/20">
+                    <i class="fas fa-trophy text-blue-500 text-sm"></i>
+                </div>
+                <span class="text-[9px] text-blue-500 font-black uppercase tracking-widest">Tournament Intel</span>
+                <h5 class="text-white font-black uppercase italic tracking-tighter text-lg mt-2 mb-3">Glory Cup Mechanics</h5>
+                <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed mb-6">
+                    Qualified Top 4 teams will enter a high-stakes knockout bracket. 1st vs 4th, 2nd vs 3rd. Single leg eliminations.
+                </p>
+                <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+                    <span class="text-[9px] text-gray-600 font-mono uppercase">Prize: MIKOKO Cup</span>
+                </div>
+            </div>
+
         </div>
     </div>`,
 
@@ -904,7 +937,7 @@ const contentData = {
  * Version: 6.0 (Unified & Fixed Navigation)
  */
 
-// --- 1. GLOBAL DATABASE STATE ---
+// --- 1. GLOBAL DATABASE STATE (UPDATED FOR 8 TEAMS) ---
 let players = JSON.parse(localStorage.getItem('mikoko_players')) || [];
 let teams = JSON.parse(localStorage.getItem('mikoko_teams')) || [
     { id: '01A', name: "Apex Predators", members: [] },
@@ -914,14 +947,11 @@ let teams = JSON.parse(localStorage.getItem('mikoko_teams')) || [
     { id: '05E', name: "Elite Vanguard", members: [] },
     { id: '06I', name: "Ironbound FC", members: [] },
     { id: '07M', name: "Mamba FC", members: [] },
-    { id: '08R', name: "Rangers FC", members: [] },
-    { id: '09S', name: "Shadow Strikers", members: [] },
-    { id: '10S', name: "Spartan Ath", members: [] },
-    { id: '11T', name: "Titan Warriors", members: [] },
-    { id: '12V', name: "Viper Squad", members: [] }
+    { id: '08R', name: "Rangers FC", members: [] }
 ];
 
 const MAX_SQUAD_SIZE = 10;
+const TOTAL_SLOTS = 80; // 8 teams * 10 players
 const ADMIN_PASSCODE = "123789";
 
 // --- 2. MASTER UI CONTROLLER ---
@@ -941,11 +971,9 @@ function updateView(title) {
         mainDisplay.style.opacity = '0';
         
         setTimeout(() => {
-            // FIX: If title is NOT a system mode, load from contentData
             if (title === 'Player Selection' || title === 'Team Selection') {
                 renderLeagueSystem(title);
             } else {
-                // This restores your Overview, Rules, etc.
                 mainDisplay.innerHTML = (typeof contentData !== 'undefined' && contentData[title]) 
                     ? contentData[title] 
                     : `<div class="p-10 text-center"><h2 class="text-white font-black italic">${title}</h2><p class="text-gray-500 text-xs mt-2">DATA NODE OFFLINE</p></div>`;
@@ -956,7 +984,6 @@ function updateView(title) {
         }, 200);
     }
 
-    // Mobile Sidebar Toggle
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
     if (window.innerWidth < 768 && sidebar && !sidebar.classList.contains('-translate-x-full')) {
@@ -980,6 +1007,7 @@ function startSystemSync() {
 
     const timerElement = document.getElementById('countdownTimer');
     if (timerElement) {
+        // Updated to reflect the Jan 2026 Season Start
         const targetDate = new Date("Jan 1, 2026 00:00:00").getTime();
         const now = new Date().getTime();
         const distance = targetDate - now;
@@ -1006,8 +1034,10 @@ function openAuthPortal() {
 
 function closeAuthPortal() {
     const portal = document.getElementById('adminAuthPortal');
-    portal.classList.add('opacity-0');
-    setTimeout(() => portal.classList.add('hidden'), 500);
+    if (portal) {
+        portal.classList.add('opacity-0');
+        setTimeout(() => portal.classList.add('hidden'), 500);
+    }
     updateView('Overview');
 }
 
@@ -1016,8 +1046,10 @@ function verifyAdminAccess() {
     if (input === ADMIN_PASSCODE) {
         const portal = document.getElementById('adminAuthPortal');
         portal.classList.add('opacity-0');
-        setTimeout(() => portal.classList.add('hidden'), 500);
-        executeAdminRender();
+        setTimeout(() => {
+            portal.classList.add('hidden');
+            executeAdminRender();
+        }, 500);
     } else {
         showGlobalAlert("fas fa-exclamation-triangle", "Auth Failed", "Invalid Credentials.");
         closeAuthPortal();
@@ -1038,26 +1070,26 @@ function renderLeagueSystem(mode) {
         const active = players.filter(p => p.status === 'Confirmed');
 
         mainDisplay.innerHTML = `
-            <div class="space-y-8 animate-in fade-in duration-500">
-                <div class="bg-zinc-900/80 p-8 rounded-[2.5rem] border border-white/5">
-                    <h3 class="text-white font-black uppercase italic mb-6">Registration Terminal</h3>
+            <div class="space-y-8 animate-in pb-10">
+                <div class="bg-zinc-900/80 p-6 md:p-8 rounded-[2rem] border border-white/5">
+                    <h3 class="text-white font-black uppercase italic mb-4">Registration Terminal</h3>
                     <div class="flex flex-col md:flex-row gap-4">
-                        <input type="text" id="playerNameInput" placeholder="ENTER NAME..." class="flex-1 bg-black/60 border border-white/10 rounded-2xl px-6 py-4 text-red-500 font-mono focus:outline-none focus:border-red-600">
-                        <button onclick="registerPlayer()" class="px-10 py-4 bg-red-600 text-white font-black uppercase italic rounded-2xl">Register</button>
+                        <input type="text" id="playerNameInput" placeholder="ENTER PLAYER NAME..." class="flex-1 bg-black/60 border border-white/10 rounded-2xl px-6 py-4 text-red-500 font-mono focus:outline-none focus:border-red-600">
+                        <button onclick="registerPlayer()" class="px-10 py-4 bg-red-600 text-white font-black uppercase italic rounded-2xl hover:bg-white hover:text-red-600 transition-all">Register</button>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div class="border border-white/5 rounded-[2.5rem] p-6 bg-black/40">
-                        <h4 class="text-yellow-500 font-black uppercase text-[10px] mb-4 tracking-widest">Pending (${pending.length})</h4>
+                        <h4 class="text-yellow-500 font-black uppercase text-[10px] mb-4 tracking-widest">Awaiting Assignment (${pending.length})</h4>
                         <div class="space-y-2 overflow-y-auto max-h-[450px] custom-scrollbar pr-2">
-                            ${pending.map(p => `<div class="p-4 bg-white/5 rounded-2xl flex justify-between"><span class="text-white font-bold text-xs uppercase">${p.name}</span><i class="fas fa-clock text-yellow-500/20 text-xs"></i></div>`).join('') || '<p class="text-zinc-800 text-center py-10">EMPTY</p>'}
+                            ${pending.map(p => `<div class="p-4 bg-white/5 rounded-2xl flex justify-between items-center"><span class="text-white font-bold text-xs uppercase">${p.name}</span><i class="fas fa-clock text-yellow-500/20 text-xs"></i></div>`).join('') || '<p class="text-zinc-800 text-center py-10 font-black uppercase italic">No Pending Units</p>'}
                         </div>
                     </div>
                     <div class="border border-white/5 rounded-[2.5rem] p-6 bg-black/40">
-                        <h4 class="text-emerald-500 font-black uppercase text-[10px] mb-4 tracking-widest">Active (${active.length})</h4>
+                        <h4 class="text-emerald-500 font-black uppercase text-[10px] mb-4 tracking-widest">Active Roster (${active.length})</h4>
                         <div class="space-y-2 overflow-y-auto max-h-[450px] custom-scrollbar pr-2">
-                            ${active.map(p => `<div class="p-4 bg-white/5 rounded-2xl flex justify-between items-center"><span class="text-white font-bold text-xs uppercase">${p.name}</span><span class="text-[8px] text-zinc-500 font-mono border border-white/5 px-2 py-1 rounded">${p.team}</span></div>`).join('') || '<p class="text-zinc-800 text-center py-10">EMPTY</p>'}
+                            ${active.map(p => `<div class="p-4 bg-white/5 rounded-2xl flex justify-between items-center"><span class="text-white font-bold text-xs uppercase">${p.name}</span><span class="text-[8px] text-zinc-500 font-black uppercase border border-white/5 px-2 py-1 rounded italic">${p.team}</span></div>`).join('') || '<p class="text-zinc-800 text-center py-10 font-black uppercase italic">Roster Empty</p>'}
                         </div>
                     </div>
                 </div>
@@ -1070,38 +1102,43 @@ function executeAdminRender() {
     const firstPending = players.find(p => p.status === 'Pending');
     
     mainDisplay.innerHTML = `
-        <div class="space-y-8 animate-in slide-in-from-bottom-4 duration-500 pb-20">
-            <div class="bg-red-600/10 border border-red-600/20 p-6 rounded-[2rem] flex justify-between items-center backdrop-blur-md">
-                <h3 class="text-white font-black uppercase italic">Admin Terminal</h3>
-                <div class="bg-black/50 px-4 py-2 rounded-xl border border-white/10 flex items-center gap-3">
-                    <span class="text-[9px] text-gray-500 uppercase font-black">Next:</span>
-                    <span class="text-xs text-white font-bold italic uppercase">${firstPending ? firstPending.name : 'NONE'}</span>
+        <div class="space-y-8 animate-in pb-20">
+            <div class="bg-red-600/10 border border-red-600/20 p-6 rounded-[2rem] flex flex-col md:flex-row justify-between items-center gap-4 backdrop-blur-md">
+                <div>
+                    <h3 class="text-white font-black uppercase italic">Elite-8 Admin Terminal</h3>
+                    <p class="text-[9px] text-red-500 font-bold uppercase tracking-widest">Squad Management Protocol</p>
+                </div>
+                <div class="bg-black/50 px-4 py-3 rounded-xl border border-white/10 flex items-center gap-3">
+                    <span class="text-[9px] text-gray-500 uppercase font-black">Next In Queue:</span>
+                    <span class="text-xs text-white font-bold italic uppercase">${firstPending ? firstPending.name : 'NO PENDING'}</span>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 ${teams.map(t => `
-                    <div class="flex flex-col h-[400px] bg-zinc-900/50 border border-white/10 rounded-[2.5rem] overflow-hidden group">
-                        <div class="p-6 pb-2">
-                            <h4 class="text-white font-black italic uppercase text-sm">${t.name}</h4>
-                            <p class="text-[9px] text-red-600 font-bold uppercase tracking-widest mt-1">${t.members.length}/10 Personnel</p>
+                    <div class="flex flex-col h-[400px] bg-zinc-900/50 border border-white/10 rounded-[2rem] overflow-hidden group hover:border-red-600/30 transition-all">
+                        <div class="p-5 pb-2">
+                            <h4 class="text-white font-black italic uppercase text-sm truncate">${t.name}</h4>
+                            <div class="flex justify-between mt-1">
+                                <p class="text-[9px] text-red-600 font-bold uppercase tracking-widest">${t.members.length}/10 UNIT CAPACITY</p>
+                            </div>
                         </div>
 
-                        <div class="flex-1 overflow-y-auto px-6 py-2 custom-scrollbar space-y-2">
+                        <div class="flex-1 overflow-y-auto px-5 py-2 custom-scrollbar space-y-2">
                             ${t.members.map(m => `
                                 <div class="flex justify-between items-center p-3 bg-white/[0.03] border border-white/5 rounded-xl group/item">
-                                    <p class="text-[10px] text-zinc-300 font-mono">/ ${m}</p>
+                                    <p class="text-[9px] text-zinc-300 font-mono uppercase font-bold">${m}</p>
                                     <button onclick="firePlayer('${m}', '${t.id}')" class="text-red-600 opacity-0 group-hover/item:opacity-100 transition-all">
-                                        <i class="fas fa-user-minus"></i>
+                                        <i class="fas fa-trash-alt text-[10px]"></i>
                                     </button>
-                                </div>`).join('') || '<div class="h-full flex items-center justify-center opacity-10"><i class="fas fa-users-slash text-2xl"></i></div>'}
+                                </div>`).join('') || '<div class="h-full flex flex-col items-center justify-center opacity-10 gap-2"><i class="fas fa-users-slash text-2xl"></i><span class="text-[8px] font-black uppercase">Unmanned</span></div>'}
                         </div>
 
-                        <div class="p-6 pt-2 mt-auto">
+                        <div class="p-5 pt-2 mt-auto">
                             <button onclick="assignPlayerToTeam(${firstPending ? firstPending.id : null}, '${t.id}')" 
                                 class="w-full py-4 rounded-xl text-[9px] font-black uppercase transition-all 
-                                ${firstPending ? 'bg-red-600 text-white shadow-lg' : 'bg-white/5 text-gray-600 cursor-not-allowed'}">
-                                ${firstPending ? 'Deploy Unit' : 'Queue Empty'}
+                                ${firstPending && t.members.length < MAX_SQUAD_SIZE ? 'bg-red-600 text-white shadow-lg shadow-red-600/20' : 'bg-white/5 text-gray-600 cursor-not-allowed'}">
+                                ${firstPending ? (t.members.length < MAX_SQUAD_SIZE ? 'Assign Member' : 'Squad Full') : 'Empty Queue'}
                             </button>
                         </div>
                     </div>`).join('')}
@@ -1119,9 +1156,16 @@ function saveLeagueData() {
 function registerPlayer() {
     const nameInput = document.getElementById('playerNameInput');
     if (!nameInput || !nameInput.value.trim()) return;
+
+    if (players.length >= TOTAL_SLOTS) {
+        showGlobalAlert("fas fa-exclamation-circle", "Network Full", "League capacity has been reached.");
+        return;
+    }
+
     players.push({ id: Date.now(), name: nameInput.value.trim(), status: 'Pending', team: 'Unassigned' });
     saveLeagueData();
-    showGlobalAlert("fas fa-hourglass-half", "Entry Logged", "Awaiting Assignment.");
+    showGlobalAlert("fas fa-hourglass-half", "Entry Logged", "Awaiting Admin Assignment.");
+    nameInput.value = "";
     renderLeagueSystem('Player Selection'); 
 }
 
@@ -1129,19 +1173,31 @@ function assignPlayerToTeam(playerId, teamId) {
     if (!playerId) return;
     const team = teams.find(t => t.id === teamId);
     const player = players.find(p => p.id === playerId);
-    if (team.members.length >= MAX_SQUAD_SIZE) return;
+    
+    if (team.members.length >= MAX_SQUAD_SIZE) {
+        showGlobalAlert("fas fa-users", "Squad Full", "Max capacity reached for this team.");
+        return;
+    }
+
     player.status = 'Confirmed';
     player.team = team.name;
     team.members.push(player.name);
+    
     saveLeagueData();
     executeAdminRender();
+    showGlobalAlert("fas fa-check-double", "Unit Deployed", `${player.name} assigned to ${team.name}.`);
 }
 
 function firePlayer(playerName, teamId) {
     const team = teams.find(t => t.id === teamId);
     const player = players.find(p => p.name === playerName);
+    
     team.members = team.members.filter(m => m !== playerName);
-    if (player) { player.status = 'Pending'; player.team = 'Unassigned'; }
+    if (player) { 
+        player.status = 'Pending'; 
+        player.team = 'Unassigned'; 
+    }
+    
     saveLeagueData();
     executeAdminRender();
 }
