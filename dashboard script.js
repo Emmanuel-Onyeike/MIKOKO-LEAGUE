@@ -630,7 +630,48 @@ const contentData = {
                 <h3 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-red-600">News Hub</h3>
                 <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Direct Feed: <span class="text-white">Admin TOGA // Authority Broadcast</span></p>
             </div>
-            <span class="hidden md:block text-[10px] text-gray-600 font-mono uppercase tracking-widest">Date: 18.12.2025</span>
+            <span class="hidden md:block text-[10px] text-gray-600 font-mono uppercase tracking-widest">Date: 10.01.2026</span>
+        </div>
+
+        <div class="relative rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 bg-[#0a0a0a] group">
+            <div class="grid grid-cols-1 lg:grid-cols-2">
+                <div class="relative h-[300px] lg:h-[450px] bg-zinc-900 overflow-hidden">
+                    <img src="Mikoko League 2026 promo design.png" 
+                         alt="Mikoko League 2026" 
+                         class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-transparent to-transparent z-10 hidden lg:block"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10 lg:hidden"></div>
+                    
+                    <div class="absolute top-6 left-6 z-20 flex flex-col gap-2">
+                        <span class="px-4 py-1.5 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg flex items-center gap-2">
+                            <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span> Live Tracking Active
+                        </span>
+                    </div>
+                </div>
+
+                <div class="p-8 md:p-12 flex flex-col justify-center relative">
+                    <span class="text-[10px] text-blue-500 font-black uppercase mb-4 tracking-[0.4em]">Season Launch</span>
+                    <h4 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-[0.9] mb-6">
+                        Mikoko <br>League <span class="text-blue-600">2026</span>
+                    </h4>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="flex flex-col">
+                            <span class="text-2xl font-black text-white italic leading-none">8 TEAMS.</span>
+                            <span class="text-sm text-gray-500 font-bold uppercase tracking-widest">1 Dream</span>
+                        </div>
+                        <div class="h-10 w-[1px] bg-white/10"></div>
+                        <p class="text-[10px] text-gray-400 uppercase font-bold leading-tight">
+                            The definitive <br>footballing showdown.
+                        </p>
+                    </div>
+                    <p class="text-gray-400 text-xs md:text-sm uppercase leading-relaxed font-bold tracking-wide mb-8">
+                        The infrastructure is set. The tracking is live. Eight elite franchises will battle for total supremacy in the 2026 circuit. Witness the rise of a new champion.
+                    </p>
+                    <button class="w-full md:w-max px-10 py-4 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-xl">
+                        View Season Schedule
+                    </button>
+                </div>
+            </div>
         </div>
 
         <div class="relative rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-red-600/20 bg-[#0a0a0a] group">
