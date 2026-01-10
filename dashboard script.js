@@ -667,9 +667,7 @@ const contentData = {
                     <p class="text-gray-400 text-xs md:text-sm uppercase leading-relaxed font-bold tracking-wide mb-8">
                         The infrastructure is set. The tracking is live. Eight elite franchises will battle for total supremacy in the 2026 circuit. Witness the rise of a new champion.
                     </p>
-                    <button class="w-full md:w-max px-10 py-4 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-xl">
-                        View Season Schedule
-                    </button>
+                  
                 </div>
             </div>
         </div>
