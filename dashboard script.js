@@ -127,7 +127,7 @@ const contentData = {
                 <div>
                     <p class="text-xs text-white font-black uppercase italic tracking-wider">Protocol: Payment Phase Active</p>
                     <p class="text-[11px] text-gray-300 mt-2 uppercase leading-relaxed font-bold">
-                        The MIKOKO League payment window officially opens today, <span class="text-red-500">18th Dec 2025</span>. 
+                        The MIKOKO League payment window officially opens today, <span class="text-red-500">10th Jan 2026</span>. 
                     </p>
                     <p class="text-[10px] text-gray-500 mt-1 uppercase leading-tight">
                         Managers must finalize transfers to the official account details to secure their team slot.
@@ -149,10 +149,12 @@ const contentData = {
 
             <div class="flex gap-4 items-start border-l-2 border-white/5 pl-4 opacity-50">
                 <div>
-                    <p class="text-xs text-gray-400 font-bold uppercase">Feature Rollout</p>
-                    <p class="text-[10px] text-gray-600 mt-1 uppercase">
-                        Site infrastructure is currently being updated to introduce matchday live-tracking features.
-                    </p>
+                <p class="text-xs text-blue-400 font-bold uppercase tracking-widest mb-2">Feature Rollout</p>
+        <h2 class="text-xl font-bold text-white uppercase mb-4">Mikoko League Kick-Off Awaits</h2>
+        <div class="h-[1px] w-12 bg-blue-500 mx-auto mb-4"></div>
+        <p class="text-sm text-gray-400 leading-relaxed">
+            Site infrastructure is currently being updated to introduce high-performance matchday live-tracking. Prepare for the ultimate league experience.
+        </p>
                 </div>
             </div>
         </div>
