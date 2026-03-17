@@ -744,6 +744,40 @@ const contentData = {
             </div>
         </div>
     </div>`,
+
+    
+    'Updates': `
+<div class="space-y-6 animate-in pb-20">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-blue-500/20 pb-6 gap-4 px-2">
+        <div>
+            <div class="flex items-center gap-3 mb-2">
+                <i class="fas fa-signal text-blue-500 animate-pulse"></i>
+                <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.4em]">Live Intelligence Feed</span>
+            </div>
+            <h3 class="text-3xl font-black italic uppercase tracking-tighter text-white">System <span class="text-blue-500">Updates</span></h3>
+        </div>
+        
+        <div class="flex bg-black/40 p-1 rounded-xl border border-white/5 backdrop-blur-md w-full md:w-auto">
+            <button onclick="switchUpdateView('images')" id="btn-update-images" class="flex-1 md:flex-none px-6 py-2 rounded-lg text-[9px] font-black uppercase transition-all bg-blue-600 text-white shadow-lg shadow-blue-600/20">
+                <i class="fas fa-camera-retro mr-2"></i> Field Reports
+            </button>
+            <button onclick="switchUpdateView('notes')" id="btn-update-notes" class="flex-1 md:flex-none px-6 py-2 rounded-lg text-[9px] font-black uppercase transition-all text-gray-500 hover:text-white">
+                <i class="fas fa-file-alt mr-2"></i> Directives
+            </button>
+        </div>
+    </div>
+
+    <div id="update-images-content" class="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in duration-500">
+        <div class="col-span-full py-20 text-center opacity-20">
+            <i class="fas fa-circle-notch animate-spin text-2xl text-blue-500 mb-4"></i>
+            <p class="text-[10px] font-black uppercase tracking-widest text-white">Fetching Visual Intel...</p>
+        </div>
+    </div>
+
+    <div id="update-notes-content" class="hidden space-y-4 animate-in slide-in-from-bottom-4 duration-500">
+        </div>
+</div>`,
+
     
    'Goals Leaderboard': `
 <div class="space-y-8 animate-in">
