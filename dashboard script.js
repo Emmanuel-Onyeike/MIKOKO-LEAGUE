@@ -1853,3 +1853,33 @@ function switchUpdateView(view) {
         imgContent.classList.add('hidden');
     }
 }
+function renderUpdatesToUI(reports, directives) {
+    const imgContainer = document.getElementById('update-images-content');
+    const noteContainer = document.getElementById('update-notes-content');
+
+    if (imgContainer) {
+        imgContainer.innerHTML = reports.map(r => `
+            <div class="group bg-zinc-900/40 border border-white/5 rounded-[2rem] overflow-hidden hover:border-blue-500/30 transition-all">
+                <div class="h-48 overflow-hidden">
+                    <img src="${r.image}" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                </div>
+                <div class="p-6">
+                    <span class="text-[8px] text-blue-500 font-mono mb-2 block tracking-tighter">${r.timestamp} // FR-NODE-${r.id.toString().slice(-4)}</span>
+                    <p class="text-zinc-300 text-xs font-medium leading-relaxed">${r.text}</p>
+                </div>
+            </div>
+        `).join('') || '<p class="text-zinc-700 italic text-center col-span-full">No Visual Reports Found.</p>';
+    }
+
+    if (noteContainer) {
+        noteContainer.innerHTML = directives.map(d => `
+            <div class="bg-blue-600/5 border-l-2 border-blue-500 p-5 rounded-r-xl">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-[8px] text-blue-400 font-black uppercase tracking-widest">Protocol Note</span>
+                    <span class="text-[8px] text-zinc-600 font-mono">${d.timestamp}</span>
+                </div>
+                <p class="text-zinc-300 text-xs font-medium">${d.text}</p>
+            </div>
+        `).join('') || '<p class="text-zinc-700 italic">No Directives Logged.</p>';
+    }
+}
