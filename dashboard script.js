@@ -1284,8 +1284,8 @@ let teams = JSON.parse(localStorage.getItem('mikoko_teams')) || [
     { id: '08R', name: "NIL", members: [] }
 ];
 
-const MAX_SQUAD_SIZE = 10;
-const TOTAL_SLOTS = 80; 
+const MAX_SQUAD_SIZE = 16;
+const TOTAL_SLOTS = 100; 
 const ADMIN_PASSCODE = "123789";
 
 // --- 2. MASTER UI CONTROLLER ---
