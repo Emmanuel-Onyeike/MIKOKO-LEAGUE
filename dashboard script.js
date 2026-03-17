@@ -746,9 +746,9 @@ const contentData = {
     </div>`,
 
     
-    'Updates': `
-<div class="space-y-6 animate-in pb-20">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-blue-500/20 pb-6 gap-4 px-2">
+ 'Updates': `
+<div class="space-y-6 animate-in pb-20 px-2">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-blue-500/20 pb-6 gap-4">
         <div>
             <div class="flex items-center gap-3 mb-2">
                 <i class="fas fa-signal text-blue-500 animate-pulse"></i>
@@ -757,14 +757,44 @@ const contentData = {
             <h3 class="text-3xl font-black italic uppercase tracking-tighter text-white">System <span class="text-blue-500">Updates</span></h3>
         </div>
         
-        <div class="flex bg-black/40 p-1 rounded-xl border border-white/5 backdrop-blur-md w-full md:w-auto">
-            <button onclick="switchUpdateView('images')" id="btn-update-images" class="flex-1 md:flex-none px-6 py-2 rounded-lg text-[9px] font-black uppercase transition-all bg-blue-600 text-white shadow-lg shadow-blue-600/20">
-                <i class="fas fa-camera-retro mr-2"></i> Field Reports
+        <div class="flex items-center gap-2 w-full md:w-auto">
+            <button onclick="unlockUpdateAdmin()" class="p-3 bg-white/5 border border-white/10 rounded-xl text-gray-500 hover:text-blue-500 transition-all" title="Admin Access">
+                <i class="fas fa-user-shield text-xs"></i>
             </button>
-            <button onclick="switchUpdateView('notes')" id="btn-update-notes" class="flex-1 md:flex-none px-6 py-2 rounded-lg text-[9px] font-black uppercase transition-all text-gray-500 hover:text-white">
-                <i class="fas fa-file-alt mr-2"></i> Directives
-            </button>
+
+            <div class="flex bg-black/40 p-1 rounded-xl border border-white/5 backdrop-blur-md flex-1 md:flex-none">
+                <button onclick="switchUpdateView('images')" id="btn-update-images" class="flex-1 md:flex-none px-6 py-2 rounded-lg text-[9px] font-black uppercase transition-all bg-blue-600 text-white shadow-lg shadow-blue-600/20">
+                    <i class="fas fa-camera-retro mr-2"></i> Field Reports
+                </button>
+                <button onclick="switchUpdateView('notes')" id="btn-update-notes" class="flex-1 md:flex-none px-6 py-2 rounded-lg text-[9px] font-black uppercase transition-all text-gray-500 hover:text-white">
+                    <i class="fas fa-file-alt mr-2"></i> Directives
+                </button>
+            </div>
         </div>
+    </div>
+
+    <div id="admin-post-panel" class="hidden bg-blue-600/10 border border-blue-500/30 p-6 rounded-[2.5rem] space-y-4 animate-in zoom-in-95 backdrop-blur-xl">
+        <div class="flex items-center justify-between mb-2">
+            <h4 class="text-white font-black uppercase italic text-xs tracking-widest">Post New Intelligence</h4>
+            <span class="text-[8px] text-blue-500 font-mono">ENCRYPTED SESSION</span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-1">
+                <label class="text-[9px] text-gray-500 uppercase font-bold ml-2">Visual Link (Optional)</label>
+                <input type="text" id="postImgUrl" placeholder="https://image-link.com/photo.jpg" 
+                    class="w-full bg-black/60 border border-white/10 rounded-2xl px-4 py-3 text-xs text-white focus:outline-none focus:border-blue-500 transition-all">
+            </div>
+            <div class="space-y-1">
+                <label class="text-[9px] text-gray-500 uppercase font-bold ml-2">Intel Write-up</label>
+                <textarea id="postText" placeholder="Enter update details here..." 
+                    class="w-full bg-black/60 border border-white/10 rounded-2xl px-4 py-3 text-xs text-white focus:outline-none focus:border-blue-500 h-12 transition-all"></textarea>
+            </div>
+        </div>
+        
+        <button onclick="submitAdminPost()" class="w-full py-4 bg-blue-600 text-white font-black uppercase italic rounded-2xl text-[10px] tracking-[0.2em] hover:bg-white hover:text-blue-600 transition-all shadow-xl shadow-blue-600/20">
+            Confirm Transmission
+        </button>
     </div>
 
     <div id="update-images-content" class="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in duration-500">
@@ -777,7 +807,6 @@ const contentData = {
     <div id="update-notes-content" class="hidden space-y-4 animate-in slide-in-from-bottom-4 duration-500">
         </div>
 </div>`,
-
     
    'Goals Leaderboard': `
 <div class="space-y-8 animate-in">
@@ -1835,51 +1864,153 @@ function broadcastPush(home, away) {
 }
 
 
-function switchUpdateView(view) {
-    const imgBtn = document.getElementById('btn-update-images');
-    const noteBtn = document.getElementById('btn-update-notes');
-    const imgContent = document.getElementById('update-images-content');
-    const noteContent = document.getElementById('update-notes-content');
+// --- 1. FIREBASE CORE MODULE ---
+// This handles cloud communication and live syncing
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+import { getDatabase, ref, onValue, push, remove } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
 
-    if (view === 'images') {
-        imgBtn.className = "px-6 py-2 rounded-lg text-[9px] font-black uppercase bg-blue-600 text-white shadow-lg transition-all";
-        noteBtn.className = "px-6 py-2 rounded-lg text-[9px] font-black uppercase text-gray-500 hover:text-white transition-all";
-        imgContent.classList.remove('hidden');
-        noteContent.classList.add('hidden');
+const firebaseConfig = {
+    apiKey: "AIzaSyB47o_L87dYgzP7G3etm4jo8x0sTmul-84",
+    authDomain: "zedi-league-2.firebaseapp.com",
+    databaseURL: "https://zedi-league-2-default-rtdb.firebaseio.com",
+    projectId: "zedi-league-2",
+    storageBucket: "zedi-league-2.firebasestorage.app",
+    messagingSenderId: "91811678201",
+    appId: "1:91811678201:web:b0f8c8104b7602e5309f28",
+    measurementId: "G-JTBRBM4GPL"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// --- 2. LIVE DATA LISTENER ---
+// Watches for changes and updates every user's screen instantly
+const updatesRef = ref(db, 'system_updates');
+onValue(updatesRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+        // Map data and include Firebase Keys for deletion later
+        const reports = data.field_reports ? Object.entries(data.field_reports).map(([key, val]) => ({...val, firebaseKey: key})) : [];
+        const directives = data.directives ? Object.entries(data.directives).map(([key, val]) => ({...val, firebaseKey: key})) : [];
+        
+        // Render to UI (Newest first)
+        renderUpdatesToUI(reports.reverse(), directives.reverse());
     } else {
-        noteBtn.className = "px-6 py-2 rounded-lg text-[9px] font-black uppercase bg-blue-600 text-white shadow-lg transition-all";
-        imgBtn.className = "px-6 py-2 rounded-lg text-[9px] font-black uppercase text-gray-500 hover:text-white transition-all";
-        noteContent.classList.remove('hidden');
-        imgContent.classList.add('hidden');
+        renderUpdatesToUI([], []);
     }
-}
-function renderUpdatesToUI(reports, directives) {
+});
+
+// --- 3. CLOUD ACTION FUNCTIONS ---
+// Global functions to be called by the UI buttons
+window.cloudPostReport = (imgUrl, text) => {
+    push(ref(db, 'system_updates/field_reports'), {
+        image: imgUrl,
+        text: text,
+        timestamp: new Date().toLocaleDateString(),
+        id: Date.now()
+    });
+};
+
+window.cloudPostDirective = (text) => {
+    push(ref(db, 'system_updates/directives'), {
+        text: text,
+        timestamp: new Date().toLocaleDateString(),
+        id: Date.now()
+    });
+};
+
+window.deleteCloudPost = (type, key) => {
+    // Modal-style confirmation is preferred, using browser confirm for safety
+    if(confirm("PERMANENTLY DELETE THIS INTEL?")) {
+        remove(ref(db, `system_updates/${type}/${key}`));
+        showGlobalAlert("fas fa-trash-alt", "Data Expunged", "Update removed from cloud.");
+    }
+};
+
+// --- 4. ADMIN & UI LOGIC ---
+// Handles PIN access and form submission
+window.unlockUpdateAdmin = function() {
+    const pin = prompt("ENTER ADMIN AUTHORIZATION PIN:");
+    if (pin === "123789") {
+        const panel = document.getElementById('admin-post-panel');
+        if (panel) panel.classList.remove('hidden');
+        showGlobalAlert("fas fa-unlocked", "Access Granted", "Admin Posting Terminal Active.");
+        // Refresh view to show delete buttons
+        const currentTitle = document.getElementById('viewTitle')?.innerText;
+        if (currentTitle === 'Updates') updateView('Updates');
+    } else {
+        showGlobalAlert("fas fa-lock", "Access Denied", "Invalid Credentials.");
+    }
+};
+
+window.submitAdminPost = function() {
+    const imgInput = document.getElementById('postImgUrl');
+    const textInput = document.getElementById('postText');
+    const imgUrl = imgInput.value.trim();
+    const text = textInput.value.trim();
+
+    if (!text) {
+        showGlobalAlert("fas fa-exclamation-triangle", "Entry Error", "Write-up is required.");
+        return;
+    }
+
+    if (imgUrl) {
+        window.cloudPostReport(imgUrl, text);
+        showGlobalAlert("fas fa-camera", "Report Logged", "Visual intel transmitted.");
+    } else {
+        window.cloudPostDirective(text);
+        showGlobalAlert("fas fa-file-alt", "Directive Logged", "Text directive transmitted.");
+    }
+
+    // Reset UI
+    imgInput.value = "";
+    textInput.value = "";
+    document.getElementById('admin-post-panel').classList.add('hidden');
+};
+
+// --- 5. UI RENDERING ENGINE ---
+// Generates the HTML cards for the updates
+window.renderUpdatesToUI = function(reports, directives) {
     const imgContainer = document.getElementById('update-images-content');
     const noteContainer = document.getElementById('update-notes-content');
+    
+    // Check if Admin Panel is open to decide if delete buttons should show
+    const adminPanel = document.getElementById('admin-post-panel');
+    const isAdmin = adminPanel && !adminPanel.classList.contains('hidden');
 
     if (imgContainer) {
         imgContainer.innerHTML = reports.map(r => `
-            <div class="group bg-zinc-900/40 border border-white/5 rounded-[2rem] overflow-hidden hover:border-blue-500/30 transition-all">
-                <div class="h-48 overflow-hidden">
+            <div class="group bg-zinc-900/40 border border-white/5 rounded-[2rem] overflow-hidden hover:border-blue-500/30 transition-all relative">
+                ${isAdmin ? `
+                    <button onclick="deleteCloudPost('field_reports', '${r.firebaseKey}')" 
+                            class="absolute top-4 right-4 z-10 bg-red-600/80 hover:bg-red-600 p-2 rounded-lg text-white transition-all">
+                        <i class="fas fa-trash text-[10px]"></i>
+                    </button>` : ''}
+                <div class="h-48 overflow-hidden bg-black">
                     <img src="${r.image}" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
                 </div>
                 <div class="p-6">
-                    <span class="text-[8px] text-blue-500 font-mono mb-2 block tracking-tighter">${r.timestamp} // FR-NODE-${r.id.toString().slice(-4)}</span>
+                    <span class="text-[8px] text-blue-500 font-mono mb-2 block tracking-tighter">${r.timestamp} // FR-NODE</span>
                     <p class="text-zinc-300 text-xs font-medium leading-relaxed">${r.text}</p>
                 </div>
             </div>
-        `).join('') || '<p class="text-zinc-700 italic text-center col-span-full">No Visual Reports Found.</p>';
+        `).join('') || '<p class="text-zinc-700 italic text-center col-span-full py-10">No Visual Reports Found.</p>';
     }
 
     if (noteContainer) {
         noteContainer.innerHTML = directives.map(d => `
-            <div class="bg-blue-600/5 border-l-2 border-blue-500 p-5 rounded-r-xl">
+            <div class="bg-blue-600/5 border-l-2 border-blue-500 p-5 rounded-r-xl relative group">
+                ${isAdmin ? `
+                    <button onclick="deleteCloudPost('directives', '${d.firebaseKey}')" 
+                            class="absolute top-2 right-2 text-red-600 opacity-0 group-hover:opacity-100 transition-all">
+                        <i class="fas fa-times"></i>
+                    </button>` : ''}
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-[8px] text-blue-400 font-black uppercase tracking-widest">Protocol Note</span>
                     <span class="text-[8px] text-zinc-600 font-mono">${d.timestamp}</span>
                 </div>
                 <p class="text-zinc-300 text-xs font-medium">${d.text}</p>
             </div>
-        `).join('') || '<p class="text-zinc-700 italic">No Directives Logged.</p>';
+        `).join('') || '<p class="text-zinc-700 italic text-center py-10">No Directives Logged.</p>';
     }
-}
+};
