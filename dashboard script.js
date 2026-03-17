@@ -745,8 +745,7 @@ const contentData = {
         </div>
     </div>`,
 
-    
- 'Updates': `
+'Updates': `
 <div class="space-y-6 animate-in pb-20 px-2">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-blue-500/20 pb-6 gap-4">
         <div>
