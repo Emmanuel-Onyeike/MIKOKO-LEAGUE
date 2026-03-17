@@ -1833,3 +1833,23 @@ function broadcastPush(home, away) {
         alertBox.classList.add('opacity-0', 'pointer-events-none');
     }, 3000);
 }
+
+
+function switchUpdateView(view) {
+    const imgBtn = document.getElementById('btn-update-images');
+    const noteBtn = document.getElementById('btn-update-notes');
+    const imgContent = document.getElementById('update-images-content');
+    const noteContent = document.getElementById('update-notes-content');
+
+    if (view === 'images') {
+        imgBtn.className = "px-6 py-2 rounded-lg text-[9px] font-black uppercase bg-blue-600 text-white shadow-lg transition-all";
+        noteBtn.className = "px-6 py-2 rounded-lg text-[9px] font-black uppercase text-gray-500 hover:text-white transition-all";
+        imgContent.classList.remove('hidden');
+        noteContent.classList.add('hidden');
+    } else {
+        noteBtn.className = "px-6 py-2 rounded-lg text-[9px] font-black uppercase bg-blue-600 text-white shadow-lg transition-all";
+        imgBtn.className = "px-6 py-2 rounded-lg text-[9px] font-black uppercase text-gray-500 hover:text-white transition-all";
+        noteContent.classList.remove('hidden');
+        imgContent.classList.add('hidden');
+    }
+}
